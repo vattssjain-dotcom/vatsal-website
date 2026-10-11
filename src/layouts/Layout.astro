@@ -13,7 +13,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="h-full antialiased">
+<html lang="en" class="h-full antialiased scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,21 +29,12 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script is:inline>
-      (function () {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        }
-      })();
-    </script>
   </head>
-  <body class="flex h-full bg-white dark:bg-zinc-950 font-sans">
-    <div class="flex w-full flex-col">
+  <body class="flex h-full bg-[#FAF9F6] text-[#141416] font-sans antialiased selection:bg-[#E24A1F]/20 selection:text-[#E24A1F]">
+    <div class="flex w-full flex-col min-h-screen">
       <slot />
     </div>
   </body>

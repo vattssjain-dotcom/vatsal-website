@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Palette Comparison — Vatsal Jain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: #0f1115;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Switcher Bar */
+    header.palette-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(18, 20, 26, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span.badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .theme-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .theme-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease;
+      font-family: inherit;
+    }
+
+    .theme-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .theme-btn.active {
+      background: #ffffff;
+      color: #0f1115;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+    }
+
+    .theme-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Viewport Frame */
+    main.preview-container {
+      flex: 1;
+      padding: 28px 24px 60px;
+      max-width: 1180px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .theme-meta-panel {
+      margin-bottom: 24px;
+      padding: 20px 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .theme-meta-title h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .theme-meta-title p {
+      font-size: 13px;
+      color: #94a3b8;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .swatch-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .swatch-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .swatch-label {
+      font-size: 10px;
+      color: #64748b;
+      font-family: monospace;
+    }
+
+    /* THE SIMULATED WEBSITE CANVAS */
+    .website-mockup {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* CSS Theme Variables applied to Mockup */
+    .theme-editorial {
+      --bg: #FAF9F6;
+      --card-bg: #FFFFFF;
+      --card-border: #E8E6E1;
+      --ink: #141416;
+      --muted: #5E5D64;
+      --accent: #E24A1F;
+      --accent-hover: #C53B12;
+      --accent-soft: rgba(226, 74, 31, 0.06);
+      --accent-border: rgba(226, 74, 31, 0.25);
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Outfit', sans-serif;
+    }
+
+    .theme-growth {
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --card-border: #E2E8F0;
+      --ink: #0F172A;
+      --muted: #475569;
+      --accent: #D97706;
+      --accent-hover: #B45309;
+      --accent-soft: rgba(217, 119, 6, 0.07);
+      --accent-border: rgba(217, 119, 6, 0.3);
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .theme-craft {
+      --bg: #F5F3EF;
+      --card-bg: #FCFBF9;
+      --card-border: #E5E1D8;
+      --ink: #1C1917;
+      --muted: #57534E;
+      --accent: #B43403;
+      --accent-hover: #9A2C02;
+      --accent-soft: rgba(180, 52, 3, 0.06);
+      --accent-border: rgba(180, 52, 3, 0.24);
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Playfair Display', Georgia, serif;
+    }
+
+    .theme-creator {
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+      --card-border: #E4E4E7;
+      --ink: #09090B;
+      --muted: #52525B;
+      --accent: #1D4ED8;
+      --accent-hover: #1E40AF;
+      --accent-soft: rgba(29, 78, 216, 0.06);
+      --accent-border: rgba(29, 78, 216, 0.25);
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+    }
+
+    .website-mockup {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+    }
+
+    /* MOCKUP INTERNALS */
+    .mock-nav {
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--card-bg);
+    }
+
+    .mock-logo {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.4px;
+      text-decoration: none;
+      font-family: var(--font-heading);
+    }
+
+    .mock-logo span {
+      color: var(--accent);
+    }
+
+    .mock-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .mock-nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .mock-nav-links a.active-link {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .mock-btn-sm {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    /* HERO */
+    .mock-hero {
+      padding: 64px 40px 50px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .mock-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .mock-h1 {
+      font-family: var(--font-heading);
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .mock-h1 u {
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+
+    .mock-bio {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 580px;
+    }
+
+    .mock-bio strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .mock-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .mock-btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .mock-link-muted {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .mock-avatar-card {
+      width: 190px;
+      height: 190px;
+      border-radius: 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      transform: rotate(2deg);
+    }
+
+    .mock-avatar-card span {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--muted);
+      font-family: var(--font-heading);
+    }
+
+    /* STATS */
+    .mock-stats {
+      padding: 30px 40px;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background: var(--card-bg);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .mock-stat-val {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--ink);
+      font-family: var(--font-heading);
+      letter-spacing: -0.6px;
+    }
+
+    .mock-stat-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 2px;
+    }
+
+    .mock-stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* VAULT SPOTLIGHT BANNER */
+    .mock-section {
+      padding: 60px 40px;
+    }
+
+    .mock-sec-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--ink);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mock-spotlight {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .mock-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 3px;
+    }
+
+    .mock-vault-h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 10px 0 6px;
+    }
+
+    .mock-vault-p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .mock-check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .mock-check-list li::before {
+      content: "✓ ";
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .mock-price-area {
+      text-align: right;
+    }
+
+    .mock-price-old {
+      text-decoration: line-through;
+      color: var(--muted);
+      font-size: 14px;
+      margin-right: 6px;
+    }
+
+    .mock-price-new {
+      color: var(--accent);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    /* PRODUCT CARDS */
+    .mock-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .mock-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .mock-card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .mock-card-preview {
+      height: 80px;
+      background: var(--bg);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .mock-card-h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .mock-card-p {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* WRITING SECTION */
+    .mock-writing {
+      padding: 50px 40px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .mock-articles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .mock-article {
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+    }
+
+    .mock-art-date {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .mock-art-h5 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .mock-art-p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    .mock-footer {
+      padding: 24px 40px;
+      border-top: 1px solid var(--card-border);
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SWITCHER TOOLBAR -->
+  <header class="palette-toolbar">
+    <div class="brand-title">
+      Vatsal Jain <span class="badge">Theme Laboratory</span>
+    </div>
+    <nav class="theme-nav">
+      <button class="theme-btn active" onclick="setTheme('editorial')">
+        <span class="theme-dot" style="background: #E24A1F;"></span>
+        1. Editorial Operator (Hermès Terracotta)
+      </button>
+      <button class="theme-btn" onclick="setTheme('growth')">
+        <span class="theme-dot" style="background: #D97706;"></span>
+        2. Performance Amber & Slate
+      </button>
+      <button class="theme-btn" onclick="setTheme('craft')">
+        <span class="theme-dot" style="background: #B43403;"></span>
+        3. Warm Craft & Oat (DTC Brand)
+      </button>
+      <button class="theme-btn" onclick="setTheme('creator')">
+        <span class="theme-dot" style="background: #1D4ED8;"></span>
+        4. Electric Cobalt & Grotesk
+      </button>
+    </nav>
+  </header>
+
+  <main class="preview-container">
+    
+    <!-- PALETTE INFO PANEL -->
+    <section class="theme-meta-panel" id="meta-panel">
+      <div class="theme-meta-title">
+        <h2 id="theme-name">1. Editorial Operator</h2>
+        <p id="theme-desc">Warm Alabaster backdrop with Deep Carbon typography and Hermès Terracotta/Orange accents. Feels like a high-end design studio, Stripe Press, or Linear light mode.</p>
+      </div>
+      <div class="color-swatches" id="swatches-box">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- LIVE WEBSITE PREVIEW CANVAS -->
+    <article class="website-mockup theme-editorial" id="mockup-frame">
+      
+      <!-- NAVBAR -->
+      <nav class="mock-nav">
+        <a href="#" class="mock-logo">Vatsal Jain<span>.io</span></a>
+        <div class="mock-nav-links">
+          <a href="#">About</a>
+          <a href="#" class="active-link">AI Ad Vault ✦</a>
+          <a href="#">Store</a>
+          <a href="#">Writing</a>
+          <a href="#">Work with me</a>
+          <a href="#" class="mock-btn-sm">AI Ad Vault →</a>
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <section class="mock-hero">
+        <div>
+          <span class="mock-eyebrow">Direct-to-consumer founder &amp; ad strategist</span>
+          <h1 class="mock-h1">D2C founder. Ad man.<br /><u>Hustler</u> building online.</h1>
+          <p class="mock-bio">
+            I'm Vatsal, founder of <strong>Arqo Studio</strong>. I ran my own D2C clothing brand — built it to <strong>₹12 lakhs in revenue</strong>. Now I run ads for a living, create AI images and videos, and sell systems that help founders scale.
+          </p>
+          <div class="mock-hero-actions">
+            <a href="#" class="mock-btn-primary">AI Ad Creative Vault →</a>
+            <a href="#" class="mock-link-muted">Browse all products →</a>
+            <a href="#" class="mock-link-muted" style="color:var(--muted);">Work with me →</a>
+          </div>
+        </div>
+        <div class="mock-avatar-card">
+          <span>VJ</span>
+        </div>
+      </section>
+
+      <!-- STATS STRIP -->
+      <div class="mock-stats">
+        <div>
+          <div class="mock-stat-val">₹12L+</div>
+          <div class="mock-stat-label">Revenue Generated</div>
+          <div class="mock-stat-sub">Own D2C Clothing Brand</div>
+        </div>
+        <div>
+          <div class="mock-stat-val">3+</div>
+          <div class="mock-stat-label">Years Running Ads</div>
+          <div class="mock-stat-sub">Meta &amp; Google Ads</div>
+        </div>
+        <div>
+          <div class="mock-stat-val">∞</div>
+          <div class="mock-stat-label">Ideas Shipped</div>
+          <div class="mock-stat-sub">Arqo Studio Experiments</div>
+        </div>
+      </div>
+
+      <!-- SPOTLIGHT OFFER + PRODUCTS -->
+      <section class="mock-section">
+        <div class="mock-sec-title">💼 What I sell</div>
+        
+        <!-- FEATURED VAULT CARD -->
+        <div class="mock-spotlight">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+              <span class="mock-badge">FLAGSHIP VAULT</span>
+              <span style="font-size:12px; color:var(--muted); font-weight:600;">Launch Offer</span>
+            </div>
+            <h3 class="mock-vault-h3">AI Ad Creative Vault</h3>
+            <p class="mock-vault-p">50 proven static ad creatives for Meta, plus the exact AI prompts and workflow to remake them for your own brand in an afternoon.</p>
+            <ul class="mock-check-list">
+              <li>50 static ad frameworks with underlying psychology</li>
+              <li>Copy-paste AI prompts to reproduce each visual</li>
+              <li>1-page testing &amp; decision checklist</li>
+            </ul>
+          </div>
+          <div class="mock-price-area">
+            <div>
+              <span class="mock-price-old">₹2,499</span>
+              <span class="mock-price-new">₹999</span>
+            </div>
+            <a href="#" class="mock-btn-primary" style="display:inline-block; margin-top:14px; text-transform:uppercase; font-size:12px; padding:10px 18px;">See The Vault →</a>
+          </div>
+        </div>
+
+        <!-- 3 CARDS PREVIEW -->
+        <div class="mock-grid">
+          <div class="mock-card">
+            <span class="mock-card-tag">Most Popular</span>
+            <div class="mock-card-preview">EBOOK</div>
+            <h4 class="mock-card-h4">The Meta Ads Playbook</h4>
+            <p class="mock-card-p">The exact framework I use to run profitable Meta ads for clients. Campaign structure, budgets, scaling.</p>
+          </div>
+          <div class="mock-card">
+            <span class="mock-card-tag" style="color:var(--muted);">DIY Course</span>
+            <div class="mock-card-preview">COURSE</div>
+            <h4 class="mock-card-h4">Run Ads Yourself — From Zero</h4>
+            <p class="mock-card-p">Step-by-step course to launch profitable Facebook &amp; Instagram ads without hiring an agency.</p>
+          </div>
+          <div class="mock-card">
+            <span class="mock-card-tag" style="color:var(--muted);">DFY Service</span>
+            <div class="mock-card-preview">SERVICE</div>
+            <h4 class="mock-card-h4">Done-For-You Ad Management</h4>
+            <p class="mock-card-p">I run your ads end-to-end — strategy, creative direction, launch, and optimization.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WRITING SECTION -->
+      <section class="mock-writing">
+        <div class="mock-sec-title">📄 Writing</div>
+        <div class="mock-articles-grid">
+          <div class="mock-article">
+            <div class="mock-art-date">Sept 10, 2026</div>
+            <h5 class="mock-art-h5">How I Scaled a D2C Clothing Brand to ₹12L Without a Big Budget</h5>
+            <p class="mock-art-p">The exact ad strategy, product positioning, and organic plays that took my clothing brand from zero to twelve lakhs.</p>
+          </div>
+          <div class="mock-article">
+            <div class="mock-art-date">Aug 28, 2026</div>
+            <h5 class="mock-art-h5">Why Most People Burn Money on Meta Ads (and How to Stop)</h5>
+            <p class="mock-art-p">Five structural mistakes I see repeatedly that kill ROAS before a campaign even gets off the ground.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="mock-footer">
+        <div>© 2026 Vatsal Jain · Arqo Studio</div>
+        <div style="display:flex; gap:16px;">
+          <span>About</span>
+          <span>Store</span>
+          <span>Writing</span>
+          <span>Contact</span>
+        </div>
+      </footer>
+
+    </article>
+  </main>
+
+  <script>
+    const themeData = {
+      editorial: {
+        name: "1. Editorial Operator (Hermès Terracotta)",
+        desc: "Warm Alabaster backdrop with Deep Carbon typography and Hermès Terracotta/Orange accents. Feels like a high-end design studio, Stripe Press, or Linear light mode.",
+        className: "theme-editorial",
+        swatches: [
+          { label: "BG", color: "#FAF9F6" },
+          { label: "CARD", color: "#FFFFFF" },
+          { label: "INK", color: "#141416" },
+          { label: "MUTED", color: "#5E5D64" },
+          { label: "ACCENT", color: "#E24A1F" },
+          { label: "BORDER", color: "#E8E6E1" }
+        ]
+      },
+      growth: {
+        name: "2. Performance Amber & Slate",
+        desc: "Crisp cool slate-white background with Midnight Navy typography and Golden Amber accents. Communicates data, high conversions, and media-buying authority (Reforge / Harry's style).",
+        className: "theme-growth",
+        swatches: [
+          { label: "BG", color: "#F8FAFC" },
+          { label: "CARD", color: "#FFFFFF" },
+          { label: "INK", color: "#0F172A" },
+          { label: "MUTED", color: "#475569" },
+          { label: "ACCENT", color: "#D97706" },
+          { label: "BORDER", color: "#E2E8F0" }
+        ]
+      },
+      craft: {
+        name: "3. Warm Craft & Oat (DTC Brand Aesthetic)",
+        desc: "Warm Oat/Linen tones with Deep Espresso typography, serif headlines (Playfair Display), and Burnt Sienna accents. Reflects tactile craft and your clothing brand heritage.",
+        className: "theme-craft",
+        swatches: [
+          { label: "BG", color: "#F5F3EF" },
+          { label: "CARD", color: "#FCFBF9" },
+          { label: "INK", color: "#1C1917" },
+          { label: "MUTED", color: "#57534E" },
+          { label: "ACCENT", color: "#B43403" },
+          { label: "BORDER", color: "#E5E1D8" }
+        ]
+      },
+      creator: {
+        name: "4. Electric Cobalt & Grotesk",
+        desc: "Modern monochrome gray with Space Grotesk typography and high-voltage Electric Cobalt Blue accents. Forward-looking, high energy, AI-builder feel (Figma / modern tech).",
+        className: "theme-creator",
+        swatches: [
+          { label: "BG", color: "#FAFAFA" },
+          { label: "CARD", color: "#FFFFFF" },
+          { label: "INK", color: "#09090B" },
+          { label: "MUTED", color: "#52525B" },
+          { label: "ACCENT", color: "#1D4ED8" },
+          { label: "BORDER", color: "#E4E4E7" }
+        ]
+      }
+    };
+
+    function renderSwatches(swatches) {
+      const box = document.getElementById('swatches-box');
+      box.innerHTML = swatches.map(s => `
+        <div class="swatch-item">
+          <div class="swatch-circle" style="background:${s.color}"></div>
+          <span class="swatch-label">${s.label}</span>
+          <span class="swatch-label" style="color:#94a3b8">${s.color}</span>
+        </div>
+      `).join('');
+    }
+
+    function setTheme(key) {
+      const data = themeData[key];
+      const frame = document.getElementById('mockup-frame');
+      
+      // Update frame classes
+      frame.className = `website-mockup ${data.className}`;
+      
+      // Update text
+      document.getElementById('theme-name').innerText = data.name;
+      document.getElementById('theme-desc').innerText = data.desc;
+      
+      // Update buttons
+      document.querySelectorAll('.theme-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', Object.keys(themeData)[idx] === key);
+      });
+
+      renderSwatches(data.swatches);
+    }
+
+    // Initialize
+    renderSwatches(themeData.editorial.swatches);
+  </script>
+</body>
+</html>
