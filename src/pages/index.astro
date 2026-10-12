@@ -147,26 +147,24 @@ const stats = [
           </p>
 
           <!-- Quick links -->
-          <div class="mt-8 flex flex-wrap items-center gap-4">
+          <div class="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="/vault"
+              href="/roast-my-ads"
               class="inline-flex items-center gap-1.5 rounded-md bg-[#E24A1F] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
             >
-              AI Ad Creative Vault <span aria-hidden="true">→</span>
+              🔥 Roast My Ads →
+            </a>
+            <a
+              href="/vault"
+              class="inline-flex items-center gap-1.5 rounded-md border border-[#E8E6E1] bg-white px-4 py-2.5 text-sm font-bold text-[#141416] transition hover:border-[#141416]/40 hover:text-[#E24A1F] shadow-2xs"
+            >
+              Ad Vault (₹999) →
             </a>
             <a
               href="#products"
-              class="inline-flex items-center gap-1 text-sm font-semibold text-[#141416] transition hover:text-[#E24A1F]"
+              class="inline-flex items-center gap-1 text-sm font-semibold text-[#5E5D64] transition hover:text-[#141416]"
             >
-              View 4 core offers <span aria-hidden="true">→</span>
-            </a>
-            <a
-              href="https://arqostudio.com/contact"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]"
-            >
-              Arqo Studio ↗
+              All 4 offers →
             </a>
           </div>
 
@@ -191,12 +189,61 @@ const stats = [
           </div>
         </div>
 
-        <!-- Right: photo placeholder -->
-        <div class="shrink-0 md:pl-8">
-          <div class="relative aspect-square w-44 rotate-2 overflow-hidden rounded-2xl bg-white shadow-md border border-[#E8E6E1] sm:w-52 md:w-56">
-            <div class="flex h-full w-full items-center justify-center bg-[#F3F1EC]">
-              <span class="text-4xl font-extrabold text-[#A8A6A0]">VJ</span>
-            </div>
+        <!-- Right: Vertical Hero Reel Video with Roast My Ads Button -->
+        <div class="shrink-0 flex justify-center md:pl-8">
+          <div class="group relative aspect-[9/16] w-60 sm:w-64 overflow-hidden rounded-2xl bg-black border border-[#E8E6E1] shadow-xl">
+            <!-- Video Player (WebM primary, MP4 fallback) -->
+            <video
+              id="hero-reel-video"
+              poster="/hero-video-poster.jpg"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              class="h-full w-full object-cover"
+              aria-label="Vatsal Jain Ad Strategy Reel"
+            >
+              <source src="/hero-video.webm" type="video/webm" />
+              <source src="/hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            <!-- Sound toggle button (top right) -->
+            <button
+              id="hero-sound-btn"
+              type="button"
+              class="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-xs transition hover:bg-black/85"
+              aria-label="Toggle sound"
+            >
+              <svg id="sound-muted-icon" class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                <path d="M3.63 3.63a.75.75 0 0 0 0 1.06L7.38 8.44A8.7 8.7 0 0 0 7 10v4a8.7 8.7 0 0 0 3.3 6.82.75.75 0 0 0 1.2-.6v-5.44l4.72 4.72a7.25 7.25 0 0 1-3.47 1.45.75.75 0 0 0 .15 1.49 8.75 8.75 0 0 0 4.54-1.89l1.88 1.88a.75.75 0 1 0 1.06-1.06l-16.5-16.5a.75.75 0 0 0-1.06 0ZM10 18.17A7.2 7.2 0 0 1 8.5 14v-4a7.2 7.2 0 0 1 .3-2.02l2.7 2.7v7.49Zm6.5-8.17v-.17a7.2 7.2 0 0 0-5-6.83.75.75 0 1 0-.46 1.43A5.7 5.7 0 0 1 15 9.83v.34l1.5 1.5Zm3.5 0a10.7 10.7 0 0 0-8-10.36.75.75 0 1 0-.4 1.45A9.2 9.2 0 0 1 18.5 9.83v.34l1.5 1.5Z"/>
+              </svg>
+              <svg id="sound-unmuted-icon" class="hidden h-4 w-4 fill-current" viewBox="0 0 24 24">
+                <path d="M13.5 4.06c0-.85-.98-1.32-1.63-.78L7.6 7.25H4.25C3.01 7.25 2 8.26 2 9.5v5c0 1.24 1.01 2.25 2.25 2.25h3.35l4.27 3.97c.65.54 1.63.07 1.63-.78V4.06Zm3.28 2.22a.75.75 0 0 1 1.06 0 8 8 0 0 1 0 11.32.75.75 0 1 1-1.06-1.06 6.5 6.5 0 0 0 0-9.2.75.75 0 0 1 0-1.06Zm2.12-2.12a.75.75 0 0 1 1.06 0 11 11 0 0 1 0 15.56.75.75 0 1 1-1.06-1.06 9.5 9.5 0 0 0 0-13.44.75.75 0 0 1 0-1.06Z"/>
+              </svg>
+            </button>
+
+            <!-- Play / Pause button (top left) -->
+            <button
+              id="hero-play-btn"
+              type="button"
+              class="absolute left-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-xs transition hover:bg-black/85"
+              aria-label="Pause or play"
+            >
+              <svg id="play-pause-icon" class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+              </svg>
+            </button>
+
+            <!-- Floating sticker button linking to Roast My Ads (Sanskar Tiwari style) -->
+            <a
+              href="/roast-my-ads"
+              class="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-4 py-2.5 text-xs font-bold text-[#141416] shadow-xl transition hover:bg-[#E24A1F] hover:text-white hover:scale-105"
+            >
+              <span>🔥</span>
+              <span>Roast My Ads →</span>
+            </a>
           </div>
         </div>
       </div>
@@ -548,4 +595,43 @@ const stats = [
   mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
   });
+
+  // Hero Reel Video Controls
+  const video = document.getElementById('hero-reel-video') as HTMLVideoElement | null;
+  const soundBtn = document.getElementById('hero-sound-btn');
+  const soundMutedIcon = document.getElementById('sound-muted-icon');
+  const soundUnmutedIcon = document.getElementById('sound-unmuted-icon');
+  const playBtn = document.getElementById('hero-play-btn');
+  const playPauseIcon = document.getElementById('play-pause-icon');
+
+  if (video && soundBtn) {
+    soundBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      video.muted = !video.muted;
+      if (video.muted) {
+        soundMutedIcon?.classList.remove('hidden');
+        soundUnmutedIcon?.classList.add('hidden');
+      } else {
+        soundMutedIcon?.classList.add('hidden');
+        soundUnmutedIcon?.classList.remove('hidden');
+      }
+    });
+  }
+
+  if (video && playBtn) {
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (video.paused) {
+        video.play();
+        if (playPauseIcon) {
+          playPauseIcon.innerHTML = '<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>';
+        }
+      } else {
+        video.pause();
+        if (playPauseIcon) {
+          playPauseIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        }
+      }
+    });
+  }
 </script>
