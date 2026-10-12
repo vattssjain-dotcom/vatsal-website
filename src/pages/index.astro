@@ -337,91 +337,232 @@ const stats = [
     <!-- INSTAGRAM FEED (@vatspective) -->
     <section class="border-t border-[#E8E6E1] bg-[#FAF9F6]">
       <div class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <!-- Section Header with Profile Info -->
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
             <div class="flex items-center gap-2 mb-2">
-              <span class="text-base">📸</span>
-              <h2 class="text-sm font-bold uppercase tracking-wider text-[#141416]">Instagram Feed</h2>
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#E24A1F]/10 text-xs">📸</span>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-[#141416]">Instagram Feed • @vatspective</h2>
             </div>
-            <p class="text-sm text-[#5E5D64]">
-              Visual notes on ad creative, design references, brand experiments, and day-to-day work.
+            <p class="text-sm text-[#5E5D64] max-w-xl">
+              Breakdowns of high-converting ad creatives, pricing psychology, creative strategy, and daily lessons from building Arqo Studio.
             </p>
           </div>
-          <a
-            href="https://instagram.com/vatspective"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-md border border-[#E8E6E1] bg-white px-4 py-2 text-xs font-bold text-[#141416] transition hover:border-[#141416]/40 hover:text-[#E24A1F] shadow-xs shrink-0 self-start sm:self-auto"
-          >
-            Follow @vatspective ↗
-          </a>
-        </div>
-
-        <!-- Instagram Grid (6 Cards) -->
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {[
-            {
-              type: 'Ad Breakdown',
-              caption: 'Why high-contrast split statics beat polished studio renders in Meta auctions.',
-              tag: 'Meta Ads',
-            },
-            {
-              type: 'Creative Study',
-              caption: 'Deconstructing 3 winning visual hooks from 7-figure apparel brands.',
-              tag: 'D2C',
-            },
-            {
-              type: 'AI Generation',
-              caption: 'Commercial-grade product mockups using Midjourney and clean typography overlays.',
-              tag: 'AI Creatives',
-            },
-            {
-              type: 'Operator Notes',
-              caption: 'Lessons from scaling my clothing brand to ₹12L revenue with zero outside capital.',
-              tag: 'Brand Building',
-            },
-            {
-              type: 'Framework',
-              caption: 'The 3-format rule: why running only 1:1 square crops inflates your Story CPMs.',
-              tag: 'Formats',
-            },
-            {
-              type: 'Swipe File',
-              caption: 'Understated editorial ads that break pattern scroll without looking spammy.',
-              tag: 'Swipe File',
-            },
-          ].map((item) => (
+          <div class="flex items-center gap-3 shrink-0">
             <a
               href="https://instagram.com/vatspective"
               target="_blank"
               rel="noopener noreferrer"
-              class="group relative flex aspect-square flex-col justify-between overflow-hidden rounded-xl border border-[#E8E6E1] bg-white p-3.5 transition hover:border-[#E24A1F]/50 hover:shadow-sm"
+              class="inline-flex items-center gap-2 rounded-md bg-[#141416] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#E24A1F] shadow-xs"
             >
-              <div class="flex items-center justify-between">
-                <span class="rounded bg-[#FAF9F6] border border-[#E8E6E1] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#5E5D64]">
-                  {item.tag}
-                </span>
-                <span class="text-[11px] text-[#A8A6A0] transition group-hover:text-[#E24A1F]">↗</span>
-              </div>
-
-              <div>
-                <span class="block text-[11px] font-bold text-[#141416] transition group-hover:text-[#E24A1F] line-clamp-1">
-                  {item.type}
-                </span>
-                <p class="mt-1 text-[10px] leading-snug text-[#5E5D64] line-clamp-3">
-                  {item.caption}
-                </p>
-              </div>
-
-              <div class="border-t border-[#E8E6E1] pt-1.5 text-[9px] font-semibold text-[#8E8D94] flex items-center justify-between">
-                <span>@vatspective</span>
-                <span class="text-[#E24A1F] opacity-0 group-hover:opacity-100 transition">View</span>
-              </div>
+              <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              Follow @vatspective ↗
             </a>
-          ))}
+          </div>
+        </div>
+
+        <!-- Instagram Feed Layout: Official Embed + Visual Reel/Post Gallery -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Column 1: Official Instagram Live Reel Embed -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="w-full rounded-2xl border border-[#E8E6E1] bg-white p-3 shadow-sm">
+              <div class="flex items-center justify-between pb-3 px-1 border-b border-[#F0EFEA] mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="inline-block h-2 w-2 rounded-full bg-[#E24A1F] animate-pulse"></span>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#141416]">Latest Reel</span>
+                </div>
+                <span class="text-[10px] font-semibold text-[#8E8D94]">Direct Embed</span>
+              </div>
+
+              <!-- Instagram Native Embed Player -->
+              <div class="overflow-hidden rounded-xl flex justify-center bg-[#FAF9F6]">
+                <blockquote
+                  class="instagram-media"
+                  data-instgrm-captioned
+                  data-instgrm-permalink="https://www.instagram.com/reel/DeCJrDJKZW2/"
+                  data-instgrm-version="14"
+                  style="background:#FFF; border:0; border-radius:10px; margin: 0 auto; max-width:540px; min-width:280px; padding:0; width:100%; box-shadow:none;"
+                >
+                  <div style="padding:16px;">
+                    <a
+                      href="https://www.instagram.com/reel/DeCJrDJKZW2/"
+                      style="background:#FFFFFF; line-height:0; padding:0; text-align:center; text-decoration:none; width:100%; display:block;"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div class="flex items-center gap-3 py-2 text-left">
+                        <div class="h-10 w-10 rounded-full bg-[#141416] text-white flex items-center justify-center font-bold text-xs shrink-0">VJ</div>
+                        <div>
+                          <div class="font-bold text-xs text-[#141416]">@vatspective</div>
+                          <div class="text-[10px] text-[#5E5D64]">Sales Call Retention & Show-up Rates</div>
+                        </div>
+                      </div>
+                      <div class="py-12 flex flex-col items-center justify-center gap-2 text-center">
+                        <span class="text-3xl">▶</span>
+                        <span class="text-xs font-bold text-[#E24A1F]">Watch on Instagram</span>
+                        <span class="text-[11px] text-[#8E8D94]">Loading reel player...</span>
+                      </div>
+                    </a>
+                  </div>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Visual Media Grid (Visual covers with hover overlays) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#5E5D64]">Recent Visual Breakdowns</span>
+              <a href="https://instagram.com/vatspective" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-[#E24A1F] hover:underline">
+                View all on @vatspective ↗
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                {
+                  title: 'Sales Retention Checklist',
+                  tag: 'REEL',
+                  metric: '2.4k views',
+                  gradient: 'from-[#141416] via-[#1E1F24] to-[#2B2C33]',
+                  accent: '#E24A1F',
+                  icon: '▶',
+                  hook: 'Tired of half your sales calendar ghosting? The 3 operational fixes to keep show-up rates above 80%.',
+                  likes: '142',
+                  comments: '38',
+                  url: 'https://www.instagram.com/reel/DeCJrDJKZW2/',
+                },
+                {
+                  title: 'The Decoy Pricing Rule',
+                  tag: 'CAROUSEL',
+                  metric: '6 slides',
+                  gradient: 'from-[#1A1816] via-[#2D241E] to-[#1E1915]',
+                  accent: '#D97706',
+                  icon: '📑',
+                  hook: 'Why charm prices fail at the top of the funnel and how decoy pricing creates instant perceived value.',
+                  likes: '198',
+                  comments: '45',
+                  url: 'https://instagram.com/vatspective',
+                },
+                {
+                  title: 'High-Contrast Split Statics',
+                  tag: 'AD STUDY',
+                  metric: 'Static Ads',
+                  gradient: 'from-[#121820] via-[#1A2433] to-[#141A24]',
+                  accent: '#3B82F6',
+                  icon: '⚡',
+                  hook: 'Why high-contrast split tests beat polished $5k studio renders in 2026 Meta auctions.',
+                  likes: '264',
+                  comments: '52',
+                  url: 'https://instagram.com/vatspective',
+                },
+                {
+                  title: 'The 3-Format Ad Multiplier',
+                  tag: 'FRAMEWORK',
+                  metric: '1:1 • 9:16 • 16:9',
+                  gradient: 'from-[#1F1618] via-[#2E1B22] to-[#1D1418]',
+                  accent: '#EC4899',
+                  icon: '📐',
+                  hook: 'Running only square crops inflates your Story CPMs by up to 40%. Here is the cross-placement fix.',
+                  likes: '175',
+                  comments: '29',
+                  url: 'https://instagram.com/vatspective',
+                },
+              ].map((post) => (
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-[#E8E6E1] bg-gradient-to-br p-5 text-white shadow-xs transition duration-200 hover:-translate-y-1 hover:border-[#141416]/40 hover:shadow-md aspect-[4/3] sm:aspect-auto sm:min-h-[190px]"
+                  style={`background-image: linear-gradient(135deg, rgba(20,20,22,0.96), rgba(30,31,36,0.92));`}
+                >
+                  <!-- Top Badge Row -->
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-white"
+                      style={`background-color: ${post.accent};`}
+                    >
+                      <span>{post.icon}</span>
+                      <span>{post.tag}</span>
+                    </span>
+                    <span class="text-[10px] font-semibold text-white/70">
+                      {post.metric}
+                    </span>
+                  </div>
+
+                  <!-- Center Content / Hook -->
+                  <div class="my-3">
+                    <h3 class="text-sm font-bold text-white group-hover:text-[#FAF9F6] leading-snug">
+                      {post.title}
+                    </h3>
+                    <p class="mt-1.5 text-xs text-white/70 line-clamp-2 leading-relaxed">
+                      {post.hook}
+                    </p>
+                  </div>
+
+                  <!-- Bottom Engagement Footer -->
+                  <div class="flex items-center justify-between border-t border-white/10 pt-2.5 text-[10px] font-semibold text-white/60">
+                    <div class="flex items-center gap-3">
+                      <span>❤️ {post.likes}</span>
+                      <span>💬 {post.comments}</span>
+                    </div>
+                    <span class="text-white group-hover:underline flex items-center gap-0.5">
+                      Open ↗
+                    </span>
+                  </div>
+
+                  <!-- Hover Instagram Overlay -->
+                  <div class="absolute inset-0 bg-[#141416]/85 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span class="text-xs font-bold text-white">View on Instagram ↗</span>
+                    <span class="text-[10px] text-white/70">@vatspective</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <!-- Profile Summary Card -->
+            <div class="rounded-xl border border-[#E8E6E1] bg-white p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs">
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 p-[2px] shrink-0">
+                  <div class="h-full w-full rounded-full bg-white flex items-center justify-center font-bold text-xs text-[#141416]">
+                    VJ
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-bold text-[#141416]">Vatsal Jain</span>
+                    <span class="text-[11px] text-[#5E5D64]">(@vatspective)</span>
+                  </div>
+                  <p class="text-[11px] text-[#5E5D64]">100+ videos documenting ad creative breakdowns & business growth.</p>
+                </div>
+              </div>
+              <a
+                href="https://instagram.com/vatspective"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-1.5 rounded-md border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-1.5 text-xs font-bold text-[#141416] hover:border-[#141416]/40 hover:text-[#E24A1F] transition shrink-0"
+              >
+                Open Instagram ↗
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Instagram Embed Script for Live Rendering -->
+    <script async src="//www.instagram.com/embed.js"></script>
+    <script is:inline>
+      if (typeof window !== 'undefined' && window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    </script>
 
     <!-- ARQO STUDIO / WORK WITH ME -->
     <section id="work-with-me" class="border-t border-[#E8E6E1] bg-white">
