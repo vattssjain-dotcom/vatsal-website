@@ -4,11 +4,15 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
+  ogType?: string;
 }
 
 const {
-  title = 'Vatsal Jain — D2C Hustler, Ad Man & Creator',
-  description = "I'm Vatsal, founder of Arqo Studio. I run ads for a living, built a D2C clothing brand to ₹12L+ in revenue, and create AI images & videos. I sell ebooks, courses, and more.",
+  title = 'Vatsal Jain | Direct-to-Consumer Founder & Ad Strategist',
+  description = "Direct-to-consumer founder and ad strategist. Proven static ad systems, custom creative production, and full-funnel ad audits through Arqo Studio.",
+  canonical = Astro.url.href,
+  ogType = 'website',
 } = Astro.props;
 ---
 
@@ -20,12 +24,25 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Vatsal Jain" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:site_name" content="Vatsal Jain" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- Search Engine Indexing -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Favicon & Fonts -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

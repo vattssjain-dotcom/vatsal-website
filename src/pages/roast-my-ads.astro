@@ -1,0 +1,244 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const roastAreas = [
+  {
+    num: '01',
+    title: 'Ad Creative & Messaging Teardown',
+    desc: 'We inspect your active hooks, static creatives, video pacing, and primary copy. Pinpointing why prospects scroll past or drop before clicking.',
+  },
+  {
+    num: '02',
+    title: 'Post-Click Funnel & Landing Page Gaps',
+    desc: 'High clicks with low purchases means a broken promise on the page. We inspect headline match, offer clarity, mobile checkout friction, and social proof placement.',
+  },
+  {
+    num: '03',
+    title: 'Account Architecture & Budget Waste',
+    desc: 'Checking your campaign structures, audience cannibalization, bid strategies, and budget allocations to stop burning budget on non-converting ad sets.',
+  },
+  {
+    num: '04',
+    title: 'Starting from Scratch Roadmap',
+    desc: 'If you have never run ads before or have zero active funnels, we skip the audit and map out your exact launch strategy: test budgets, offer angle, and first 5 creative concepts.',
+  },
+];
+
+const mentorshipFeatures = [
+  {
+    week: 'Week 1',
+    title: 'Audit Delivery & Quick Fixes',
+    desc: 'Full video walkthrough teardown of your ad account, creatives, and landing page plus the priority fix checklist.',
+  },
+  {
+    week: 'Week 2',
+    title: 'Creative Angle Strategy & Setup',
+    desc: 'Reviewing your newly drafted angles, headlines, and static concepts before you spend a single rupee testing.',
+  },
+  {
+    week: 'Week 3',
+    title: 'Early Metric Review & Trimming',
+    desc: 'Reviewing your 3–5 day test metrics together. Identifying what to turn off, what to iterate, and where CTR or CPA is leaking.',
+  },
+  {
+    week: 'Week 4',
+    title: 'Scaling Rules & Ongoing Roadmap',
+    desc: 'Setting your budget scaling protocol, creative refresh schedule, and ongoing testing system for the next 60 days.',
+  },
+];
+---
+
+<Layout
+  title="Roast My Ads | Full Funnel Audit + 4 Weekly 1-on-1 Sessions | Vatsal Jain"
+  description="Deep-dive ad teardown and full-funnel audit plus 4 private 1-on-1 weekly implementation sessions for a full month with Vatsal Jain."
+>
+  <!-- TOP ANNOUNCEMENT -->
+  <div class="border-b border-[#E24A1F]/20 bg-[#E24A1F]/[0.08] px-4 py-2.5 text-center text-xs font-semibold text-[#E24A1F]">
+    ⚡ Audit + 1-Month Mentorship: Limited to 4 clients per month for focused 1-on-1 access.
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between py-4">
+        <a href="/" class="flex items-center gap-1.5 text-base font-bold text-[#141416] tracking-tight">
+          Vatsal Jain<span class="text-[#E24A1F]">.io</span>
+        </a>
+
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="/#about" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">About</a>
+          <a href="/#articles" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Articles</a>
+          <a href="/#products" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Products</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="mailto:hey@vatsaljain.io?subject=Apply%20for%20Roast%20My%20Ads"
+            class="inline-flex items-center gap-1.5 rounded-md bg-[#E24A1F] px-4 py-2 text-xs sm:text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
+          >
+            Apply for Roast →
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-auto">
+    <!-- HERO -->
+    <section class="border-b border-[#E8E6E1] bg-[#FAF9F6] py-16 sm:py-24">
+      <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 border border-[#E24A1F]/30 bg-[#E24A1F]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#E24A1F] rounded">
+            Full Funnel Roast + 1-Month Mentorship
+          </div>
+
+          <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-[#141416] sm:text-5xl lg:text-6xl sm:leading-[1.1]">
+            Stop Burning Spend on Broken Ad Funnels. Get an Unfiltered Teardown + 4 Weeks of 1-on-1 Guidance.
+          </h1>
+
+          <p class="mt-6 text-lg text-[#5E5D64] sm:text-xl leading-relaxed">
+            I review your creatives, copy, landing page, and Meta Ads setup to point out exactly where money is leaking. Then we jump on 4 private weekly 1-on-1 sessions across the month to fix the gaps and guide your execution step by step.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="mailto:hey@vatsaljain.io?subject=Apply%20for%20Roast%20My%20Ads&body=Hey%20Vatsal%2C%0A%0AI'd%20like%20to%20apply%20for%20the%20Roast%20My%20Ads%20%2B%201-Month%20Mentorship.%0A%0AMy%20business%20%2F%20product%20link%3A%20%0ACurrent%20monthly%20ad%20spend%20(or%20planning%20to%20start)%3A%20%0ABiggest%20challenge%20right%20now%3A%20"
+              class="inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-6 py-3.5 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12]"
+            >
+              Apply for Roast + 4 Sessions <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="#breakdown"
+              class="inline-flex items-center gap-2 rounded-md border border-[#E8E6E1] bg-white px-6 py-3.5 text-base font-semibold text-[#141416] transition hover:border-[#141416]/40 shadow-xs"
+            >
+              How It Works
+            </a>
+          </div>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3 text-xs text-[#5E5D64]">
+            <span class="font-medium">✓ Unfiltered funnel teardown</span>
+            <span>·</span>
+            <span class="font-medium">✓ 4 private weekly 1-on-1 calls</span>
+            <span>·</span>
+            <span class="font-medium">✓ Direct WhatsApp / async support between sessions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT GETS AUDITED -->
+    <section id="breakdown" class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
+      <div class="max-w-2xl">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">The Teardown</span>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl">
+          Everything We Audit Inside Your Growth Engine
+        </h2>
+        <p class="mt-3 text-base text-[#5E5D64]">
+          Most audits are automated 20-page PDF reports that tell you nothing actionable. This is an operator looking at your real customer journey:
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {roastAreas.map((area) => (
+          <div class="rounded-xl border border-[#E8E6E1] bg-white p-6 shadow-xs">
+            <span class="font-mono text-xs font-bold text-[#E24A1F]">{area.num}</span>
+            <h3 class="mt-2 text-base font-bold text-[#141416]">{area.title}</h3>
+            <p class="mt-2 text-xs leading-relaxed text-[#5E5D64]">{area.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 4 WEEKS OF 1-ON-1 GUIDANCE -->
+    <section class="border-y border-[#E8E6E1] bg-white py-20">
+      <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">1 Month of Private Support</span>
+          <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl">
+            Why One-Off Audits Fail: You Need Implementation
+          </h2>
+          <p class="mt-3 text-sm sm:text-base text-[#5E5D64]">
+            An audit only points out flaws. The real value is having an experienced partner to review your new angles, check test metrics, and verify tweaks every single week:
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {mentorshipFeatures.map((m) => (
+            <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 shadow-xs flex flex-col justify-between">
+              <div>
+                <span class="inline-block bg-[#E24A1F]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#E24A1F] rounded">
+                  {m.week}
+                </span>
+                <h3 class="mt-3 text-sm font-bold text-[#141416]">{m.title}</h3>
+                <p class="mt-2 text-xs text-[#5E5D64] leading-relaxed">{m.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLICATION & DETAILS -->
+    <section class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
+      <div class="rounded-2xl border border-[#E24A1F]/30 bg-white p-8 sm:p-12 shadow-md">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-[#E8E6E1] pb-8">
+          <div>
+            <div class="inline-block bg-[#E24A1F]/10 px-2.5 py-1 text-xs font-bold text-[#E24A1F] uppercase tracking-wider mb-2 rounded">
+              High-Touch Engagement
+            </div>
+            <h3 class="text-2xl font-bold text-[#141416]">Roast My Ads + 4 Weekly 1-on-1 Sessions</h3>
+            <p class="mt-1 text-xs text-[#5E5D64]">Full funnel review + 30 days of direct weekly execution support</p>
+          </div>
+          <div class="sm:text-right">
+            <div class="text-xs text-[#8E8D94]">Limited to 4 brands per month</div>
+            <div class="text-3xl font-extrabold text-[#E24A1F] sm:text-4xl mt-1">Custom Plan</div>
+            <div class="text-xs text-[#5E5D64]">Application required</div>
+          </div>
+        </div>
+
+        <div class="mt-8 space-y-3 text-sm text-[#5E5D64]">
+          <div class="flex items-start gap-2.5">
+            <span class="text-[#E24A1F] font-bold">✓</span>
+            <span><strong class="text-[#141416]">Complete funnel video breakdown:</strong> Ad account, hook testing, landing page conversion flow.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="text-[#E24A1F] font-bold">✓</span>
+            <span><strong class="text-[#141416]">4 × 45-minute private calls:</strong> 1 session every week for an entire month to troubleshoot and verify changes.</span>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="text-[#E24A1F] font-bold">✓</span>
+            <span><strong class="text-[#141416]">Direct access:</strong> Review copy drafts and new static concepts before spending real budget.</span>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <a
+            href="mailto:hey@vatsaljain.io?subject=Apply%20for%20Roast%20My%20Ads&body=Hey%20Vatsal%2C%0A%0AI'd%20like%20to%20apply%20for%20the%20Roast%20My%20Ads%20%2B%201-Month%20Mentorship.%0A%0AMy%20business%20%2F%20product%20link%3A%20%0ACurrent%20monthly%20ad%20spend%20(or%20planning%20to%20start)%3A%20%0ABiggest%20challenge%20right%20now%3A%20"
+            class="flex w-full items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-center text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[#C53B12] shadow-sm"
+          >
+            Apply for Your Funnel Roast &amp; Mentorship
+            <span aria-hidden="true">→</span>
+          </a>
+          <p class="mt-3 text-center text-xs text-[#8E8D94]">
+            Send your website or ad account details. We will confirm whether your brand is an ideal fit and share schedule availability within 24 hours.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E8E6E1] bg-[#FAF9F6] py-10">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-8 lg:px-12">
+      <p class="text-xs text-[#8E8D94]">
+        © {new Date().getFullYear()} Vatsal Jain · Arqo Studio. All rights reserved.
+      </p>
+      <div class="flex gap-6 text-xs text-[#5E5D64]">
+        <a href="/" class="hover:text-[#141416]">Home</a>
+        <a href="/vault" class="hover:text-[#141416]">Ad Vault</a>
+        <a href="/static-ads" class="hover:text-[#141416]">25 Static Ads</a>
+        <a href="https://arqostudio.com/contact" class="hover:text-[#141416]">Arqo Studio</a>
+      </div>
+    </div>
+  </footer>
+</Layout>
