@@ -177,7 +177,7 @@ const stats = [
                 <path d="M20.055 7.983c.011.174.011.347.011.523 0 5.338-3.92 11.494-11.09 11.494v-.003A10.755 10.755 0 0 1 3 18.186c.308.038.618.057.928.058a7.655 7.655 0 0 0 4.841-1.733c-1.668-.032-3.13-1.16-3.642-2.805a3.753 3.753 0 0 0 1.76-.07C5.07 13.256 3.76 11.6 3.76 9.676v-.05a3.77 3.77 0 0 0 1.77.505C3.816 8.945 3.288 6.583 4.322 4.737c1.98 2.524 4.9 4.058 8.034 4.22a4.137 4.137 0 0 1 1.128-3.86A3.807 3.807 0 0 1 19 5.274a7.657 7.657 0 0 0 2.475-.98c-.29.934-.9 1.729-1.713 2.233A7.54 7.54 0 0 0 22 5.89a8.084 8.084 0 0 1-1.945 2.093Z"/>
               </svg>
             </a>
-            <a href="https://instagram.com/" class="group -m-1 p-1" aria-label="Follow on Instagram">
+            <a href="https://instagram.com/vatspective" target="_blank" rel="noopener noreferrer" class="group -m-1 p-1" aria-label="Follow on Instagram @vatspective">
               <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-[#8E8D94] transition group-hover:fill-[#141416]">
                 <path d="M12 3c-2.444 0-2.75.01-3.71.054-.959.044-1.613.196-2.185.418A4.412 4.412 0 0 0 4.51 4.511c-.5.5-.809 1.002-1.039 1.594-.222.572-.374 1.226-.418 2.184C3.01 9.25 3 9.556 3 12s.01 2.75.054 3.71c.044.959.196 1.613.418 2.185.23.592.538 1.094 1.039 1.595.5.5 1.002.808 1.594 1.038.572.222 1.226.374 2.184.418C9.25 20.99 9.556 21 12 21s2.75-.01 3.71-.054c.959-.044 1.613-.196 2.185-.419a4.412 4.412 0 0 0 1.595-1.038c.5-.5.808-1.002 1.038-1.594.222-.572.374-1.226.418-2.184.044-.96.054-1.267.054-3.711s-.01-2.75-.054-3.71c-.044-.959-.196-1.613-.419-2.185A4.412 4.412 0 0 0 19.49 4.51c-.5-.5-1.002-.809-1.594-1.039-.572-.222-1.226-.374-2.184-.418C14.75 3.01 14.444 3 12 3Zm0 1.622c2.403 0 2.688.009 3.637.052.877.04 1.354.187 1.67.31.421.163.72.358 1.036.673.315.315.51.615.673 1.035.123.317.27.794.31 1.671.043.95.052 1.234.052 3.637s-.009 2.688-.052 3.637c-.04.877-.187 1.354-.31 1.67-.163.421-.358.72-.673 1.036a2.79 2.79 0 0 1-1.035.673c-.317.123-.794.27-1.671.31-.95.043-1.234.052-3.637.052s-2.688-.009-3.637-.052c-.877-.04-1.354-.187-1.67-.31a2.789 2.789 0 0 1-1.036-.673 2.79 2.79 0 0 1-.673-1.035c-.123-.317-.27-.794-.31-1.671-.043-.95-.052-1.234-.052-3.637s.009-2.688.052-3.637c.04-.877.187-1.354.31-1.67.163-.421.358-.72.673-1.036.315-.315.615-.51 1.035-.673.317-.123.794-.27 1.671-.31.95-.043 1.234-.052 3.637-.052Z"/>
                 <path d="M12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm0-7.622a4.622 4.622 0 1 0 0 9.244 4.622 4.622 0 0 0 0-9.244Zm5.884-.182a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0Z"/>
@@ -334,8 +334,97 @@ const stats = [
       </div>
     </section>
 
+    <!-- INSTAGRAM FEED (@vatspective) -->
+    <section class="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-base">📸</span>
+              <h2 class="text-sm font-bold uppercase tracking-wider text-[#141416]">Instagram Feed</h2>
+            </div>
+            <p class="text-sm text-[#5E5D64]">
+              Visual notes on ad creative, design references, brand experiments, and day-to-day work.
+            </p>
+          </div>
+          <a
+            href="https://instagram.com/vatspective"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-md border border-[#E8E6E1] bg-white px-4 py-2 text-xs font-bold text-[#141416] transition hover:border-[#141416]/40 hover:text-[#E24A1F] shadow-xs shrink-0 self-start sm:self-auto"
+          >
+            Follow @vatspective ↗
+          </a>
+        </div>
+
+        <!-- Instagram Grid (6 Cards) -->
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {[
+            {
+              type: 'Ad Breakdown',
+              caption: 'Why high-contrast split statics beat polished studio renders in Meta auctions.',
+              tag: 'Meta Ads',
+            },
+            {
+              type: 'Creative Study',
+              caption: 'Deconstructing 3 winning visual hooks from 7-figure apparel brands.',
+              tag: 'D2C',
+            },
+            {
+              type: 'AI Generation',
+              caption: 'Commercial-grade product mockups using Midjourney and clean typography overlays.',
+              tag: 'AI Creatives',
+            },
+            {
+              type: 'Operator Notes',
+              caption: 'Lessons from scaling my clothing brand to ₹12L revenue with zero outside capital.',
+              tag: 'Brand Building',
+            },
+            {
+              type: 'Framework',
+              caption: 'The 3-format rule: why running only 1:1 square crops inflates your Story CPMs.',
+              tag: 'Formats',
+            },
+            {
+              type: 'Swipe File',
+              caption: 'Understated editorial ads that break pattern scroll without looking spammy.',
+              tag: 'Swipe File',
+            },
+          ].map((item) => (
+            <a
+              href="https://instagram.com/vatspective"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative flex aspect-square flex-col justify-between overflow-hidden rounded-xl border border-[#E8E6E1] bg-white p-3.5 transition hover:border-[#E24A1F]/50 hover:shadow-sm"
+            >
+              <div class="flex items-center justify-between">
+                <span class="rounded bg-[#FAF9F6] border border-[#E8E6E1] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#5E5D64]">
+                  {item.tag}
+                </span>
+                <span class="text-[11px] text-[#A8A6A0] transition group-hover:text-[#E24A1F]">↗</span>
+              </div>
+
+              <div>
+                <span class="block text-[11px] font-bold text-[#141416] transition group-hover:text-[#E24A1F] line-clamp-1">
+                  {item.type}
+                </span>
+                <p class="mt-1 text-[10px] leading-snug text-[#5E5D64] line-clamp-3">
+                  {item.caption}
+                </p>
+              </div>
+
+              <div class="border-t border-[#E8E6E1] pt-1.5 text-[9px] font-semibold text-[#8E8D94] flex items-center justify-between">
+                <span>@vatspective</span>
+                <span class="text-[#E24A1F] opacity-0 group-hover:opacity-100 transition">View</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- ARQO STUDIO / WORK WITH ME -->
-    <section id="work-with-me" class="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+    <section id="work-with-me" class="border-t border-[#E8E6E1] bg-white">
       <div class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-start">
           <div>
