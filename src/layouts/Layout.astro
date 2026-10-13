@@ -117,7 +117,7 @@ const {
         // 2. Decide if link should receive UTM parameters
         function shouldForward(url) {
           const isInternal = url.origin === window.location.origin || url.pathname.startsWith('/');
-          const isConversionDomain = url.hostname.includes('arqostudio.com');
+          const isConversionDomain = url.hostname.includes('arqostudio.com') || url.hostname.includes('razorpay.com');
           const isSocial = /^(www\.)?(instagram\.com|twitter\.com|x\.com|linkedin\.com|facebook\.com|youtube\.com)/i.test(url.hostname);
           return (isInternal || isConversionDomain) && !isSocial;
         }
