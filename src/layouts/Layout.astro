@@ -72,6 +72,92 @@ const {
       />
     </noscript>
     <!-- End Meta Pixel Code -->
+
+    <!-- UTM & Ad Tracking Parameters Forwarder -->
+    <script is:inline>
+      (function () {
+        const TRACKING_KEYS = [
+          'utm_source',
+          'utm_medium',
+          'utm_campaign',
+          'utm_term',
+          'utm_content',
+          'utm_id',
+          'fbclid',
+          'gclid',
+          'ttclid'
+        ];
+
+        // 1. Capture parameters from current URL or restore from session
+        const currentParams = new URLSearchParams(window.location.search);
+        let savedParams = {};
+
+        try {
+          const stored = sessionStorage.getItem('vatsal_utm_params');
+          if (stored) savedParams = JSON.parse(stored);
+        } catch (e) {}
+
+        let hasNew = false;
+        currentParams.forEach((val, key) => {
+          const lower = key.toLowerCase();
+          if (TRACKING_KEYS.includes(lower) || lower.startsWith('utm_')) {
+            savedParams[key] = val;
+            hasNew = true;
+          }
+        });
+
+        if (hasNew) {
+          try {
+            sessionStorage.setItem('vatsal_utm_params', JSON.stringify(savedParams));
+          } catch (e) {}
+        }
+
+        if (!Object.keys(savedParams).length) return;
+
+        // 2. Decide if link should receive UTM parameters
+        function shouldForward(url) {
+          const isInternal = url.origin === window.location.origin || url.pathname.startsWith('/');
+          const isConversionDomain = url.hostname.includes('arqostudio.com');
+          const isSocial = /^(www\.)?(instagram\.com|twitter\.com|x\.com|linkedin\.com|facebook\.com|youtube\.com)/i.test(url.hostname);
+          return (isInternal || isConversionDomain) && !isSocial;
+        }
+
+        function appendParamsToLink(a) {
+          const href = a.getAttribute('href');
+          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) {
+            return;
+          }
+
+          try {
+            const targetUrl = new URL(href, window.location.origin);
+            if (!shouldForward(targetUrl)) return;
+
+            Object.entries(savedParams).forEach(([k, v]) => {
+              if (!targetUrl.searchParams.has(k)) {
+                targetUrl.searchParams.set(k, v);
+              }
+            });
+
+            a.href = targetUrl.toString();
+          } catch (e) {}
+        }
+
+        function forwardAllLinks() {
+          document.querySelectorAll('a[href]').forEach(appendParamsToLink);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', forwardAllLinks);
+        } else {
+          forwardAllLinks();
+        }
+
+        document.addEventListener('click', function (e) {
+          const target = e.target.closest('a[href]');
+          if (target) appendParamsToLink(target);
+        }, { capture: true });
+      })();
+    </script>
   </head>
   <body class="flex h-full bg-[#FAF9F6] text-[#141416] font-sans antialiased selection:bg-[#E24A1F]/20 selection:text-[#E24A1F]">
     <div class="flex w-full flex-col min-h-screen">
