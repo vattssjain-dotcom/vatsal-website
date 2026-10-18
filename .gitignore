@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local product source & generator scripts
+vault-product/
+generate_vault_doc.ps1

@@ -1,0 +1,615 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// ==========================================
+// CONFIGURATION: Customize links & pricing
+// ==========================================
+const NOTION_VAULT_URL = "https://vatsaljain.notion.site/Static-Ad-Vault-Placeholder"; // Replace with your shared Notion workspace link
+const PDF_DOWNLOAD_URL = "/The_Static_Ad_Vault.pdf"; // Master offline PDF in public directory
+const UPSELL_PAYMENT_URL = "https://pages.razorpay.com/25-static-ads-upsell"; // Replace with your Razorpay link for the 25 ads upgrade
+const UPSELL_PRICE_DISCOUNTED = "₹2,499";
+const UPSELL_PRICE_REGULAR = "₹4,000";
+const UPSELL_SAVINGS = "Save ₹1,501 (38% OFF)";
+const TIMER_MINUTES = 15; // Urgency timer duration in minutes
+
+const deliverables = [
+  {
+    num: '01',
+    title: '25 Custom Visual Concepts',
+    desc: 'Bespoke designs built around your specific product, pain points, competitor gaps, and real customer reviews. Zero recycled templates.',
+  },
+  {
+    num: '02',
+    title: '3 Formats Per Ad (75 Total Files)',
+    desc: 'Exported natively in 1:1 (Feed), 9:16 (Reels & Stories safe-zoned), and 16:9 (Landscape) so you have native placements ready on day one.',
+  },
+  {
+    num: '03',
+    title: 'Full Psychological Creative Diversity',
+    desc: 'A deliberate mix of split comparisons, native UI screenshots, social proof overlays, benefit stacks, and objection handlers.',
+  },
+  {
+    num: '04',
+    title: 'High-Converting Copywriting Hooks Included',
+    desc: 'Each ad concept comes with structured primary text and headline recommendations written for your target customer.',
+  },
+  {
+    num: '05',
+    title: '3 to 5 Day Delivery + 1 Revision Round',
+    desc: 'Delivered in high-resolution PNGs via Google Drive or Figma. Includes one full round of revisions to guarantee brand alignment.',
+  },
+];
+
+const quickSteps = [
+  {
+    step: '1',
+    title: 'Download or Bookmark Your Vault',
+    desc: 'Download the 42MB master PDF playbook below or duplicate the Notion workspace to your own account for permanent lifetime access.',
+  },
+  {
+    step: '2',
+    title: 'Pick 1 Core Angle for Your Product',
+    desc: 'Choose either a Native UI Hijack (Notes app / search bar) or a Split Comparison format that directly tackles your customer’s #1 frustration.',
+  },
+  {
+    step: '3',
+    title: 'Create 3 Variations and Launch',
+    desc: 'Follow the execution checklist in the playbook to test 3 subtle visual variations without over-complicating copy or spending days on design.',
+  },
+];
+---
+
+<Layout
+  title="Thank You! Your Ad Vault Access Is Ready | Vatsal Jain"
+  description="Payment confirmed! Access your Static Ad Vault downloads, Notion workspace, and check out the exclusive member-only upgrade for 25 custom static ads."
+  robots="noindex, nofollow"
+>
+  <!-- META PIXEL PURCHASE TRACKING -->
+  <script is:inline>
+    // Fire Purchase event for the Static Ad Vault
+    if (typeof fbq === 'function') {
+      fbq('track', 'Purchase', {
+        value: 999.00,
+        currency: 'INR',
+        content_name: 'Static Ad Vault',
+        content_type: 'product'
+      });
+    }
+  </script>
+
+  <!-- TOP BANNER -->
+  <div class="border-b border-[#E24A1F]/20 bg-[#E24A1F]/[0.08] px-4 py-2.5 text-center text-xs font-semibold text-[#E24A1F]">
+    ⚡ Payment Confirmed: Your Static Ad Vault access is active below. Special upgrade offer ends when the timer expires.
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between py-4">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-1.5 text-base font-bold text-[#141416] tracking-tight">
+          Vatsal Jain<span class="text-[#E24A1F]">.io</span>
+        </a>
+
+        <!-- Order Confirmed Badge -->
+        <div class="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Order Confirmed</span>
+        </div>
+
+        <!-- Quick Help Link -->
+        <div class="hidden sm:flex items-center gap-4 text-xs text-[#5E5D64]">
+          <span>Need help?</span>
+          <a href="mailto:hey@vatsaljain.io?subject=Static%20Ad%20Vault%20Support" class="font-semibold text-[#141416] hover:text-[#E24A1F] transition">
+            hey@vatsaljain.io
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-auto">
+
+    <!-- 1. THANK YOU & CONFIRMATION HERO -->
+    <section class="border-b border-[#E8E6E1] bg-[#FAF9F6] py-12 sm:py-16">
+      <div class="mx-auto max-w-4xl px-5 sm:px-8">
+        
+        <!-- SUCCESS CARD -->
+        <div class="rounded-2xl border border-emerald-500/30 bg-white p-6 sm:p-10 shadow-xs text-center sm:text-left">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
+              <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="inline-flex items-center gap-1.5 rounded bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
+                Payment Successful · Instant Access Active
+              </div>
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-[#141416] tracking-tight">
+                You're in! Thank you for getting the Static Ad Vault.
+              </h1>
+              <p class="mt-2 text-sm sm:text-base text-[#5E5D64] leading-relaxed">
+                Your payment of <strong class="text-[#141416]">₹999</strong> has been verified. A confirmation receipt has been sent to your email from Razorpay. Your lifetime access files and links are ready for you right below.
+              </p>
+            </div>
+          </div>
+
+          <!-- ORDER SUMMARY PILL -->
+          <div class="mt-6 pt-6 border-t border-[#E8E6E1] grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+            <div class="rounded-lg bg-[#FAF9F6] p-3 border border-[#E8E6E1]">
+              <span class="text-[#8E8D94] block uppercase font-mono text-[10px]">Product</span>
+              <strong class="text-[#141416] text-sm font-semibold">Static Ad Vault (Founding Member)</strong>
+            </div>
+            <div class="rounded-lg bg-[#FAF9F6] p-3 border border-[#E8E6E1]">
+              <span class="text-[#8E8D94] block uppercase font-mono text-[10px]">Amount Paid</span>
+              <strong class="text-[#141416] text-sm font-semibold">₹999 (One-time)</strong>
+            </div>
+            <div class="rounded-lg bg-[#FAF9F6] p-3 border border-[#E8E6E1]">
+              <span class="text-[#8E8D94] block uppercase font-mono text-[10px]">Access Duration</span>
+              <strong class="text-emerald-700 text-sm font-semibold">Lifetime + All Future Adds</strong>
+            </div>
+          </div>
+
+          <!-- JUMP TO UPSELL LINK -->
+          <div class="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs bg-[#E24A1F]/[0.05] border border-[#E24A1F]/20 rounded-lg p-3.5">
+            <span class="text-[#141416] font-medium">
+              👉 <strong class="text-[#E24A1F]">Want 25 ads made for you?</strong> Check out the exclusive one-time discount below before the timer runs out.
+            </span>
+            <a href="#special-upgrade" class="inline-flex items-center gap-1 font-bold text-[#E24A1F] hover:underline">
+              View Tier 2 Offer ↓
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. ACCESS YOUR AD VAULT (IMMEDIATE UNRESTRICTED ACCESS) -->
+    <section id="vault-access" class="border-b border-[#E8E6E1] bg-white py-14 sm:py-20">
+      <div class="mx-auto max-w-4xl px-5 sm:px-8">
+        
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Step 1: Your Files</span>
+          <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#141416]">
+            Access Your Static Ad Vault Now
+          </h2>
+          <p class="mt-2 text-sm sm:text-base text-[#5E5D64]">
+            Choose your preferred way to review the 30 winning formats, visual breakdowns, psychology notes, and checklist:
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- ACCESS CARD 1: MASTER PDF -->
+          <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-7 shadow-xs flex flex-col justify-between hover:border-[#E24A1F] transition">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#E24A1F]/10 text-[#E24A1F]">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </span>
+                <span class="border border-[#E24A1F]/30 bg-[#E24A1F]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#E24A1F] rounded">
+                  Offline PDF Edition (42 MB)
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-[#141416]">Master Playbook &amp; Teardowns</h3>
+              <p class="mt-2 text-xs text-[#5E5D64] leading-relaxed">
+                The complete 30-format teardown playbook with high-res swipe files, psychological breakdown notes, hook structures, and the testing checklist formatted for desktop and tablet reading.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-[#E8E6E1]">
+              <a
+                href={PDF_DOWNLOAD_URL}
+                download="The_Static_Ad_Vault.pdf"
+                class="flex w-full items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-5 py-3 text-center text-xs sm:text-sm font-bold text-white shadow-sm transition hover:bg-[#C53B12]"
+              >
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download Master PDF (42MB)
+              </a>
+              <span class="block text-center text-[11px] text-[#8E8D94] mt-2">Instant direct download · Keep on your device</span>
+            </div>
+          </div>
+
+          <!-- ACCESS CARD 2: NOTION WORKSPACE -->
+          <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-7 shadow-xs flex flex-col justify-between hover:border-[#141416] transition">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#141416]/5 text-[#141416]">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                </span>
+                <span class="border border-[#E8E6E1] bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#5E5D64] rounded">
+                  Live Notion Database
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-[#141416]">Interactive Notion Dashboard</h3>
+              <p class="mt-2 text-xs text-[#5E5D64] leading-relaxed">
+                Searchable, taggable Notion workspace. Filter by ad style, copy hooks directly, and duplicate the entire board to your own Notion account with one click. Continuous updates are published here.
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-[#E8E6E1]">
+              <a
+                href={NOTION_VAULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex w-full items-center justify-center gap-2 rounded-md border border-[#141416] bg-white px-5 py-3 text-center text-xs sm:text-sm font-bold text-[#141416] shadow-xs transition hover:bg-[#141416] hover:text-white"
+              >
+                <span>Open Notion Workspace</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <span class="block text-center text-[11px] text-[#8E8D94] mt-2">Click "Duplicate" in top-right to save to your Notion</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3 QUICK START STEPS -->
+        <div class="mt-12 rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-8">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-[#8E8D94]">How to Get Results in 48 Hours</h3>
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {quickSteps.map((q) => (
+              <div>
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#E24A1F]/10 font-mono text-xs font-bold text-[#E24A1F]">
+                  {q.step}
+                </span>
+                <h4 class="mt-3 text-sm font-bold text-[#141416]">{q.title}</h4>
+                <p class="mt-1.5 text-xs text-[#5E5D64] leading-relaxed">{q.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. TIER 2 UPSELL SECTION (THE ONE-TIME OFFER) -->
+    <section id="special-upgrade" class="border-b border-[#E8E6E1] bg-[#FAF9F6] py-16 sm:py-24 relative overflow-hidden">
+      
+      <!-- BACKGROUND ACCENT GLOW -->
+      <div class="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[#E24A1F]/10 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#E24A1F]/5 blur-3xl pointer-events-none"></div>
+
+      <div class="mx-auto max-w-4xl px-5 sm:px-8 relative">
+        
+        <!-- OTO CALLOUT HEADER -->
+        <div class="text-center max-w-2xl mx-auto">
+          <div class="inline-flex items-center gap-2 rounded-full border border-[#E24A1F]/40 bg-[#E24A1F]/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#E24A1F] shadow-xs">
+            <span>⚡ SPECIAL ONE-TIME UPGRADE FOR NEW VAULT MEMBERS</span>
+          </div>
+
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl lg:text-5xl sm:leading-[1.1]">
+            Don't Want to Design Them Yourself? Let Us Build 25 Custom Ads For You.
+          </h2>
+
+          <p class="mt-4 text-base sm:text-lg text-[#5E5D64] leading-relaxed">
+            You now have the formulas and psychological blueprints in the Vault. But turning 30 formats into 25 custom, brand-tailored static ads—writing hooks, designing layouts, and exporting 75 files across 3 native aspect ratios—takes 20+ hours of focused work.
+          </p>
+          <p class="mt-2 text-sm text-[#141416] font-medium">
+            Skip the learning curve. Upgrade now and Arqo Studio will research your product and craft 25 launch-ready static ads for you at an exclusive new-member discount.
+          </p>
+        </div>
+
+        <!-- COUNTDOWN TIMER DISPLAY -->
+        <div class="mt-10 rounded-2xl border-2 border-[#E24A1F] bg-white p-6 sm:p-8 shadow-xl">
+          
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-[#E8E6E1] pb-6">
+            <div class="text-center md:text-left">
+              <span class="inline-block rounded bg-[#E24A1F]/10 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-[#E24A1F] mb-1">
+                One-Time Opportunity
+              </span>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-[#141416]">
+                Special Discount Window Closes In:
+              </h3>
+              <p class="text-xs text-[#5E5D64] mt-1">
+                Once this timer expires or you navigate away, the price returns to the standard ₹4,000 rate.
+              </p>
+            </div>
+
+            <!-- LIVE TIMER BOXES -->
+            <div id="countdown-timer" class="flex items-center gap-2 sm:gap-3">
+              <div class="flex flex-col items-center">
+                <div id="timer-minutes" class="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl bg-[#141416] font-mono text-2xl sm:text-3xl font-extrabold text-white shadow-inner">
+                  14
+                </div>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#8E8D94] mt-1.5">Minutes</span>
+              </div>
+              <span class="text-2xl font-bold text-[#E24A1F] -mt-5">:</span>
+              <div class="flex flex-col items-center">
+                <div id="timer-seconds" class="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl bg-[#141416] font-mono text-2xl sm:text-3xl font-extrabold text-[#E24A1F] shadow-inner">
+                  59
+                </div>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-[#8E8D94] mt-1.5">Seconds</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRICING ROW -->
+          <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E8E6E1]">
+            <div>
+              <span class="text-xs uppercase font-mono tracking-wider text-[#8E8D94]">Offer Details</span>
+              <h4 class="text-lg font-bold text-[#141416]">25 Custom Static Ads Pack (75 Total Export Files)</h4>
+              <p class="text-xs text-[#5E5D64] mt-0.5">Bespoke design for your physical product or digital offer</p>
+            </div>
+            <div class="text-center sm:text-right">
+              <div class="text-xs text-[#8E8D94] line-through">Standard Rate {UPSELL_PRICE_REGULAR}</div>
+              <div class="text-3xl sm:text-4xl font-extrabold text-[#E24A1F]">
+                {UPSELL_PRICE_DISCOUNTED}
+              </div>
+              <span class="inline-block rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 mt-1">
+                {UPSELL_SAVINGS}
+              </span>
+            </div>
+          </div>
+
+          <!-- DELIVERABLES LIST -->
+          <div class="mt-6 space-y-3.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#141416] block">
+              What You Receive With This Done-For-You Upgrade:
+            </span>
+            {deliverables.map((item) => (
+              <div class="flex items-start gap-3 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] p-3.5">
+                <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E24A1F]/10 font-mono text-xs font-bold text-[#E24A1F]">
+                  {item.num}
+                </span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-bold text-[#141416]">{item.title}</h5>
+                  <p class="text-xs text-[#5E5D64] mt-0.5 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- ALL 3 FORMATS RECAP (VISUAL CUES) -->
+          <div class="mt-6 rounded-xl border border-[#E8E6E1] bg-white p-5">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#8E8D94] mb-3">
+              Included Aspect Ratios (75 Total Files Ready to Upload)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+              <div class="rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] p-3">
+                <strong class="block text-sm font-bold text-[#141416]">1:1 Square</strong>
+                <span class="text-[11px] text-[#5E5D64]">1080 × 1080 px (Feed Placement)</span>
+              </div>
+              <div class="rounded-lg border border-[#E24A1F]/40 bg-[#E24A1F]/[0.05] p-3">
+                <strong class="block text-sm font-bold text-[#E24A1F]">9:16 Vertical</strong>
+                <span class="text-[11px] text-[#5E5D64]">1080 × 1920 px (Reels &amp; Stories)</span>
+              </div>
+              <div class="rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] p-3">
+                <strong class="block text-sm font-bold text-[#141416]">16:9 Landscape</strong>
+                <span class="text-[11px] text-[#5E5D64]">1920 × 1080 px (Desktop / Video)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRIMARY UPSELL ACTION BUTTON -->
+          <div class="mt-8">
+            <a
+              id="claim-upsell-btn"
+              href={UPSELL_PAYMENT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex w-full items-center justify-center gap-3 rounded-lg bg-[#E24A1F] px-8 py-4 text-center text-sm sm:text-base font-extrabold uppercase tracking-wider text-white shadow-lg transition hover:bg-[#C53B12] active:scale-[0.99]"
+            >
+              <span>Yes! Upgrade to 25 Custom Ads for {UPSELL_PRICE_DISCOUNTED}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            
+            <div class="mt-3 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5E5D64]">
+              <span>✓ 3 to 5 business day delivery</span>
+              <span>·</span>
+              <span>✓ 100% custom to your brand &amp; product</span>
+              <span>·</span>
+              <span>✓ 1 round of revisions included</span>
+            </div>
+          </div>
+
+          <!-- SECONDARY CONTACT OR DECLINE OPTIONS -->
+          <div class="mt-6 pt-6 border-t border-[#E8E6E1] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <a
+              href="mailto:hey@vatsaljain.io?subject=Claiming%20Tier%202%20Upsell%20(25%20Custom%20Ads)&body=Hey%20Vatsal%2C%0A%0AI%20just%20purchased%20the%20Static%20Ad%20Vault%20and%20want%20to%20claim%20the%2025%20Custom%20Ads%20upgrade%20for%20my%20business.%0A%0AMy%20Website%20%2F%20Product%20Link%3A%20%0AAny%20questions%20or%20notes%3A%20"
+              class="text-[#5E5D64] hover:text-[#141416] font-medium flex items-center gap-1.5"
+            >
+              <svg class="h-4 w-4 text-[#8E8D94]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Prefer to pay or ask questions over email? Message Vatsal
+            </a>
+
+            <a
+              href="#vault-access"
+              class="text-[#8E8D94] hover:text-[#141416] transition underline underline-offset-2"
+            >
+              No thanks, I'll design all 25 ads myself from scratch →
+            </a>
+          </div>
+
+        </div>
+
+        <!-- HOW THE DONE-FOR-YOU PROCESS WORKS -->
+        <div class="mt-14 max-w-3xl mx-auto">
+          <div class="text-center mb-8">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Turnkey Process</span>
+            <h3 class="mt-2 text-2xl font-extrabold text-[#141416]">What Happens After You Upgrade?</h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="rounded-xl border border-[#E8E6E1] bg-white p-6 shadow-xs">
+              <span class="font-mono text-xl font-extrabold text-[#E24A1F]">01</span>
+              <h4 class="mt-2 text-sm font-bold text-[#141416]">Share Your Product Link</h4>
+              <p class="mt-1.5 text-xs text-[#5E5D64] leading-relaxed">
+                After checkout, you send us your website, product photos, and customer reviews. We extract your top buying triggers.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-[#E8E6E1] bg-white p-6 shadow-xs">
+              <span class="font-mono text-xl font-extrabold text-[#E24A1F]">02</span>
+              <h4 class="mt-2 text-sm font-bold text-[#141416]">We Design 25 Concepts</h4>
+              <p class="mt-1.5 text-xs text-[#5E5D64] leading-relaxed">
+                We craft 25 unique angles (comparisons, native UI, social proof, checklists) in 1:1, 9:16, and 16:9 formats.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-[#E8E6E1] bg-white p-6 shadow-xs">
+              <span class="font-mono text-xl font-extrabold text-[#E24A1F]">03</span>
+              <h4 class="mt-2 text-sm font-bold text-[#141416]">Launch &amp; Scale</h4>
+              <p class="mt-1.5 text-xs text-[#5E5D64] leading-relaxed">
+                Receive your organized Google Drive or Figma folder within 3 to 5 business days ready to upload straight into Meta Ads Manager.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- STICKY BOTTOM OFFER BAR (ACTIVE ONCE SCROLLED) -->
+  <div id="sticky-offer-bar" class="fixed bottom-0 left-0 right-0 z-50 border-t border-[#E8E6E1] bg-[#FAF9F6]/95 backdrop-blur-md py-3 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transform translate-y-full transition-transform duration-300">
+    <div class="mx-auto flex max-w-5xl items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:flex h-9 w-9 items-center justify-center rounded-lg bg-[#E24A1F]/10 text-[#E24A1F] font-mono text-xs font-bold">
+          OTO
+        </span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs sm:text-sm font-bold text-[#141416]">25 Custom Static Ads Pack (75 Files)</span>
+            <span id="sticky-timer-pill" class="rounded bg-[#E24A1F]/10 px-2 py-0.5 text-[10px] font-mono font-bold text-[#E24A1F]">
+              14:59 left
+            </span>
+          </div>
+          <span class="text-[11px] text-[#5E5D64] hidden sm:block">Special post-purchase discount: {UPSELL_SAVINGS}</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-right">
+          <span class="text-[11px] text-[#8E8D94] line-through block">{UPSELL_PRICE_REGULAR}</span>
+          <span class="text-base sm:text-lg font-extrabold text-[#E24A1F]">{UPSELL_PRICE_DISCOUNTED}</span>
+        </div>
+        <a
+          href={UPSELL_PAYMENT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md bg-[#E24A1F] px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#C53B12] whitespace-nowrap"
+        >
+          Claim {UPSELL_PRICE_DISCOUNTED} →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E8E6E1] bg-[#FAF9F6] py-10">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-8 lg:px-12">
+      <p class="text-xs text-[#8E8D94]">
+        © {new Date().getFullYear()} Vatsal Jain · Arqo Studio. All rights reserved.
+      </p>
+      <div class="flex gap-6 text-xs text-[#5E5D64]">
+        <a href="/" class="hover:text-[#141416]">Home</a>
+        <a href="/vault" class="hover:text-[#141416]">Ad Vault</a>
+        <a href="/static-ads" class="hover:text-[#141416]">Custom Static Ads</a>
+        <a href="mailto:hey@vatsaljain.io" class="hover:text-[#141416]">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COUNTDOWN TIMER & STICKY BAR SCRIPT -->
+  <script is:inline define:vars={{ TIMER_MINUTES, UPSELL_PRICE_REGULAR }}>
+    (function () {
+      const STORAGE_KEY = 'vatsal_oto_end_timestamp';
+      const DURATION_MS = TIMER_MINUTES * 60 * 1000;
+
+      // 1. Get or create persistent end timestamp
+      let endTimestamp = localStorage.getItem(STORAGE_KEY);
+      if (!endTimestamp) {
+        endTimestamp = Date.now() + DURATION_MS;
+        localStorage.setItem(STORAGE_KEY, endTimestamp.toString());
+      } else {
+        endTimestamp = parseInt(endTimestamp, 10);
+      }
+
+      const minEl = document.getElementById('timer-minutes');
+      const secEl = document.getElementById('timer-seconds');
+      const stickyPill = document.getElementById('sticky-timer-pill');
+      const claimBtn = document.getElementById('claim-upsell-btn');
+
+      function updateClock() {
+        const remaining = endTimestamp - Date.now();
+
+        if (remaining <= 0) {
+          if (minEl) minEl.textContent = '00';
+          if (secEl) secEl.textContent = '00';
+          if (stickyPill) {
+            stickyPill.textContent = 'Offer Expired';
+            stickyPill.className = 'rounded bg-gray-200 px-2 py-0.5 text-[10px] font-mono font-bold text-gray-600';
+          }
+          if (claimBtn) {
+            claimBtn.innerHTML = `<span>Order 25 Custom Ads at Standard Rate (${UPSELL_PRICE_REGULAR})</span> →`;
+          }
+          return;
+        }
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = totalSeconds % 60;
+
+        const minsStr = mins < 10 ? '0' + mins : mins.toString();
+        const secsStr = secs < 10 ? '0' + secs : secs.toString();
+
+        if (minEl) minEl.textContent = minsStr;
+        if (secEl) secEl.textContent = secsStr;
+        if (stickyPill) stickyPill.textContent = `${minsStr}:${secsStr} left`;
+
+        requestAnimationFrame(() => {});
+      }
+
+      updateClock();
+      const interval = setInterval(updateClock, 1000);
+
+      // 2. Show Sticky Offer Bar on Scroll
+      const stickyBar = document.getElementById('sticky-offer-bar');
+      const upgradeSection = document.getElementById('special-upgrade');
+
+      if (stickyBar && upgradeSection) {
+        window.addEventListener('scroll', () => {
+          const rect = upgradeSection.getBoundingClientRect();
+          // Show when user has scrolled near or past the upgrade section
+          if (window.scrollY > 400 && rect.bottom > 100) {
+            stickyBar.classList.remove('translate-y-full');
+          } else {
+            stickyBar.classList.add('translate-y-full');
+          }
+        }, { passive: true });
+      }
+
+      // Track upsell click if Meta Pixel loaded
+      if (claimBtn) {
+        claimBtn.addEventListener('click', () => {
+          if (typeof fbq === 'function') {
+            fbq('track', 'InitiateCheckout', {
+              content_name: '25 Custom Static Ads - Tier 2 Upsell',
+              value: 2499.00,
+              currency: 'INR'
+            });
+          }
+        });
+      }
+    })();
+  </script>
+</Layout>

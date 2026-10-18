@@ -1,0 +1,20 @@
+---
+// Redirect /thank-you to /vault/thank-you with query parameter preservation
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to your order confirmation...</title>
+    <meta http-equiv="refresh" content="0;url=/vault/thank-you" />
+    <link rel="canonical" href="/vault/thank-you" />
+    <script is:inline>
+      const target = '/vault/thank-you' + window.location.search + window.location.hash;
+      window.location.replace(target);
+    </script>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center; background: #FAF9F6; color: #141416;">
+    <p>Redirecting to your order confirmation...</p>
+    <p><a href="/vault/thank-you" style="color: #E24A1F; font-weight: bold;">Click here if you are not redirected automatically</a></p>
+  </body>
+</html>

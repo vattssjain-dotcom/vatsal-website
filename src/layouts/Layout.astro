@@ -6,6 +6,7 @@ interface Props {
   description?: string;
   canonical?: string;
   ogType?: string;
+  robots?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   description = "Direct-to-consumer founder and ad strategist. Proven static ad systems, custom creative production, and full-funnel ad audits through Arqo Studio.",
   canonical = Astro.url.href,
   ogType = 'website',
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 } = Astro.props;
 ---
 
@@ -39,7 +41,7 @@ const {
     <meta name="twitter:description" content={description} />
 
     <!-- Search Engine Indexing -->
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content={robots} />
 
     <!-- Favicon & Fonts -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
