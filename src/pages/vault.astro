@@ -5,44 +5,38 @@ const vaultCollage = [
   {
     type: 'Format 01',
     title: 'The Notes App Screenshot',
-    tag: 'Native / Organic',
-    accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
-    pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
+    tag: 'Native Hook',
+    image: '/vault-previews/thumb-notes-app.webp',
   },
   {
     type: 'Format 02',
     title: 'The Google Search Bar',
-    tag: 'Search Recognition',
-    accent: 'border-[#E8E6E1] bg-white',
-    pill: 'text-[#5E5D64] bg-[#F5F3EF]',
+    tag: 'Search Intent',
+    image: '/vault-previews/thumb-google-search.webp',
   },
   {
     type: 'Format 04',
-    title: 'The Google Sheets Value Table',
-    tag: 'Pricing Contrast',
-    accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
-    pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
+    title: 'The Google Sheets Table',
+    tag: 'Value Stack',
+    image: '/vault-previews/thumb-sheets-table.webp',
+  },
+  {
+    type: 'Format 06',
+    title: 'The ChatGPT Prompt',
+    tag: 'AI Authority',
+    image: '/vault-previews/thumb-chatgpt-prompt.webp',
   },
   {
     type: 'Format 07',
     title: 'The Reddit Thread',
-    tag: 'Unfiltered Proof',
-    accent: 'border-[#E8E6E1] bg-white',
-    pill: 'text-[#5E5D64] bg-[#F5F3EF]',
+    tag: 'Social Proof',
+    image: '/vault-previews/thumb-reddit-thread.webp',
   },
   {
     type: 'Format 12',
     title: 'The Fake 1-Star Review',
     tag: 'Pattern Interrupt',
-    accent: 'border-[#E8E6E1] bg-white',
-    pill: 'text-[#5E5D64] bg-[#F5F3EF]',
-  },
-  {
-    type: 'Format 22',
-    title: 'The Self-Diagnosis Checklist',
-    tag: 'Loss Aversion',
-    accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
-    pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
+    image: '/vault-previews/thumb-fake-review.webp',
   },
 ];
 
@@ -72,7 +66,7 @@ const sampleCreatives = [
     num: 'FORMAT 01',
     title: 'The Notes App Screenshot',
     tag: 'Native / Organic Hook',
-    image: '/vault-previews/format-3.webp',
+    image: '/vault-previews/thumb-notes-app.webp',
     whyItWorks:
       'Polished ads trigger instant scroll-past. A raw Notes app screenshot reads like leaked personal thoughts or a real workday realization. Viewers stop because it feels unfiltered, not like something a brand paid to show them.',
     productCategory: 'Gut Health Supplement',
@@ -86,7 +80,7 @@ const sampleCreatives = [
     num: 'FORMAT 02',
     title: 'The Google Search Bar',
     tag: 'Search Recognition',
-    image: '/vault-previews/format-4.webp',
+    image: '/vault-previews/thumb-google-search.webp',
     whyItWorks:
       'When people hit a wall, their first move is typing it into Google. Putting that exact raw search phrase into your ad creates instant recognition in under a second. The viewer sees their own problem written out and immediately reads what comes next.',
     productCategory: 'Natural Deodorant Brand',
@@ -100,7 +94,7 @@ const sampleCreatives = [
     num: 'FORMAT 04',
     title: 'The Google Sheets Value Table',
     tag: 'Pricing & Value Contrast',
-    image: '/vault-previews/format-6.webp',
+    image: '/vault-previews/thumb-sheets-table.webp',
     whyItWorks:
       'Spreadsheets feel objective and financial, not promotional. When a grid shows individual retail prices stacking up to a large total and then reveals your bundled price in a highlighted cell, the brain processes it as a pure mathematical bargain.',
     productCategory: 'Creator Preset Pack',
@@ -114,7 +108,7 @@ const sampleCreatives = [
     num: 'FORMAT 12',
     title: 'The Fake 1-Star Review',
     tag: 'Pattern Interrupt & Humour',
-    image: '/vault-previews/format-14.webp',
+    image: '/vault-previews/thumb-fake-review.webp',
     whyItWorks:
       'Every human stops at a 1-star review because conflict and danger trigger attention. When they read it and discover the complaint is actually an ironic endorsement, the surprise creates a strong positive brand memory. The format uses negativity as the hook and delight as the payoff.',
     productCategory: 'Daily Productivity Planner',
@@ -268,23 +262,39 @@ const faqs = [
 
         <!-- VISUAL COLLAGE: 6 VAULT CREATIVES -->
         <div class="mt-14">
-          <div class="mb-3 flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-[#8E8D94]">
-            <span>Visual Preview: 6 of 30+ Static Formats Inside</span>
-            <span class="text-[#E24A1F]">30+ In-Depth Teardowns &amp; Updates</span>
+          <div class="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wider text-[#8E8D94]">
+            <span class="flex items-center gap-2">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E24A1F] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E24A1F]"></span>
+              </span>
+              Visual Preview: 6 of 30+ Static Formats Inside
+            </span>
+            <span class="font-bold text-[#E24A1F]">30+ In-Depth Teardowns &amp; Updates Included</span>
           </div>
           <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {vaultCollage.map((item) => (
-              <div class={`rounded-lg border p-3.5 flex flex-col justify-between aspect-[3/4] ${item.accent}`}>
-                <div>
-                  <span class={`inline-block text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wider rounded ${item.pill}`}>
-                    {item.tag}
-                  </span>
-                  <div class="mt-3 text-xs font-bold text-[#141416] leading-snug">
+              <div class="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E6E1] bg-white shadow-xs transition duration-200 hover:-translate-y-1 hover:border-[#E24A1F] hover:shadow-md">
+                <!-- Preview Thumbnail Container -->
+                <div class="relative aspect-[4/5] w-full bg-[#F5F3EF] p-2 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    class="h-full w-full object-contain rounded transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <span class="absolute top-2 left-2 rounded bg-[#141416]/85 px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-white backdrop-blur-xs">
                     {item.type}
-                  </div>
+                  </span>
                 </div>
-                <div class="text-[11px] text-[#5E5D64] border-t border-[#E8E6E1] pt-2">
-                  {item.title}
+                <!-- Card Meta Bar -->
+                <div class="flex flex-col justify-between border-t border-[#E8E6E1] bg-white p-2.5">
+                  <div class="text-[11px] font-bold text-[#141416] leading-tight group-hover:text-[#E24A1F] transition line-clamp-1">
+                    {item.title}
+                  </div>
+                  <div class="mt-1 text-[10px] font-medium text-[#8E8D94] uppercase tracking-wider">
+                    {item.tag}
+                  </div>
                 </div>
               </div>
             ))}
@@ -413,45 +423,60 @@ const faqs = [
                 </span>
               </div>
 
-              <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
-                <!-- Visual Ad Preview Image (4 cols) -->
-                <div class="lg:col-span-4 flex justify-center">
-                  <div class="w-full max-w-[280px] rounded-xl overflow-hidden border border-[#E8E6E1] bg-white p-2 shadow-sm">
+              <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12 items-stretch">
+                <!-- Visual Ad Preview (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                  <div class="relative w-full flex-1 rounded-2xl border border-[#E8E6E1] bg-white p-3 sm:p-5 shadow-sm flex items-center justify-center min-h-[320px] sm:min-h-[380px] overflow-hidden group">
                     <img
                       src={sample.image}
                       alt={sample.title}
-                      class="w-full h-auto rounded-lg object-contain"
+                      class="max-h-[340px] sm:max-h-[380px] w-auto max-w-full rounded-xl object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-[1.02]"
                       loading="lazy"
                     />
+                    <div class="absolute bottom-2.5 right-2.5 rounded bg-[#141416]/80 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-xs">
+                      Real Vault Teardown
+                    </div>
                   </div>
+                  <span class="mt-2 text-center text-[11px] text-[#8E8D94]">
+                    Exact creative format from the master PDF playbook
+                  </span>
                 </div>
 
-                <!-- Breakdown Details (8 cols) -->
-                <div class="lg:col-span-8 space-y-5">
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">Why It Works (The Psychology)</h4>
-                    <p class="mt-1.5 text-sm text-[#141416] leading-relaxed font-medium">{sample.whyItWorks}</p>
+                <!-- Breakdown Details (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+                  <!-- Why It Works (The Psychology) -->
+                  <div class="rounded-xl border border-[#E8E6E1] bg-white p-5 shadow-2xs">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="inline-block h-2 w-2 rounded-full bg-[#E24A1F]"></span>
+                      <h4 class="text-xs font-bold uppercase tracking-wider text-[#141416]">Why It Converts (The Psychology)</h4>
+                    </div>
+                    <p class="text-sm text-[#3E3D42] leading-relaxed font-normal">{sample.whyItWorks}</p>
                   </div>
 
-                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
+                  <!-- Two Application Cases: Physical Product & Service / SaaS -->
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <!-- Product Example -->
-                    <div class="rounded-xl border border-[#E8E6E1] bg-white p-4 shadow-2xs">
-                      <div class="flex items-center gap-2 mb-2">
-                        <span class="text-sm">📦</span>
-                        <span class="text-xs font-bold text-[#141416] uppercase tracking-wider">Product Example</span>
+                    <div class="rounded-xl border border-amber-200/60 bg-gradient-to-br from-amber-50/50 via-white to-white p-4 shadow-2xs flex flex-col justify-between">
+                      <div>
+                        <div class="flex items-center gap-2 mb-2">
+                          <span class="text-sm">📦</span>
+                          <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider">Physical Product</span>
+                        </div>
+                        <div class="text-[12px] font-bold text-[#E24A1F] mb-1.5">{sample.productCategory}</div>
+                        <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.productExample}</p>
                       </div>
-                      <span class="inline-block text-[11px] font-bold text-[#E24A1F] mb-1.5">{sample.productCategory}</span>
-                      <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.productExample}</p>
                     </div>
 
                     <!-- Service Example -->
-                    <div class="rounded-xl border border-[#E8E6E1] bg-white p-4 shadow-2xs">
-                      <div class="flex items-center gap-2 mb-2">
-                        <span class="text-sm">💼</span>
-                        <span class="text-xs font-bold text-[#141416] uppercase tracking-wider">Service Example</span>
+                    <div class="rounded-xl border border-slate-200/80 bg-gradient-to-br from-slate-50/70 via-white to-white p-4 shadow-2xs flex flex-col justify-between">
+                      <div>
+                        <div class="flex items-center gap-2 mb-2">
+                          <span class="text-sm">💼</span>
+                          <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Service / SaaS</span>
+                        </div>
+                        <div class="text-[12px] font-bold text-[#141416] mb-1.5">{sample.serviceCategory}</div>
+                        <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.serviceExample}</p>
                       </div>
-                      <span class="inline-block text-[11px] font-bold text-[#141416] mb-1.5">{sample.serviceCategory}</span>
-                      <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.serviceExample}</p>
                     </div>
                   </div>
                 </div>
