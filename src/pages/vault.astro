@@ -3,44 +3,44 @@ import Layout from '../layouts/Layout.astro';
 
 const vaultCollage = [
   {
-    type: 'Side-by-Side Comparison',
-    title: 'The "Old Way vs New Way" Contrast',
-    tag: 'Comparison',
+    type: 'Format 01',
+    title: 'The Notes App Screenshot',
+    tag: 'Native / Organic',
     accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
     pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
   },
   {
-    type: 'Social Proof Overlay',
-    title: 'Customer DM / Review Callout',
-    tag: 'Social Proof',
+    type: 'Format 02',
+    title: 'The Google Search Bar',
+    tag: 'Search Recognition',
     accent: 'border-[#E8E6E1] bg-white',
     pill: 'text-[#5E5D64] bg-[#F5F3EF]',
   },
   {
-    type: 'Solution in Action',
-    title: 'Real-Life Context / Workflow',
-    tag: 'Contextual',
+    type: 'Format 04',
+    title: 'The Google Sheets Value Table',
+    tag: 'Pricing Contrast',
     accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
     pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
   },
   {
-    type: 'Mechanism Breakdown',
-    title: 'Feature Anatomy / How It Works',
-    tag: 'How It Works',
+    type: 'Format 07',
+    title: 'The Reddit Thread',
+    tag: 'Unfiltered Proof',
     accent: 'border-[#E8E6E1] bg-white',
     pill: 'text-[#5E5D64] bg-[#F5F3EF]',
   },
   {
-    type: 'Checklist / Audit',
-    title: 'The "3 Common Mistakes" Graphic',
-    tag: 'Educational',
+    type: 'Format 12',
+    title: 'The Fake 1-Star Review',
+    tag: 'Pattern Interrupt',
     accent: 'border-[#E8E6E1] bg-white',
     pill: 'text-[#5E5D64] bg-[#F5F3EF]',
   },
   {
-    type: 'Direct Transformation',
-    title: 'The Before vs After Outcome',
-    tag: 'Outcome',
+    type: 'Format 22',
+    title: 'The Self-Diagnosis Checklist',
+    tag: 'Loss Aversion',
     accent: 'border-[#E24A1F]/30 bg-[#E24A1F]/[0.05]',
     pill: 'text-[#E24A1F] bg-[#E24A1F]/10',
   },
@@ -69,46 +69,60 @@ const whatsIncluded = [
 
 const sampleCreatives = [
   {
-    id: '#01',
-    format: 'Comparison / Contrast Ad',
-    type: 'The "Old Way vs New Way" Split',
-    whatItIs: 'A clean split visual comparing the painful, slow status quo on the left with your solution on the right.',
-    whyItWorks: 'Exploits instant contrast bias. The viewer immediately recognizes their current frustration without reading paragraphs of text.',
-    howToAdapt: 'Identify the single biggest pain point your buyer experiences before using your solution. Show that on the left with muted, desaturated tones. Put your product or service outcome on the right with clear, bright framing.',
-    variations: [
-      'Physical Product (e.g. Skincare): Harsh chemicals and irritated barrier on the left vs calm, hydrated skin on the right.',
-      'Software / AI Service: 4 hours of messy spreadsheets on the left vs a 1-click automated dashboard on the right.',
-      'B2B / Agency Service: Juggling 6 disconnected tools on the left vs a single streamlined growth system on the right.',
-    ],
-    adaptationTip: 'Keep the contrast immediate. Use a clear divider, short 3-word labels above each side, and keep background distractions to zero so the difference is obvious in under one second.',
+    num: 'FORMAT 01',
+    title: 'The Notes App Screenshot',
+    tag: 'Native / Organic Hook',
+    image: '/vault-previews/format-3.webp',
+    whyItWorks:
+      'Polished ads trigger instant scroll-past. A raw Notes app screenshot reads like leaked personal thoughts or a real workday realization. Viewers stop because it feels unfiltered, not like something a brand paid to show them.',
+    productCategory: 'Gut Health Supplement',
+    productExample:
+      "Notes titled 'Things I cut in January' listing seed oils, gluten, and processed sugar. Final line: 'Bloating gone in 10 days. Skin cleared up. All I added was one capsule daily.'",
+    serviceCategory: 'Freelance Tax Consultant',
+    serviceExample:
+      "Notes titled 'Write-offs my clients always miss' with bullet points: proportional home office rent, client gifts up to Rs 2,500, professional tool subscriptions, camera equipment. Final line: 'We recover an average of Rs 47,000 extra per client.'",
   },
   {
-    id: '#02',
-    format: 'Social Proof / Native Overlay',
-    type: 'The Customer DM / Review Overlay',
-    whatItIs: 'A real customer message, tweet, or review card placed directly over an authentic visual of your product or service in action.',
-    whyItWorks: 'Breaks social feed blindness by looking native and organic. Third-party endorsements disarm skepticism far faster than polished brand claims.',
-    howToAdapt: 'Take your highest-converting customer feedback that mentions a specific problem solved. Overlay it cleanly over your physical product shot, software interface, or client result.',
-    variations: [
-      'Physical Product: "I thought this was another overhyped trend until day 4, my breakouts completely cleared up."',
-      'AI / Software Service: "This tool replaced 3 different subscriptions and gave our team 10 hours back each week."',
-      'Professional Service: "Closed two new clients within 14 days of running this new pipeline."',
-    ],
-    adaptationTip: 'Do not use fake stock badge designs. Style the message box like a real iOS message, tweet, or clean review card. Let the authentic visual breathe underneath.',
+    num: 'FORMAT 02',
+    title: 'The Google Search Bar',
+    tag: 'Search Recognition',
+    image: '/vault-previews/format-4.webp',
+    whyItWorks:
+      'When people hit a wall, their first move is typing it into Google. Putting that exact raw search phrase into your ad creates instant recognition in under a second. The viewer sees their own problem written out and immediately reads what comes next.',
+    productCategory: 'Natural Deodorant Brand',
+    productExample:
+      "Search reads 'why does natural deodorant stop working after 2 weeks' and the solution below shows a pH-balanced formula that neutralizes odor bacteria rather than just masking smell.",
+    serviceCategory: 'SaaS Onboarding Consultant',
+    serviceExample:
+      "Search reads 'why do users stop using the app after signup' and the solution shows a 3-point onboarding flow audit that lifts day-7 retention by identifying exact drop-off moments.",
   },
   {
-    id: '#03',
-    format: 'Educational / Authority Audit',
-    type: 'The "3 Common Mistakes" Checklist',
-    whatItIs: 'A structured visual checklist highlighting 3 mistakes your target audience makes and positioning your solution as the corrective fix.',
-    whyItWorks: 'Taps into loss aversion and curiosity. People stop scrolling because nobody wants to make an expensive, painful, or embarrassing mistake.',
-    howToAdapt: 'Pick 3 common misconceptions in your market. List 2 broad industry mistakes, and position the 3rd as the exact problem your product or service eliminates.',
-    variations: [
-      'Physical Product (Skincare): 3 common morning habits that are silently destroying your moisture barrier.',
-      'AI / Software Service: 3 mistakes companies make when automating their customer workflows.',
-      'Consulting / Marketing Service: 3 reasons your paid ad campaigns fatigue within 48 hours.',
-    ],
-    adaptationTip: 'Use red X icons for the mistakes and a bold green checkmark for the solution. Keep each line under 8 words so it stays readable on mobile screens.',
+    num: 'FORMAT 04',
+    title: 'The Google Sheets Value Table',
+    tag: 'Pricing & Value Contrast',
+    image: '/vault-previews/format-6.webp',
+    whyItWorks:
+      'Spreadsheets feel objective and financial, not promotional. When a grid shows individual retail prices stacking up to a large total and then reveals your bundled price in a highlighted cell, the brain processes it as a pure mathematical bargain.',
+    productCategory: 'Creator Preset Pack',
+    productExample:
+      'Spreadsheet shows Lightroom editing course at Rs 3,200, color theory workshop at Rs 1,800, 40 portrait presets at Rs 1,600, mobile preset pack at Rs 900. Total: Rs 7,500. Complete Creator Pack today: Rs 1,499.',
+    serviceCategory: 'Brand Identity Studio',
+    serviceExample:
+      'Grid shows logo design at Rs 18,000, brand guidelines at Rs 12,000, social media templates at Rs 8,000, business card and letterhead at Rs 4,000. Total: Rs 42,000. Complete Brand Identity: Rs 24,000.',
+  },
+  {
+    num: 'FORMAT 12',
+    title: 'The Fake 1-Star Review',
+    tag: 'Pattern Interrupt & Humour',
+    image: '/vault-previews/format-14.webp',
+    whyItWorks:
+      'Every human stops at a 1-star review because conflict and danger trigger attention. When they read it and discover the complaint is actually an ironic endorsement, the surprise creates a strong positive brand memory. The format uses negativity as the hook and delight as the payoff.',
+    productCategory: 'Daily Productivity Planner',
+    productExample:
+      "One star. Headline: 'Do not buy this planner.' Review: 'I have been using it for 6 weeks and I have already finished 2 projects I had been putting off for 2 years. My procrastination no longer has anywhere to hide. I am now suspicious of how effective it actually is.'",
+    serviceCategory: 'Ghostwriting & Content Agency',
+    serviceExample:
+      "One star. Headline: 'This writing team is genuinely a problem.' Review: 'My LinkedIn has gotten 14 inbound DMs from potential clients this month. I no longer have an excuse to avoid posting. My content manager has ruined my comfortable obscurity.'",
   },
 ];
 
@@ -371,65 +385,73 @@ const faqs = [
       </div>
     </section>
 
-    <!-- 5. SAMPLE CREATIVES (3 FULL BREAKDOWNS COVERING PRODUCTS & SERVICES) -->
+    <!-- 5. SAMPLE CREATIVES (4 REAL BREAKDOWNS DIRECT FROM THE PLAYBOOK) -->
     <section id="samples" class="border-t border-[#E8E6E1] bg-white py-20">
       <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
         <div class="max-w-2xl">
           <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Inside the Vault</span>
           <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl">
-            Sample Teardowns
+            Sample Teardowns &amp; Creative Formats
           </h2>
           <p class="mt-3 text-sm sm:text-base text-[#5E5D64]">
-            Here is how entries inside the Vault are structured. Notice how the exact same underlying concept applies directly to both physical products and digital services:
+            Here is an unfiltered preview of 4 formats taken directly from the 30-format Vault playbook. Notice how the exact same underlying psychological trigger works across both physical products and professional services:
           </p>
         </div>
 
-        <div class="mt-12 space-y-10">
+        <div class="mt-12 space-y-12">
           {sampleCreatives.map((sample) => (
-            <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-8 shadow-xs">
+            <div class="rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-8 shadow-xs">
               <div class="flex flex-wrap items-center justify-between border-b border-[#E8E6E1] pb-4">
-                <div>
-                  <span class="font-mono text-xs font-bold text-[#E24A1F]">VAULT SAMPLE {sample.id}</span>
-                  <h3 class="text-xl font-bold text-[#141416]">{sample.type}</h3>
+                <div class="flex items-center gap-3">
+                  <span class="font-mono text-xs font-extrabold text-[#E24A1F] bg-[#E24A1F]/10 px-2.5 py-1 rounded">
+                    {sample.num}
+                  </span>
+                  <h3 class="text-xl font-bold text-[#141416]">{sample.title}</h3>
                 </div>
-                <span class="border border-[#E8E6E1] bg-white px-2.5 py-1 text-xs font-semibold text-[#5E5D64] rounded">
-                  {sample.format}
+                <span class="border border-[#E8E6E1] bg-white px-2.5 py-1 text-xs font-semibold text-[#5E5D64] rounded mt-2 sm:mt-0">
+                  {sample.tag}
                 </span>
               </div>
 
-              <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div class="space-y-5">
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">What It Is</h4>
-                    <p class="mt-1 text-sm text-[#141416] leading-relaxed">{sample.whatItIs}</p>
-                  </div>
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">Why It Works (The Psychology)</h4>
-                    <p class="mt-1 text-sm text-[#5E5D64] leading-relaxed">{sample.whyItWorks}</p>
-                  </div>
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">How To Adapt It</h4>
-                    <p class="mt-1 text-sm text-[#5E5D64] leading-relaxed">{sample.howToAdapt}</p>
+              <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
+                <!-- Visual Ad Preview Image (4 cols) -->
+                <div class="lg:col-span-4 flex justify-center">
+                  <div class="w-full max-w-[280px] rounded-xl overflow-hidden border border-[#E8E6E1] bg-white p-2 shadow-sm">
+                    <img
+                      src={sample.image}
+                      alt={sample.title}
+                      class="w-full h-auto rounded-lg object-contain"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
 
-                <div class="space-y-5 border-t border-[#E8E6E1] pt-6 md:border-t-0 md:border-l md:border-[#E8E6E1] md:pl-6">
+                <!-- Breakdown Details (8 cols) -->
+                <div class="lg:col-span-8 space-y-5">
                   <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">Product &amp; Service Examples</h4>
-                    <ul class="mt-2 space-y-2 text-xs text-[#5E5D64]">
-                      {sample.variations.map((v) => (
-                        <li class="flex items-start gap-2">
-                          <span class="font-bold text-[#E24A1F]">·</span>
-                          <span>{v}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#8E8D94]">Why It Works (The Psychology)</h4>
+                    <p class="mt-1.5 text-sm text-[#141416] leading-relaxed font-medium">{sample.whyItWorks}</p>
                   </div>
 
-                  <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#E24A1F]">Layout &amp; Execution Tip</h4>
-                    <div class="mt-2 rounded-lg bg-white border border-[#E8E6E1] p-3.5 text-xs text-[#141416] leading-relaxed">
-                      {sample.adaptationTip}
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
+                    <!-- Product Example -->
+                    <div class="rounded-xl border border-[#E8E6E1] bg-white p-4 shadow-2xs">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="text-sm">📦</span>
+                        <span class="text-xs font-bold text-[#141416] uppercase tracking-wider">Product Example</span>
+                      </div>
+                      <span class="inline-block text-[11px] font-bold text-[#E24A1F] mb-1.5">{sample.productCategory}</span>
+                      <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.productExample}</p>
+                    </div>
+
+                    <!-- Service Example -->
+                    <div class="rounded-xl border border-[#E8E6E1] bg-white p-4 shadow-2xs">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="text-sm">💼</span>
+                        <span class="text-xs font-bold text-[#141416] uppercase tracking-wider">Service Example</span>
+                      </div>
+                      <span class="inline-block text-[11px] font-bold text-[#141416] mb-1.5">{sample.serviceCategory}</span>
+                      <p class="text-xs text-[#5E5D64] leading-relaxed">{sample.serviceExample}</p>
                     </div>
                   </div>
                 </div>
