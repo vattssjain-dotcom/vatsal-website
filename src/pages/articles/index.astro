@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allArticles = await getCollection('articles');
+const articles = allArticles.sort(
+  (a, b) => new Date(b.data.dateTime).getTime() - new Date(a.data.dateTime).getTime()
+);
+---
+
+<Layout
+  title="Articles & Breakdowns | Vatsal Jain"
+  description="Raw notes and playbooks on running Meta ads, building D2C brands, and AI creative workflows by Vatsal Jain."
+>
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between py-4">
+        <!-- Logo with orange dot -->
+        <a href="/" class="flex items-center gap-1.5 text-base font-bold text-[#141416] tracking-tight">
+          Vatsal Jain<span class="text-[#E24A1F]">.</span>
+        </a>
+
+        <!-- Nav links -->
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="/#about" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">About</a>
+          <a href="/articles" class="text-sm font-semibold text-[#141416]">Articles</a>
+          <a href="/vault" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Ad Vault</a>
+          <a href="/#products" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Products</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="/roast-my-ads"
+            class="inline-flex items-center gap-1.5 rounded-md bg-[#E24A1F] px-4 py-2 text-xs sm:text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
+          >
+            Roast My Ads →
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-auto py-16 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+      <!-- HERO -->
+      <div class="max-w-2xl border-b border-[#E8E6E1] pb-10">
+        <span class="inline-block text-xs font-bold uppercase tracking-wider text-[#E24A1F] mb-3">
+          Writing &amp; Field Notes
+        </span>
+        <h1 class="text-4xl font-extrabold tracking-tight text-[#141416] sm:text-5xl">
+          Articles &amp; Breakdowns
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-[#5E5D64] leading-relaxed">
+          Raw operational notes on running Meta ads, scaling D2C brands, and building AI creative workflows. No fluff—just real lessons from running my own brand and studio.
+        </p>
+      </div>
+
+      <!-- ARTICLES LIST -->
+      <div class="mt-12 grid grid-cols-1 gap-10 md:grid-cols-2">
+        {articles.map((article) => (
+          <article class="group relative flex flex-col justify-between rounded-2xl border border-[#E8E6E1] bg-white p-7 shadow-xs transition hover:border-[#E24A1F]/40 hover:shadow-md">
+            <div>
+              <div class="flex items-center justify-between gap-3 text-xs">
+                <span class="rounded bg-[#E24A1F]/10 px-2 py-0.5 font-bold uppercase tracking-wider text-[#E24A1F]">
+                  {article.data.category}
+                </span>
+                <time class="font-medium text-[#8E8D94]" datetime={article.data.dateTime}>
+                  {article.data.date}
+                </time>
+              </div>
+
+              <h2 class="mt-4 text-xl font-bold tracking-tight text-[#141416] transition group-hover:text-[#E24A1F]">
+                <a href={`/articles/${article.id}`}>
+                  <span class="absolute inset-0"></span>
+                  {article.data.title}
+                </a>
+              </h2>
+
+              <p class="mt-3 text-sm leading-relaxed text-[#5E5D64]">
+                {article.data.excerpt}
+              </p>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between border-t border-[#E8E6E1] pt-4 text-xs font-semibold text-[#8E8D94]">
+              <span>{article.data.readingTime}</span>
+              <span class="text-[#E24A1F] font-bold group-hover:translate-x-0.5 transition-transform">
+                Read article →
+              </span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E8E6E1] bg-white py-10">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-8 lg:px-12">
+      <p class="text-xs text-[#8E8D94]">
+        © {new Date().getFullYear()} Vatsal Jain · Arqo Studio. All rights reserved.
+      </p>
+      <div class="flex gap-6 text-xs text-[#5E5D64]">
+        <a href="/" class="hover:text-[#141416]">Home</a>
+        <a href="/articles" class="hover:text-[#141416]">Articles</a>
+        <a href="/vault" class="hover:text-[#141416]">Ad Vault</a>
+        <a href="/roast-my-ads" class="hover:text-[#141416]">Roast My Ads</a>
+        <a href="https://arqostudio.com/contact" class="hover:text-[#141416]">Arqo Studio</a>
+      </div>
+    </div>
+  </footer>
+</Layout>

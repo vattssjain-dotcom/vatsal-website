@@ -1,0 +1,147 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<Layout
+  title={`${article.data.title} | Vatsal Jain`}
+  description={article.data.excerpt}
+>
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
+      <div class="flex items-center justify-between py-4">
+        <!-- Logo with orange dot -->
+        <a href="/" class="flex items-center gap-1.5 text-base font-bold text-[#141416] tracking-tight">
+          Vatsal Jain<span class="text-[#E24A1F]">.</span>
+        </a>
+
+        <!-- Nav links -->
+        <nav class="hidden items-center gap-8 md:flex">
+          <a href="/#about" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">About</a>
+          <a href="/articles" class="text-sm font-semibold text-[#141416]">Articles</a>
+          <a href="/vault" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Ad Vault</a>
+          <a href="/#products" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Products</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="/roast-my-ads"
+            class="inline-flex items-center gap-1.5 rounded-md bg-[#E24A1F] px-4 py-2 text-xs sm:text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
+          >
+            Roast My Ads →
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-auto py-12 sm:py-16">
+    <article class="mx-auto max-w-3xl px-5 sm:px-8">
+      <!-- Breadcrumb -->
+      <div class="mb-8">
+        <a
+          href="/articles"
+          class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E5D64] transition hover:text-[#E24A1F]"
+        >
+          <span aria-hidden="true">←</span> Back to all articles
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="border-b border-[#E8E6E1] pb-8">
+        <div class="flex items-center gap-3 text-xs">
+          <span class="rounded bg-[#E24A1F]/10 px-2.5 py-1 font-bold uppercase tracking-wider text-[#E24A1F]">
+            {article.data.category}
+          </span>
+          <span class="text-[#8E8D94]">·</span>
+          <time class="font-medium text-[#5E5D64]" datetime={article.data.dateTime}>
+            {article.data.date}
+          </time>
+          <span class="text-[#8E8D94]">·</span>
+          <span class="text-[#8E8D94]">{article.data.readingTime}</span>
+        </div>
+
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl lg:text-5xl leading-tight">
+          {article.data.title}
+        </h1>
+
+        <p class="mt-4 text-base sm:text-lg text-[#5E5D64] leading-relaxed">
+          {article.data.excerpt}
+        </p>
+
+        <!-- Author Byline -->
+        <div class="mt-6 flex items-center gap-3">
+          <div class="h-10 w-10 rounded-full bg-[#141416] text-white flex items-center justify-center font-bold text-sm">
+            VJ
+          </div>
+          <div>
+            <div class="text-sm font-bold text-[#141416]">Vatsal Jain<span class="text-[#E24A1F]">.</span></div>
+            <div class="text-xs text-[#8E8D94]">Founder, Arqo Studio · D2C Operator &amp; Ad Strategist</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Markdown Prose Content -->
+      <div class="prose prose-neutral mt-10 max-w-none text-[#141416] leading-relaxed space-y-6 text-base [&_h2]:text-2xl [&_h2]:font-extrabold [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:text-[#4A4950] [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_blockquote]:border-l-4 [&_blockquote]:border-[#E24A1F] [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-[#5E5D64] [&_code]:bg-[#FAF9F6] [&_code]:border [&_code]:border-[#E8E6E1] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs [&_hr]:border-[#E8E6E1] [&_hr]:my-10">
+        <Content />
+      </div>
+
+      <!-- POST-ARTICLE CTA BOX -->
+      <div class="mt-14 rounded-2xl border border-[#E8E6E1] bg-white p-8 shadow-xs">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <span class="inline-block bg-[#E24A1F]/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E24A1F] rounded mb-2">
+              Scale Your Brand
+            </span>
+            <h2 class="text-xl font-bold text-[#141416]">Need help testing high-converting creatives?</h2>
+            <p class="mt-1 text-xs sm:text-sm text-[#5E5D64]">
+              Explore proven static ad frameworks or get an unfiltered teardown of your ad account.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/vault"
+              class="inline-flex items-center justify-center rounded-md border border-[#E8E6E1] bg-white px-4 py-2.5 text-xs sm:text-sm font-bold text-[#141416] transition hover:border-[#141416]/40"
+            >
+              Ad Vault (₹999) →
+            </a>
+            <a
+              href="/roast-my-ads"
+              class="inline-flex items-center justify-center rounded-md bg-[#E24A1F] px-4 py-2.5 text-xs sm:text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
+            >
+              Roast My Ads →
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E8E6E1] bg-white py-10">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-8 lg:px-12">
+      <p class="text-xs text-[#8E8D94]">
+        © {new Date().getFullYear()} Vatsal Jain · Arqo Studio. All rights reserved.
+      </p>
+      <div class="flex gap-6 text-xs text-[#5E5D64]">
+        <a href="/" class="hover:text-[#141416]">Home</a>
+        <a href="/articles" class="hover:text-[#141416]">Articles</a>
+        <a href="/vault" class="hover:text-[#141416]">Ad Vault</a>
+        <a href="/roast-my-ads" class="hover:text-[#141416]">Roast My Ads</a>
+        <a href="https://arqostudio.com/contact" class="hover:text-[#141416]">Arqo Studio</a>
+      </div>
+    </div>
+  </footer>
+</Layout>
