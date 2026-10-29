@@ -803,6 +803,9 @@ const faqs = [
       </form>
     </div>
   </div>
+
+  <!-- Razorpay Checkout SDK -->
+  <script is:inline src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </Layout>
 
 <script>
@@ -817,10 +820,7 @@ const faqs = [
     link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
   });
 
-  // 2-Step Lead Capture Modal & Razorpay Integration
-  // To connect a Google Sheet, paste your Google Apps Script Web App URL below:
-  const GOOGLE_SHEET_WEBHOOK_URL = '';
-
+  // Direct Razorpay Checkout & Lead Capture
   const modal = document.getElementById('checkout-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
   const leadForm = document.getElementById('vault-lead-form');
@@ -852,7 +852,7 @@ const faqs = [
     if (e.key === 'Escape' && !modal?.classList.contains('hidden')) closeCheckoutModal();
   });
 
-  leadForm?.addEventListener('submit', (e) => {
+  leadForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
     const emailInput = document.getElementById('lead-email') as HTMLInputElement | null;
@@ -865,7 +865,7 @@ const faqs = [
     if (!email) return;
 
     if (submitBtn) {
-      submitBtn.innerHTML = `<span>Connecting to Payment...</span>`;
+      submitBtn.innerHTML = `<span>Opening Secure Checkout...</span>`;
       submitBtn.setAttribute('disabled', 'true');
     }
 
@@ -879,27 +879,14 @@ const faqs = [
       timestamp: new Date().toISOString()
     };
 
-    // 1. Local storage backup (saves every submission in browser memory)
+    // 1. Local backup
     try {
       const existing = JSON.parse(localStorage.getItem('vault_captured_leads') || '[]');
       existing.push(leadData);
       localStorage.setItem('vault_captured_leads', JSON.stringify(existing));
     } catch (err) {}
 
-    // 2. Webhook transmission to Google Sheet / CRM (if configured)
-    if (GOOGLE_SHEET_WEBHOOK_URL) {
-      try {
-        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(leadData),
-          keepalive: true
-        });
-      } catch (err) {}
-    }
-
-    // 3. Meta Pixel InitiateCheckout event
+    // 2. Meta Pixel InitiateCheckout
     if (typeof (window as any).fbq === 'function') {
       (window as any).fbq('track', 'InitiateCheckout', {
         content_name: 'The Static Ad Vault',
@@ -908,16 +895,89 @@ const faqs = [
       });
     }
 
-    // 4. Redirect to Razorpay Payment Page with customer details prefilled
-    const params = new URLSearchParams();
-    if (name) params.set('name', name);
-    if (email) params.set('email', email);
-    if (phone) params.set('phone', phone);
+    // 3. Create Server-Side Order via Cloudflare Function
+    try {
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData),
+      });
 
-    const redirectUrl = `https://pages.razorpay.com/static-ad-vault?${params.toString()}`;
+      if (!res.ok) {
+        throw new Error('Order creation endpoint returned ' + res.status);
+      }
 
-    setTimeout(() => {
-      window.location.href = redirectUrl;
-    }, 250);
+      const data = await res.json();
+      if (!data.orderId) {
+        throw new Error('No order ID returned from server');
+      }
+
+      // Close modal before opening Razorpay checkout
+      closeCheckoutModal();
+      if (submitBtn) {
+        submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
+        submitBtn.removeAttribute('disabled');
+      }
+
+      // Open Direct Razorpay Checkout Modal
+      const RazorpayConstructor = (window as any).Razorpay;
+      if (typeof RazorpayConstructor !== 'function') {
+        throw new Error('Razorpay SDK not loaded');
+      }
+
+      const rzp = new RazorpayConstructor({
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency,
+        name: 'Vatsal Jain · Arqo Studio',
+        description: 'The Static Ad Vault (30 Formats + Lifetime Updates)',
+        image: 'https://vatsal.arqostudio.com/favicon.svg',
+        order_id: data.orderId,
+        prefill: {
+          name: name,
+          email: email,
+          contact: phone,
+        },
+        theme: {
+          color: '#E24A1F',
+        },
+        modal: {
+          ondismiss: function () {
+            // User closed the Razorpay popup without paying
+            if (submitBtn) {
+              submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
+              submitBtn.removeAttribute('disabled');
+            }
+          },
+        },
+        handler: function (response: any) {
+          // Track purchase in Meta Pixel
+          if (typeof (window as any).fbq === 'function') {
+            (window as any).fbq('track', 'Purchase', {
+              content_name: 'The Static Ad Vault',
+              value: 999.00,
+              currency: 'INR',
+              transaction_id: response.razorpay_payment_id,
+            });
+          }
+
+          // Direct redirect to thank you upsell page
+          const redirectUrl = `/vault/thank-you?payment_id=${encodeURIComponent(
+            response.razorpay_payment_id || ''
+          )}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}`;
+          window.location.href = redirectUrl;
+        },
+      });
+
+      rzp.open();
+    } catch (err) {
+      console.warn('Direct checkout failed, falling back to hosted page:', err);
+      // Fallback: Redirect to hosted payment page with pre-filled query params
+      const params = new URLSearchParams();
+      if (name) params.set('name', name);
+      if (email) params.set('email', email);
+      if (phone) params.set('phone', phone);
+      window.location.href = `https://pages.razorpay.com/static-ad-vault?${params.toString()}`;
+    }
   });
 </script>

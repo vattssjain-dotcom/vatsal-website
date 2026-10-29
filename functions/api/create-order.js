@@ -1,0 +1,112 @@
+// Cloudflare Pages Function: /api/create-order
+// Creates a server-side order with Razorpay and captures buyer lead info
+
+export async function onRequestPost(context) {
+  const { request, env } = context;
+
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  try {
+    const body = await request.json();
+    const { name, email, phone, product } = body;
+
+    const keyId = env.RAZORPAY_KEY_ID || "rzp_live_TtfTXCvpVj11jF";
+    const keySecret = env.RAZORPAY_KEY_SECRET || "3ajAWLff4xw5OkW11cxtw5Yj";
+
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Email is required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // 1. Create Order on Razorpay
+    const auth = btoa(`${keyId}:${keySecret}`);
+    const receiptId = `rcpt_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+
+    const rzpResponse = await fetch("https://api.razorpay.com/v1/orders", {
+      method: "POST",
+      headers: {
+        "Authorization": `Basic ${auth}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: 99900, // 999 INR in paise
+        currency: "INR",
+        receipt: receiptId,
+        notes: {
+          name: name || "",
+          email: email || "",
+          phone: phone || "",
+          product: product || "The Static Ad Vault",
+          source: "vatsal.arqostudio.com/vault",
+        },
+      }),
+    });
+
+    if (!rzpResponse.ok) {
+      const errText = await rzpResponse.text();
+      return new Response(JSON.stringify({ error: "Failed to create order on Razorpay", details: errText }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const orderData = await rzpResponse.json();
+
+    // 2. Optional: Forward lead to external Google Sheets Webhook if provided
+    const webhookUrl = env.LEAD_WEBHOOK_URL || "";
+    if (webhookUrl && context.waitUntil) {
+      context.waitUntil(
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            name: name || "",
+            email: email || "",
+            phone: phone || "",
+            product: "The Static Ad Vault",
+            price: "₹999",
+            order_id: orderData.id,
+            source: "vatsal.arqostudio.com/vault",
+          }),
+        }).catch(() => {})
+      );
+    }
+
+    // 3. Return order details to client
+    return new Response(
+      JSON.stringify({
+        orderId: orderData.id,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        keyId: keyId,
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message || "Internal server error" }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+}
+
+export async function onRequestOptions() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
