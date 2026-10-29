@@ -1,45 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const vaultCollage = [
-  {
-    type: 'Format 01',
-    title: 'The Notes App Screenshot',
-    tag: 'Native Hook',
-    image: '/vault-previews/thumb-notes-app.webp',
-  },
-  {
-    type: 'Format 02',
-    title: 'The Google Search Bar',
-    tag: 'Search Intent',
-    image: '/vault-previews/thumb-google-search.webp',
-  },
-  {
-    type: 'Format 04',
-    title: 'The Google Sheets Table',
-    tag: 'Value Stack',
-    image: '/vault-previews/thumb-sheets-table.webp',
-  },
-  {
-    type: 'Format 06',
-    title: 'The ChatGPT Prompt',
-    tag: 'AI Authority',
-    image: '/vault-previews/thumb-chatgpt-prompt.webp',
-  },
-  {
-    type: 'Format 07',
-    title: 'The Reddit Thread',
-    tag: 'Social Proof',
-    image: '/vault-previews/thumb-reddit-thread.webp',
-  },
-  {
-    type: 'Format 12',
-    title: 'The Fake 1-Star Review',
-    tag: 'Pattern Interrupt',
-    image: '/vault-previews/thumb-fake-review.webp',
-  },
-];
-
 const whatsIncluded = [
   {
     num: '01',
@@ -260,44 +221,48 @@ const faqs = [
           </div>
         </div>
 
-        <!-- VISUAL COLLAGE: 6 VAULT CREATIVES -->
-        <div class="mt-14">
-          <div class="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wider text-[#8E8D94]">
-            <span class="flex items-center gap-2">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E24A1F] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E24A1F]"></span>
-              </span>
-              Visual Preview: 6 of 30+ Static Formats Inside
+        <!-- 3D VALUE PLAYBOOK COLLAGE -->
+        <div class="mt-12 sm:mt-16 relative w-full flex flex-col items-center">
+          <!-- Live Pill Label -->
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E6E1] bg-white px-4 py-1.5 text-xs font-semibold text-[#5E5D64] shadow-2xs">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E24A1F] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E24A1F]"></span>
             </span>
-            <span class="font-bold text-[#E24A1F]">30+ In-Depth Teardowns &amp; Updates Included</span>
+            <span>Inside The Vault: 30 Proven Formats &amp; Teardowns</span>
           </div>
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {vaultCollage.map((item) => (
-              <div class="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E6E1] bg-white shadow-xs transition duration-200 hover:-translate-y-1 hover:border-[#E24A1F] hover:shadow-md">
-                <!-- Preview Thumbnail Container -->
-                <div class="relative aspect-[4/5] w-full bg-[#F5F3EF] p-2 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    class="h-full w-full object-contain rounded transition duration-300 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <span class="absolute top-2 left-2 rounded bg-[#141416]/85 px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-white backdrop-blur-xs">
-                    {item.type}
-                  </span>
-                </div>
-                <!-- Card Meta Bar -->
-                <div class="flex flex-col justify-between border-t border-[#E8E6E1] bg-white p-2.5">
-                  <div class="text-[11px] font-bold text-[#141416] leading-tight group-hover:text-[#E24A1F] transition line-clamp-1">
-                    {item.title}
-                  </div>
-                  <div class="mt-1 text-[10px] font-medium text-[#8E8D94] uppercase tracking-wider">
-                    {item.tag}
-                  </div>
-                </div>
+
+          <!-- Collage Mockup Showcase Frame -->
+          <div class="relative w-full max-w-4xl overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-gradient-to-b from-[#F5F3EF]/60 via-white to-[#F5F3EF]/40 p-3 sm:p-6 md:p-8 shadow-sm transition hover:shadow-md">
+            <!-- Subtle ambient glow -->
+            <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-[#E24A1F]/[0.03] blur-3xl"></div>
+
+            <img
+              src="/vault-previews/vault-mockup-collage.webp"
+              alt="The Static Ad Vault - 30 Proven Formats & Teardowns Playbook"
+              class="relative z-10 w-full h-auto object-contain drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
+              loading="eager"
+            />
+
+            <!-- Bottom Floating Value Strip -->
+            <div class="mt-5 pt-5 border-t border-[#E8E6E1] grid grid-cols-2 gap-3 sm:grid-cols-4 text-center">
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#E24A1F]">30 FORMATS</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Physical &amp; Services</span>
               </div>
-            ))}
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#141416]">TEARDOWNS</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Psychology &amp; Hooks</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#141416]">CHECKLIST</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Rapid Sprint System</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#E24A1F]">LIFETIME</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">All Future Additions</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
