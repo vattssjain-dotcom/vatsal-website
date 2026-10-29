@@ -852,6 +852,54 @@ const faqs = [
     if (e.key === 'Escape' && !modal?.classList.contains('hidden')) closeCheckoutModal();
   });
 
+  function sendLeadUpdate(status: string, extra: Record<string, any> = {}) {
+    const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
+    const emailInput = document.getElementById('lead-email') as HTMLInputElement | null;
+    const phoneInput = document.getElementById('lead-phone') as HTMLInputElement | null;
+
+    const currentName = nameInput?.value.trim() || '';
+    const currentEmail = emailInput?.value.trim() || '';
+    const currentPhone = phoneInput?.value.trim() || '';
+    if (!currentEmail && !currentPhone) return;
+
+    const payload = {
+      status,
+      name: currentName,
+      email: currentEmail,
+      phone: currentPhone,
+      amount: '₹999',
+      product: 'The Static Ad Vault',
+      source: window.location.href,
+      timestamp: new Date().toISOString(),
+      ...extra,
+    };
+
+    try {
+      fetch('/api/record-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
+  // Auto-capture partial entries on field blur (catches people who exit modal without submitting)
+  const leadEmailField = document.getElementById('lead-email') as HTMLInputElement | null;
+  const leadPhoneField = document.getElementById('lead-phone') as HTMLInputElement | null;
+
+  leadEmailField?.addEventListener('blur', () => {
+    if (leadEmailField.value.includes('@')) {
+      sendLeadUpdate('Modal Form: Email Entered');
+    }
+  });
+
+  leadPhoneField?.addEventListener('blur', () => {
+    if (leadPhoneField.value.replace(/\D/g, '').length >= 10) {
+      sendLeadUpdate('Modal Form: Phone Entered');
+    }
+  });
+
   leadForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
@@ -912,6 +960,9 @@ const faqs = [
         throw new Error('No order ID returned from server');
       }
 
+      // Record checkout initiated with orderId
+      sendLeadUpdate('Checkout Initiated', { order_id: data.orderId });
+
       // Close modal before opening Razorpay checkout
       closeCheckoutModal();
       if (submitBtn) {
@@ -929,7 +980,7 @@ const faqs = [
         key: data.keyId,
         amount: data.amount,
         currency: data.currency,
-        name: 'Vatsal Jain · Arqo Studio',
+        name: 'vatsal.arqostudio.com',
         description: 'The Static Ad Vault (30 Formats + Lifetime Updates)',
         image: 'https://vatsal.arqostudio.com/favicon.svg',
         order_id: data.orderId,
@@ -943,7 +994,8 @@ const faqs = [
         },
         modal: {
           ondismiss: function () {
-            // User closed the Razorpay popup without paying
+            // User closed the Razorpay popup without paying (Cart Abandoned)
+            sendLeadUpdate('Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
             if (submitBtn) {
               submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
               submitBtn.removeAttribute('disabled');
@@ -951,6 +1003,12 @@ const faqs = [
           },
         },
         handler: function (response: any) {
+          // Record successful payment immediately
+          sendLeadUpdate('PAID', {
+            order_id: response.razorpay_order_id || data.orderId,
+            payment_id: response.razorpay_payment_id || '',
+          });
+
           // Track purchase in Meta Pixel
           if (typeof (window as any).fbq === 'function') {
             (window as any).fbq('track', 'Purchase', {
@@ -967,6 +1025,15 @@ const faqs = [
           )}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}`;
           window.location.href = redirectUrl;
         },
+      });
+
+      // Handle payment failure (card decline, UPI cancel, bank error)
+      rzp.on('payment.failed', function (resp: any) {
+        sendLeadUpdate('Payment Failed', {
+          order_id: data.orderId,
+          payment_id: resp?.error?.metadata?.payment_id || '',
+          notes: (resp?.error?.code || '') + ': ' + (resp?.error?.description || resp?.error?.reason || 'Payment failed'),
+        });
       });
 
       rzp.open();
