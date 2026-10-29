@@ -195,6 +195,51 @@ const faqs = [
             30 battle-tested static ad teardowns with the exact hook psychology, visual structure, and real-world examples for products and services. Pick a format, plug in your offer, and launch today.
           </p>
 
+          <!-- HERO VIDEO (WEBM) WITH CORNER UNMUTE BUTTON -->
+          <div class="mt-10 w-full max-w-3xl relative mx-auto rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-black shadow-lg overflow-hidden group">
+            <video
+              id="vault-hero-video"
+              class="w-full h-auto aspect-video object-cover block"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              poster="/vault-video-poster.jpg"
+            >
+              <source src="/vault-video.webm" type="video/webm" />
+              <source src="/vault-video.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+
+            <!-- Circular Unmute Button (Corner placement, never covers main video) -->
+            <button
+              id="vault-unmute-btn"
+              type="button"
+              class="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-[#141416]/85 hover:bg-[#141416] text-white backdrop-blur-md border border-white/25 shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20 group"
+              aria-label="Unmute video and play from start"
+              title="Play with sound from start"
+            >
+              <!-- Pulsing indicator ring -->
+              <span class="absolute inset-0 rounded-full bg-[#E24A1F]/30 animate-ping opacity-75 group-hover:opacity-100 pointer-events-none"></span>
+
+              <!-- Muted icon -->
+              <svg id="unmute-icon-muted" viewBox="0 0 24 24" fill="none" class="relative z-10 h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:scale-110" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                <line x1="23" y1="9" x2="17" y2="15"/>
+                <line x1="17" y1="9" x2="23" y2="15"/>
+              </svg>
+
+              <!-- Sound On icon -->
+              <svg id="unmute-icon-sound" viewBox="0 0 24 24" fill="none" class="relative z-10 h-5 w-5 sm:h-6 sm:w-6 hidden transition-transform group-hover:scale-110" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- PRIMARY HERO CTA -->
           <div class="mt-8 flex items-center justify-center">
             <a
               href="https://pages.razorpay.com/static-ad-vault"
@@ -204,59 +249,12 @@ const faqs = [
             </a>
           </div>
 
-          <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5E5D64]">
+          <div class="mt-5 flex flex-wrap items-center justify-center gap-3 text-xs text-[#5E5D64]">
             <span class="font-medium">✓ Instant digital access</span>
             <span>·</span>
             <span class="font-medium">✓ Works for both products &amp; services</span>
             <span>·</span>
             <span class="font-medium">✓ Access to all upcoming ad formats</span>
-          </div>
-        </div>
-
-        <!-- 3D VALUE PLAYBOOK COLLAGE -->
-        <div class="mt-12 sm:mt-16 relative w-full flex flex-col items-center">
-          <!-- Collage Mockup Showcase Frame -->
-          <div class="relative w-full max-w-4xl overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-gradient-to-b from-[#F5F3EF]/60 via-white to-[#F5F3EF]/40 p-3 sm:p-6 md:p-8 shadow-sm transition hover:shadow-md">
-            <!-- Subtle ambient glow -->
-            <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-[#E24A1F]/[0.03] blur-3xl"></div>
-
-            <img
-              src="/vault-previews/vault-mockup-collage.webp"
-              alt="The Static Ad Vault - 30 Proven Formats & Teardowns Playbook"
-              class="relative z-10 w-full h-auto object-contain drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
-              loading="eager"
-            />
-
-            <!-- Bottom Floating Value Strip -->
-            <div class="mt-5 pt-5 border-t border-[#E8E6E1] grid grid-cols-2 gap-3 sm:grid-cols-4 text-center">
-              <div class="flex flex-col items-center">
-                <span class="text-xs font-mono font-bold text-[#E24A1F]">30 FORMATS</span>
-                <span class="text-[11px] text-[#5E5D64] mt-0.5">Physical &amp; Services</span>
-              </div>
-              <div class="flex flex-col items-center">
-                <span class="text-xs font-mono font-bold text-[#141416]">TEARDOWNS</span>
-                <span class="text-[11px] text-[#5E5D64] mt-0.5">Psychology &amp; Hooks</span>
-              </div>
-              <div class="flex flex-col items-center">
-                <span class="text-xs font-mono font-bold text-[#141416]">CHECKLIST</span>
-                <span class="text-[11px] text-[#5E5D64] mt-0.5">Rapid Sprint System</span>
-              </div>
-              <div class="flex flex-col items-center">
-                <span class="text-xs font-mono font-bold text-[#E24A1F]">LIFETIME</span>
-                <span class="text-[11px] text-[#5E5D64] mt-0.5">All Future Additions</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTA Below Collage -->
-          <div class="mt-8 flex flex-col items-center">
-            <a
-              href="https://pages.razorpay.com/static-ad-vault"
-              class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
-            >
-              Get The Vault for ₹999 <span aria-hidden="true">→</span>
-            </a>
-            <span class="mt-2 text-xs text-[#8E8D94]">Instant digital access · One-time payment</span>
           </div>
         </div>
       </div>
@@ -305,8 +303,8 @@ const faqs = [
       </div>
     </section>
 
-    <!-- 3. THE SOLUTION -->
-    <section class="border-y border-[#E8E6E1] bg-white py-16">
+    <!-- 3. THE SOLUTION (MEET THE STATIC AD VAULT + 3D VALUE PLAYBOOK COLLAGE) -->
+    <section class="border-y border-[#E8E6E1] bg-white py-16 sm:py-20">
       <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
         <div class="max-w-3xl">
           <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">The Solution</span>
@@ -316,6 +314,53 @@ const faqs = [
           <p class="mt-4 text-base sm:text-lg text-[#5E5D64] leading-relaxed font-normal">
             The Static Ad Vault gives you <strong class="text-[#141416]">30 battle-tested static ad formats</strong> paired with <strong class="text-[#141416]">tactical breakdowns</strong> of why they convert. It is built for any problem-solving business: from physical goods like skincare to software, AI services, and consulting. Plus, you get lifetime access to all future ad formats added here as we continue testing winning concepts. You get the hook structure, visual hierarchy, and buyer psychology. Mix and match these core principles to produce original, high-performing ads in an afternoon.
           </p>
+        </div>
+
+        <!-- 3D VALUE PLAYBOOK COLLAGE SHIFTED TO MEET THE STATIC AD VAULT -->
+        <div class="mt-12 sm:mt-16 relative w-full flex flex-col items-center">
+          <!-- Collage Mockup Showcase Frame -->
+          <div class="relative w-full max-w-4xl overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-gradient-to-b from-[#F5F3EF]/60 via-white to-[#F5F3EF]/40 p-3 sm:p-6 md:p-8 shadow-sm transition hover:shadow-md">
+            <!-- Subtle ambient glow -->
+            <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-[#E24A1F]/[0.03] blur-3xl"></div>
+
+            <img
+              src="/vault-previews/vault-mockup-collage.webp"
+              alt="The Static Ad Vault - 30 Proven Formats & Teardowns Playbook"
+              class="relative z-10 w-full h-auto object-contain drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
+              loading="lazy"
+            />
+
+            <!-- Bottom Floating Value Strip -->
+            <div class="mt-5 pt-5 border-t border-[#E8E6E1] grid grid-cols-2 gap-3 sm:grid-cols-4 text-center">
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#E24A1F]">30 FORMATS</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Physical &amp; Services</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#141416]">TEARDOWNS</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Psychology &amp; Hooks</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#141416]">CHECKLIST</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">Rapid Sprint System</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span class="text-xs font-mono font-bold text-[#E24A1F]">LIFETIME</span>
+                <span class="text-[11px] text-[#5E5D64] mt-0.5">All Future Additions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA Below Collage -->
+          <div class="mt-8 flex flex-col items-center">
+            <a
+              href="https://pages.razorpay.com/static-ad-vault"
+              class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
+            >
+              Get The Vault for ₹999 <span aria-hidden="true">→</span>
+            </a>
+            <span class="mt-2 text-xs text-[#8E8D94]">Instant digital access · One-time payment</span>
+          </div>
         </div>
       </div>
     </section>
@@ -838,6 +883,39 @@ const faqs = [
   function closeCheckoutModal() {
     modal?.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+  }
+
+  // Hero Video Unmute & Restart Logic
+  const heroVideo = document.getElementById('vault-hero-video') as HTMLVideoElement | null;
+  const unmuteBtn = document.getElementById('vault-unmute-btn');
+  const iconMuted = document.getElementById('unmute-icon-muted');
+  const iconSound = document.getElementById('unmute-icon-sound');
+
+  if (heroVideo && unmuteBtn) {
+    unmuteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (heroVideo.muted) {
+        heroVideo.currentTime = 0;
+        heroVideo.muted = false;
+        heroVideo.play().catch(() => {});
+        iconMuted?.classList.add('hidden');
+        iconSound?.classList.remove('hidden');
+      } else {
+        heroVideo.muted = true;
+        iconMuted?.classList.remove('hidden');
+        iconSound?.classList.add('hidden');
+      }
+    });
+
+    heroVideo.addEventListener('volumechange', () => {
+      if (heroVideo.muted) {
+        iconMuted?.classList.remove('hidden');
+        iconSound?.classList.add('hidden');
+      } else {
+        iconMuted?.classList.add('hidden');
+        iconSound?.classList.remove('hidden');
+      }
+    });
   }
 
   triggers.forEach((btn) => {
