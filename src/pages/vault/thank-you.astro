@@ -5,7 +5,6 @@ import Layout from '../../layouts/Layout.astro';
 // CONFIGURATION
 // ==========================================
 const GOOGLE_DRIVE_VAULT_URL = "https://drive.google.com/drive/folders/1lvUJOkiVOmAwIDbMlOJF9duh8PipGwZP?usp=sharing";
-const NOTION_VAULT_URL = "https://vatsaljain.notion.site/Static-Ad-Vault-Placeholder";
 const PDF_DOWNLOAD_URL = "/The_Static_Ad_Vault.pdf";
 const UPSELL_PAYMENT_URL = "https://pages.razorpay.com/25-static-ads-upsell";
 const UPSELL_PRICE_DISCOUNTED = "₹2,499";
@@ -59,12 +58,12 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
             </div>
           </div>
 
-          <div class="mt-4 flex flex-col sm:flex-row gap-3">
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <a
               href={GOOGLE_DRIVE_VAULT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[#E24A1F] px-4 py-3 text-xs sm:text-sm font-bold text-white hover:bg-[#C53B12] shadow-sm transition"
+              class="flex items-center justify-center gap-2 rounded-lg bg-[#E24A1F] px-4 py-3 text-xs sm:text-sm font-bold text-white hover:bg-[#C53B12] shadow-sm transition"
             >
               <span>Open Google Drive Access Hub</span>
               <span>↗</span>
@@ -72,19 +71,10 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
             <a
               href={PDF_DOWNLOAD_URL}
               download="The_Static_Ad_Vault.pdf"
-              class="flex items-center justify-center gap-2 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-4 py-3 text-xs font-bold text-[#141416] hover:border-[#E24A1F] hover:text-[#E24A1F] transition"
+              class="flex items-center justify-center gap-2 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-4 py-3 text-xs sm:text-sm font-bold text-[#141416] hover:border-[#E24A1F] hover:text-[#E24A1F] transition"
             >
-              <span>Download PDF (4.3MB)</span>
+              <span>Download Playbook PDF (4.3MB)</span>
               <span>↓</span>
-            </a>
-            <a
-              href={NOTION_VAULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-2 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-4 py-3 text-xs font-bold text-[#141416] hover:border-[#141416] transition"
-            >
-              <span>Notion Workspace</span>
-              <span>↗</span>
             </a>
           </div>
         </div>
