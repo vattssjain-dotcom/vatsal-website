@@ -14,6 +14,8 @@ export const GET: APIRoute = async () => {
     { url: 'https://vatsal.arqostudio.com/static-ads', changefreq: 'weekly', priority: '0.9' },
     { url: 'https://vatsal.arqostudio.com/roast-my-ads', changefreq: 'weekly', priority: '0.9' },
     { url: 'https://vatsal.arqostudio.com/articles', changefreq: 'weekly', priority: '0.8' },
+    { url: 'https://vatsal.arqostudio.com/privacy', changefreq: 'monthly', priority: '0.3' },
+    { url: 'https://vatsal.arqostudio.com/terms', changefreq: 'monthly', priority: '0.3' },
   ];
 
   const articlePages = articles.map((article) => ({

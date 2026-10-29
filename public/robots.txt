@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /thank-you/
+Disallow: /vault/thank-you/
+Disallow: /roast-my-ads/thank-you/
 
 Sitemap: https://vatsal.arqostudio.com/sitemap.xml
