@@ -195,11 +195,11 @@ const faqs = [
             30 battle-tested static ad teardowns with the exact hook psychology, visual structure, and real-world examples for products and services. Pick a format, plug in your offer, and launch today.
           </p>
 
-          <!-- HERO VIDEO (WEBM) WITH CORNER UNMUTE BUTTON -->
+          <!-- HERO VIDEO WITH CORNER UNMUTE BUTTON -->
           <div class="mt-10 w-full max-w-3xl relative mx-auto rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-black shadow-lg overflow-hidden group">
             <video
               id="vault-hero-video"
-              class="w-full h-auto aspect-video object-cover block"
+              class="w-full h-auto aspect-video object-cover block cursor-pointer"
               autoplay
               muted
               loop
@@ -207,8 +207,8 @@ const faqs = [
               preload="auto"
               poster="/vault-video-poster.jpg"
             >
-              <source src="/vault-video.webm" type="video/webm" />
               <source src="/vault-video.mp4" type="video/mp4" />
+              <source src="/vault-video.webm" type="video/webm" />
               Your browser does not support HTML5 video.
             </video>
 
@@ -885,25 +885,74 @@ const faqs = [
     document.body.classList.remove('overflow-hidden');
   }
 
-  // Hero Video Unmute & Restart Logic
+  // Hero Video Autoplay & Unmute Controller
   const heroVideo = document.getElementById('vault-hero-video') as HTMLVideoElement | null;
   const unmuteBtn = document.getElementById('vault-unmute-btn');
   const iconMuted = document.getElementById('unmute-icon-muted');
   const iconSound = document.getElementById('unmute-icon-sound');
 
-  if (heroVideo && unmuteBtn) {
-    unmuteBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (heroVideo.muted) {
-        heroVideo.currentTime = 0;
-        heroVideo.muted = false;
+  if (heroVideo) {
+    // Explicitly enforce muted on DOM level for browser autoplay policy
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+
+    const startAutoplay = () => {
+      heroVideo.muted = true;
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Retry on first touch/click if browser blocked silent autoplay
+          const resumeOnInteract = () => {
+            heroVideo.play().catch(() => {});
+            window.removeEventListener('click', resumeOnInteract);
+            window.removeEventListener('touchstart', resumeOnInteract);
+            window.removeEventListener('scroll', resumeOnInteract);
+          };
+          window.addEventListener('click', resumeOnInteract, { once: true });
+          window.addEventListener('touchstart', resumeOnInteract, { once: true });
+          window.addEventListener('scroll', resumeOnInteract, { once: true });
+        });
+      }
+    };
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      startAutoplay();
+    } else {
+      document.addEventListener('DOMContentLoaded', startAutoplay);
+    }
+
+    if (unmuteBtn) {
+      unmuteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (heroVideo.muted) {
+          heroVideo.currentTime = 0;
+          heroVideo.muted = false;
+          heroVideo.volume = 1;
+          const p = heroVideo.play();
+          if (p !== undefined) {
+            p.then(() => {
+              iconMuted?.classList.add('hidden');
+              iconSound?.classList.remove('hidden');
+            }).catch((err) => {
+              console.warn('Playback error on unmute:', err);
+              heroVideo.muted = true;
+              heroVideo.play().catch(() => {});
+            });
+          }
+        } else {
+          heroVideo.muted = true;
+          iconMuted?.classList.remove('hidden');
+          iconSound?.classList.add('hidden');
+        }
+      });
+    }
+
+    // Clicking the video directly toggles play/pause
+    heroVideo.addEventListener('click', () => {
+      if (heroVideo.paused) {
         heroVideo.play().catch(() => {});
-        iconMuted?.classList.add('hidden');
-        iconSound?.classList.remove('hidden');
       } else {
-        heroVideo.muted = true;
-        iconMuted?.classList.remove('hidden');
-        iconSound?.classList.add('hidden');
+        heroVideo.pause();
       }
     });
 
