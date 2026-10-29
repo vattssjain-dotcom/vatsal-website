@@ -198,9 +198,7 @@ const faqs = [
           <div class="mt-8 flex items-center justify-center">
             <a
               href="https://pages.razorpay.com/static-ad-vault"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-3.5 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12]"
+              class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-3.5 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
             >
               Get The Vault for ₹999 <span aria-hidden="true">→</span>
             </a>
@@ -254,9 +252,7 @@ const faqs = [
           <div class="mt-8 flex flex-col items-center">
             <a
               href="https://pages.razorpay.com/static-ad-vault"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12]"
+              class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
             >
               Get The Vault for ₹999 <span aria-hidden="true">→</span>
             </a>
@@ -613,9 +609,7 @@ const faqs = [
           <div class="mt-8">
             <a
               href="https://pages.razorpay.com/static-ad-vault"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex w-full items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-center text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[#C53B12] shadow-sm"
+              class="vault-checkout-trigger flex w-full items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-center text-sm font-bold uppercase tracking-wider text-white transition hover:bg-[#C53B12] shadow-sm cursor-pointer"
             >
               Get Instant Access Now: ₹999
               <span aria-hidden="true">→</span>
@@ -659,9 +653,7 @@ const faqs = [
         <div class="mt-8">
           <a
             href="https://pages.razorpay.com/static-ad-vault"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
+            class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white transition hover:bg-[#C53B12] shadow-sm cursor-pointer"
           >
             Get The Vault for ₹999
             <span aria-hidden="true">→</span>
@@ -685,9 +677,7 @@ const faqs = [
         </div>
         <a
           href="https://pages.razorpay.com/static-ad-vault"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-6 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#C53B12]"
+          class="vault-checkout-trigger inline-flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-md bg-[#E24A1F] px-6 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
         >
           Get The Vault: ₹999 →
         </a>
@@ -714,6 +704,105 @@ const faqs = [
       </div>
     </div>
   </footer>
+  <!-- 2-STEP CHECKOUT LEAD CAPTURE MODAL -->
+  <div
+    id="checkout-modal"
+    class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center transition-opacity duration-200"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="relative w-full max-w-md rounded-2xl border border-[#E8E6E1] bg-white p-6 sm:p-8 shadow-2xl">
+      <!-- Close button -->
+      <button
+        id="close-modal-btn"
+        type="button"
+        class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-[#8E8D94] hover:bg-[#F5F3EF] hover:text-[#141416] transition cursor-pointer"
+        aria-label="Close dialog"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="border-b border-[#E8E6E1] pb-4">
+        <div class="inline-flex items-center gap-1.5 rounded-full bg-[#E24A1F]/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#E24A1F]">
+          ⚡ Instant Digital Access
+        </div>
+        <h3 class="mt-2 text-xl font-extrabold text-[#141416] sm:text-2xl">
+          The Static Ad Vault
+        </h3>
+        <p class="mt-1 text-xs text-[#5E5D64]">
+          30 Proven Formats + Full Teardowns + Lifetime Updates
+        </p>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-xs text-[#8E8D94] line-through">₹2,499</span>
+          <span class="text-2xl font-extrabold text-[#E24A1F]">₹999</span>
+          <span class="text-[11px] font-medium text-[#5E5D64]">(One-time payment)</span>
+        </div>
+      </div>
+
+      <!-- Lead Capture Form -->
+      <form id="vault-lead-form" class="mt-5 space-y-4">
+        <div>
+          <label for="lead-name" class="block text-xs font-bold uppercase tracking-wider text-[#141416]">
+            Full Name <span class="text-[#E24A1F]">*</span>
+          </label>
+          <input
+            type="text"
+            id="lead-name"
+            name="name"
+            required
+            placeholder="e.g. Vatsal Jain"
+            class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
+          />
+        </div>
+
+        <div>
+          <label for="lead-email" class="block text-xs font-bold uppercase tracking-wider text-[#141416]">
+            Email Address <span class="text-[#E24A1F]">*</span>
+          </label>
+          <input
+            type="email"
+            id="lead-email"
+            name="email"
+            required
+            placeholder="e.g. vatsal@example.com"
+            class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
+          />
+          <span class="mt-1 block text-[10px] text-[#8E8D94]">Your Notion workspace access and PDF will be delivered here.</span>
+        </div>
+
+        <div>
+          <label for="lead-phone" class="block text-xs font-bold uppercase tracking-wider text-[#141416]">
+            WhatsApp / Phone Number <span class="text-[#8E8D94] font-normal">(for payment receipt)</span>
+          </label>
+          <input
+            type="tel"
+            id="lead-phone"
+            name="phone"
+            placeholder="e.g. +91 98765 43210"
+            class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
+          />
+        </div>
+
+        <button
+          type="submit"
+          id="lead-submit-btn"
+          class="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-[#E24A1F] px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#C53B12] active:scale-[0.99] cursor-pointer"
+        >
+          <span>Continue to Secure Payment (₹999)</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <div class="pt-2 text-center text-[10px] text-[#8E8D94] flex items-center justify-center gap-2">
+          <span>🔒 256-Bit SSL Encrypted</span>
+          <span>·</span>
+          <span>Powered by Razorpay</span>
+        </div>
+      </form>
+    </div>
+  </div>
 </Layout>
 
 <script>
@@ -726,5 +815,109 @@ const faqs = [
 
   mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+
+  // 2-Step Lead Capture Modal & Razorpay Integration
+  // To connect a Google Sheet, paste your Google Apps Script Web App URL below:
+  const GOOGLE_SHEET_WEBHOOK_URL = '';
+
+  const modal = document.getElementById('checkout-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const leadForm = document.getElementById('vault-lead-form');
+  const submitBtn = document.getElementById('lead-submit-btn');
+  const triggers = document.querySelectorAll('.vault-checkout-trigger');
+
+  function openCheckoutModal(e: Event) {
+    if (e) e.preventDefault();
+    modal?.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
+    setTimeout(() => nameInput?.focus(), 50);
+  }
+
+  function closeCheckoutModal() {
+    modal?.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', openCheckoutModal);
+  });
+
+  closeModalBtn?.addEventListener('click', closeCheckoutModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeCheckoutModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal?.classList.contains('hidden')) closeCheckoutModal();
+  });
+
+  leadForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
+    const emailInput = document.getElementById('lead-email') as HTMLInputElement | null;
+    const phoneInput = document.getElementById('lead-phone') as HTMLInputElement | null;
+
+    const name = nameInput?.value.trim() || '';
+    const email = emailInput?.value.trim() || '';
+    const phone = phoneInput?.value.trim() || '';
+
+    if (!email) return;
+
+    if (submitBtn) {
+      submitBtn.innerHTML = `<span>Connecting to Payment...</span>`;
+      submitBtn.setAttribute('disabled', 'true');
+    }
+
+    const leadData = {
+      name,
+      email,
+      phone,
+      product: 'The Static Ad Vault',
+      price: '₹999',
+      source: window.location.href,
+      timestamp: new Date().toISOString()
+    };
+
+    // 1. Local storage backup (saves every submission in browser memory)
+    try {
+      const existing = JSON.parse(localStorage.getItem('vault_captured_leads') || '[]');
+      existing.push(leadData);
+      localStorage.setItem('vault_captured_leads', JSON.stringify(existing));
+    } catch (err) {}
+
+    // 2. Webhook transmission to Google Sheet / CRM (if configured)
+    if (GOOGLE_SHEET_WEBHOOK_URL) {
+      try {
+        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(leadData),
+          keepalive: true
+        });
+      } catch (err) {}
+    }
+
+    // 3. Meta Pixel InitiateCheckout event
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'InitiateCheckout', {
+        content_name: 'The Static Ad Vault',
+        value: 999.00,
+        currency: 'INR'
+      });
+    }
+
+    // 4. Redirect to Razorpay Payment Page with customer details prefilled
+    const params = new URLSearchParams();
+    if (name) params.set('name', name);
+    if (email) params.set('email', email);
+    if (phone) params.set('phone', phone);
+
+    const redirectUrl = `https://pages.razorpay.com/static-ad-vault?${params.toString()}`;
+
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 250);
   });
 </script>
