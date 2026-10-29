@@ -307,21 +307,47 @@ const faqs = [
     <section class="border-y border-[#E8E6E1] bg-white py-16 sm:py-20 lg:py-24">
       <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
         <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          <!-- Left Column: Copy & Value Pillars -->
+          <!-- Left Column: Copy & CTA -->
           <div class="lg:col-span-6 flex flex-col justify-center">
             <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">The Solution</span>
             <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl">
               Meet the Static Ad Vault
             </h2>
-            <p class="mt-4 text-sm sm:text-base text-[#5E5D64] leading-relaxed">
+            <p class="mt-5 text-sm sm:text-base text-[#5E5D64] leading-relaxed">
               The Static Ad Vault gives you <strong class="text-[#141416]">30 battle-tested static ad formats</strong> paired with <strong class="text-[#141416]">tactical breakdowns</strong> of why they convert. It is built for any problem-solving business: from physical goods like skincare to software, AI services, and consulting.
             </p>
-            <p class="mt-3 text-sm sm:text-base text-[#5E5D64] leading-relaxed">
+            <p class="mt-4 text-sm sm:text-base text-[#5E5D64] leading-relaxed">
               You get the hook structure, visual hierarchy, and buyer psychology. Mix and match these core principles to produce original, high-performing ads in an afternoon—with lifetime access to all future teardowns.
             </p>
 
-            <!-- 4 Value Pillars -->
-            <div class="mt-6 grid grid-cols-2 gap-3 pt-5 border-t border-[#E8E6E1]">
+            <!-- CTA -->
+            <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <a
+                href="https://pages.razorpay.com/static-ad-vault"
+                class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-8 py-4 text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
+              >
+                Get The Vault for ₹999 <span aria-hidden="true">→</span>
+              </a>
+              <span class="text-xs text-[#8E8D94]">Instant digital access</span>
+            </div>
+          </div>
+
+          <!-- Right Column: 3D Value Playbook Collage + 4 Points Below -->
+          <div class="lg:col-span-6 relative flex flex-col items-center">
+            <div class="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-gradient-to-b from-[#F5F3EF]/60 via-white to-[#F5F3EF]/40 p-3 sm:p-5 shadow-sm transition hover:shadow-md">
+              <!-- Subtle ambient glow -->
+              <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-[#E24A1F]/[0.04] blur-2xl"></div>
+
+              <img
+                src="/vault-previews/vault-mockup-collage.webp"
+                alt="The Static Ad Vault - 30 Proven Formats & Teardowns Playbook"
+                class="relative z-10 w-full h-auto object-contain drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- 4 Value Points Shifted Below Image -->
+            <div class="mt-5 w-full grid grid-cols-2 gap-3.5 pt-4 border-t border-[#E8E6E1]">
               <div class="flex items-start gap-2">
                 <span class="text-[#E24A1F] font-bold text-sm">✓</span>
                 <div>
@@ -350,32 +376,6 @@ const faqs = [
                   <div class="text-[11px] text-[#5E5D64]">All Future Additions</div>
                 </div>
               </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <a
-                href="https://pages.razorpay.com/static-ad-vault"
-                class="vault-checkout-trigger inline-flex items-center gap-2 rounded-md bg-[#E24A1F] px-7 py-3.5 text-sm sm:text-base font-bold text-white shadow-sm transition hover:bg-[#C53B12] cursor-pointer"
-              >
-                Get The Vault for ₹999 <span aria-hidden="true">→</span>
-              </a>
-              <span class="text-xs text-[#8E8D94]">Instant digital access</span>
-            </div>
-          </div>
-
-          <!-- Right Column: 3D Value Playbook Collage -->
-          <div class="lg:col-span-6 relative flex items-center justify-center">
-            <div class="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#E8E6E1] bg-gradient-to-b from-[#F5F3EF]/60 via-white to-[#F5F3EF]/40 p-3 sm:p-5 shadow-sm transition hover:shadow-md">
-              <!-- Subtle ambient glow -->
-              <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 rounded-full bg-[#E24A1F]/[0.04] blur-2xl"></div>
-
-              <img
-                src="/vault-previews/vault-mockup-collage.webp"
-                alt="The Static Ad Vault - 30 Proven Formats & Teardowns Playbook"
-                class="relative z-10 w-full h-auto object-contain drop-shadow-md transition-transform duration-500 hover:scale-[1.01]"
-                loading="lazy"
-              />
             </div>
           </div>
         </div>
