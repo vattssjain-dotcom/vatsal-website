@@ -115,8 +115,19 @@ import Layout from '../../layouts/Layout.astro';
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-[#E8E6E1] bg-white py-6 px-5 text-center text-xs text-[#8E8D94]">
-      © {new Date().getFullYear()} Vatsal Jain · Arqo Studio. All rights reserved.
+    <footer class="border-t border-[#E8E6E1] bg-white py-6 px-5 text-center text-xs text-[#8E8D94] space-y-2">
+      <div class="flex flex-wrap justify-center items-center gap-4">
+        <span>© {new Date().getFullYear()} Vatsal Jain · Arqo Studio</span>
+        <span>·</span>
+        <a href="/privacy" class="underline hover:text-[#141416]">Privacy Policy</a>
+        <span>·</span>
+        <a href="/terms" class="underline hover:text-[#141416]">Terms &amp; Conditions</a>
+        <span>·</span>
+        <a href="mailto:hello@arqostudio.com" class="underline hover:text-[#141416]">hello@arqostudio.com</a>
+      </div>
+      <p class="text-[11px] text-[#A1A1AA] max-w-2xl mx-auto px-4">
+        Disclaimer: This site is not a part of the Facebook website or Meta Platforms, Inc. Additionally, this site is NOT endorsed by Facebook / Meta in any way. FACEBOOK is a trademark of META PLATFORMS, INC.
+      </p>
     </footer>
   </div>
 </Layout>
