@@ -1,27 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const whatsIncluded = [
-  {
-    num: '01',
-    name: '30 Proven Static Ad Formats & Teardowns',
-    badge: 'Core Vault',
-    desc: '30 battle-tested static ad formats analyzed in detail. Every teardown breaks down the scroll-stopping hook, visual hierarchy, layout psychology, and the exact thinking behind adapting the concept to your specific product or service.',
-  },
-  {
-    num: '02',
-    name: 'Continuous Vault Additions',
-    badge: 'Lifetime Access',
-    desc: 'You get immediate access to all 30 foundational formats today, plus ongoing access to every new ad format, creative angle, and teardown added to the vault as we test and discover them.',
-  },
-  {
-    num: '03',
-    name: 'The Ad Creation & Testing Checklist',
-    badge: 'Execution Guide',
-    desc: 'A no-nonsense, step-by-step checklist on how to approach creating your ads. Take your problem and solution, pick a winning format, structure the visual hierarchy, and test variations with clear decision rules.',
-  },
-];
-
 const sampleCreatives = [
   {
     num: 'FORMAT 01',
@@ -382,42 +361,8 @@ const faqs = [
       </div>
     </section>
 
-    <!-- 4. WHAT YOU GET (SIMPLE & DIRECT: 30 FORMATS + UPDATES + CHECKLIST) -->
-    <section id="assets" class="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:px-12">
-      <div class="max-w-2xl">
-        <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">What Is Included</span>
-        <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl">
-          Simple, Practical &amp; Built for Speed
-        </h2>
-        <p class="mt-3 text-sm sm:text-base text-[#5E5D64]">
-          No bloated courses or 40-hour video libraries. You get the 30 proven static ad formats, continuous updates as new winning ads are added, and a clear checklist to execute immediately.
-        </p>
-      </div>
-
-      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {whatsIncluded.map((item) => (
-          <div class="rounded-xl border border-[#E8E6E1] bg-white p-7 transition hover:border-[#E24A1F] shadow-xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between gap-3 mb-4">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center font-mono text-sm font-bold text-[#E24A1F] bg-[#E24A1F]/10 rounded-lg">
-                  {item.num}
-                </span>
-                <span class="border border-[#E24A1F]/30 bg-[#E24A1F]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#E24A1F] rounded">
-                  {item.badge}
-                </span>
-              </div>
-              <h3 class="text-lg font-bold text-[#141416]">{item.name}</h3>
-              <p class="mt-3 text-sm text-[#5E5D64] leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- 5. SAMPLE CREATIVES (4 REAL BREAKDOWNS DIRECT FROM THE PLAYBOOK) -->
-    <section id="samples" class="border-t border-[#E8E6E1] bg-white py-20">
+    <!-- 4. SAMPLE CREATIVES (4 REAL BREAKDOWNS DIRECT FROM THE PLAYBOOK) -->
+    <section id="samples" class="border-t border-[#E8E6E1] bg-[#FAF9F6] py-20">
       <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
         <div class="max-w-2xl">
           <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Inside the Vault</span>
