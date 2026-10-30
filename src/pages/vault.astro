@@ -1041,13 +1041,15 @@ const faqs = [
     } catch (err) {}
 
     // 2. Meta Pixel InitiateCheckout
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'InitiateCheckout', {
-        content_name: 'The Static Ad Vault',
-        value: actualAmount,
-        currency: 'INR'
-      });
-    }
+    try {
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'InitiateCheckout', {
+          content_name: 'The Static Ad Vault',
+          value: 999.00,
+          currency: 'INR'
+        });
+      }
+    } catch (e) {}
 
     // 3. Create Server-Side Order via Cloudflare Function
     try {
@@ -1067,7 +1069,7 @@ const faqs = [
       }
 
       // Record checkout initiated with orderId
-      sendLeadUpdate('Checkout Initiated', { order_id: data.orderId, is_test: data.isTest });
+      sendLeadUpdate('Checkout Initiated', { order_id: data.orderId });
 
       // Close modal before opening Razorpay checkout
       closeCheckoutModal();
