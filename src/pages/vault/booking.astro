@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const CAL_BOOKING_URL = "https://cal.com/arqo-studio/discovery-call";
+---
+
+<Layout
+  title="Schedule Your Creative Kickoff Call · 25 Custom Ads | Arqo Studio"
+  description="Select a 20-minute slot on Vatsal Jain's live calendar to kick off your 25 custom static ads sprint."
+  robots="noindex, nofollow"
+>
+  <div class="min-h-screen flex flex-col justify-between bg-[#FAF9F6] text-[#141416]">
+
+    <!-- MINIMAL CLEAN HEADER -->
+    <header class="border-b border-[#E8E6E1] bg-white py-4 px-5 sm:px-8">
+      <div class="mx-auto max-w-4xl flex items-center justify-between">
+        <a href="/" class="text-base font-bold text-[#141416] tracking-tight">
+          Vatsal Jain<span class="text-[#E24A1F]">.</span>
+          <span class="ml-2 text-xs font-normal text-[#8E8D94]">· Arqo Studio</span>
+        </a>
+        <div class="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Payment Confirmed · ₹3,500</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 py-8 sm:py-12 px-5 sm:px-8">
+      <div class="mx-auto w-full max-w-4xl space-y-8">
+
+        <!-- HERO SECTION -->
+        <div class="text-center sm:text-left">
+          <div class="inline-flex items-center gap-2 rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-bold uppercase tracking-wider mb-3">
+            <span>✓ 25 Custom Ads Package Unlocked</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-[#141416] tracking-tight">
+            Schedule Your 1-on-1 Creative Kickoff Call
+          </h1>
+          <p class="text-xs sm:text-base text-[#5E5D64] mt-2 leading-relaxed max-w-2xl">
+            No tedious forms to fill out. We will unpack your business, product features, customer objections, and winning ad angles together on this call. Pick a convenient 20-minute slot on the live calendar below:
+          </p>
+        </div>
+
+        <!-- CALENDAR EMBED CONTAINER -->
+        <div class="rounded-3xl border border-[#E8E6E1] bg-white p-4 sm:p-8 shadow-xl">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 mb-4 border-b border-[#E8E6E1] gap-3">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E24A1F] text-white font-black text-sm">
+                20m
+              </div>
+              <div>
+                <h2 class="text-sm sm:text-base font-bold text-[#141416]">
+                  Creative Strategy &amp; Angle Mapping Sync
+                </h2>
+                <p class="text-xs text-[#5E5D64]">
+                  With Vatsal Jain (Founder, Arqo Studio) · Google Meet Video Call
+                </p>
+              </div>
+            </div>
+
+            <a
+              id="external-cal-link"
+              href={CAL_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] px-4 py-2 text-xs font-bold text-[#141416] hover:border-[#E24A1F] hover:text-[#E24A1F] transition shrink-0"
+            >
+              <span>Open in Full Screen</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <!-- EMBEDDED IFRAME WITH AUTOPREFILL -->
+          <div class="rounded-2xl border border-[#E8E6E1] overflow-hidden bg-white min-h-[700px]">
+            <iframe
+              id="cal-booking-iframe"
+              src={`${CAL_BOOKING_URL}?embed=true`}
+              width="100%"
+              height="750"
+              frameborder="0"
+              class="w-full min-h-[720px] sm:min-h-[760px] border-0"
+              title="Cal.com Booking Calendar"
+            ></iframe>
+          </div>
+
+        </div>
+
+        <!-- WHAT WE'LL COVER CALLOUT -->
+        <div class="rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-6 sm:p-8">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">On The Call</span>
+          <h3 class="text-lg sm:text-xl font-extrabold text-[#141416] mt-1">
+            What We'll Cover in Our 20-Minute Kickoff
+          </h3>
+
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-[#5E5D64]">
+            <div class="flex items-start gap-3">
+              <span class="text-[#E24A1F] font-bold text-base">01</span>
+              <div>
+                <strong class="text-[#141416] block">Product &amp; Offer Economics:</strong>
+                Your top-performing SKUs, price points, and core value proposition.
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-[#E24A1F] font-bold text-base">02</span>
+              <div>
+                <strong class="text-[#141416] block">Customer Pain Points &amp; Objections:</strong>
+                The real friction that stops buyers from converting and how our copy addresses it.
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-[#E24A1F] font-bold text-base">03</span>
+              <div>
+                <strong class="text-[#141416] block">25 Angle Mapping:</strong>
+                Selecting the exact visual formats (comparisons, reviews, starburst, notes, UI mockups).
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-[#E24A1F] font-bold text-base">04</span>
+              <div>
+                <strong class="text-[#141416] block">Delivery to Your Drive:</strong>
+                All 50 high-res files (1:1 and 9:16) + editable source files delivered in 5–7 business days.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- MINIMAL FOOTER -->
+    <footer class="py-6 text-center text-xs text-[#8E8D94] border-t border-[#E8E6E1] bg-white space-y-1">
+      <div class="flex flex-wrap justify-center items-center gap-4">
+        <span>© {new Date().getFullYear()} Vatsal Jain · Arqo Studio</span>
+        <span>·</span>
+        <a href="/privacy" class="underline hover:text-[#141416]">Privacy Policy</a>
+        <span>·</span>
+        <a href="/terms" class="underline hover:text-[#141416]">Terms &amp; Conditions</a>
+        <span>·</span>
+        <a href="mailto:hello@arqostudio.com" class="underline hover:text-[#141416]">hello@arqostudio.com</a>
+      </div>
+      <p class="text-[11px] text-[#A1A1AA]">Need to reschedule or have questions? Email us directly at hello@arqostudio.com</p>
+    </footer>
+
+  </div>
+
+  <!-- PREFILL CAL.COM SCRIPT -->
+  <script is:inline>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const name = urlParams.get('name') || '';
+      const email = urlParams.get('email') || '';
+
+      const iframe = document.getElementById('cal-booking-iframe');
+      const externalLink = document.getElementById('external-cal-link');
+
+      let baseUrl = 'https://cal.com/arqo-studio/discovery-call';
+      let params = [];
+      if (name) params.push('name=' + encodeURIComponent(name));
+      if (email) params.push('email=' + encodeURIComponent(email));
+
+      if (params.length > 0) {
+        const fullParamStr = params.join('&');
+        if (iframe) {
+          iframe.src = `${baseUrl}?embed=true&${fullParamStr}`;
+        }
+        if (externalLink) {
+          externalLink.href = `${baseUrl}?${fullParamStr}`;
+        }
+      }
+    })();
+  </script>
+</Layout>
