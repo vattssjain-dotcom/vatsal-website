@@ -24,6 +24,21 @@ export async function onRequestPost(context) {
       });
     }
 
+    // Determine product and amount
+    let orderAmount = 99900; // default 999 INR in paise
+    let orderProduct = "The Static Ad Vault";
+
+    if (
+      body.amount === 3500 ||
+      body.amount === 350000 ||
+      product === "custom-ads" ||
+      product === "25 Custom Static Ads" ||
+      product === "25 Custom Static Ads Package"
+    ) {
+      orderAmount = 350000; // 3,500 INR in paise
+      orderProduct = "25 Custom Static Ads Package";
+    }
+
     // 1. Create Order on Razorpay
     const auth = btoa(`${keyId}:${keySecret}`);
     const receiptId = `rcpt_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
@@ -35,15 +50,15 @@ export async function onRequestPost(context) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        amount: 99900, // 999 INR in paise
+        amount: orderAmount,
         currency: "INR",
         receipt: receiptId,
         notes: {
           name: name || "",
           email: email || "",
           phone: phone || "",
-          product: product || "The Static Ad Vault",
-          source: "vatsal.arqostudio.com/vault",
+          product: orderProduct,
+          source: body.source || "vatsal.arqostudio.com/vault",
         },
       }),
     });
@@ -70,10 +85,10 @@ export async function onRequestPost(context) {
             name: name || "",
             email: email || "",
             phone: phone || "",
-            product: "The Static Ad Vault",
-            price: "₹999",
+            product: orderProduct,
+            price: orderAmount === 350000 ? "₹3,500" : "₹999",
             order_id: orderData.id,
-            source: "vatsal.arqostudio.com/vault",
+            source: body.source || "vatsal.arqostudio.com/vault",
           }),
         }).catch(() => {})
       );

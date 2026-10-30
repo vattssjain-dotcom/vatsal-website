@@ -6,18 +6,18 @@ import Layout from '../../layouts/Layout.astro';
 // ==========================================
 const GOOGLE_DRIVE_VAULT_URL = "https://drive.google.com/drive/folders/1lvUJOkiVOmAwIDbMlOJF9duh8PipGwZP?usp=sharing";
 const PDF_DOWNLOAD_URL = "/The_Static_Ad_Vault.pdf";
-const UPSELL_PAYMENT_URL = "https://pages.razorpay.com/25-static-ads-upsell";
-const UPSELL_PRICE_DISCOUNTED = "₹2,499";
-const UPSELL_PRICE_REGULAR = "₹4,000";
-const TIMER_SECONDS = 120; // 2 minutes urgency
+const UPSELL_PRICE_DISCOUNTED = "₹3,500";
+const UPSELL_PRICE_REGULAR = "₹5,000";
+const UPSELL_SAVINGS = "₹1,500";
+const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
 ---
 
 <Layout
-  title="Order Confirmed · Special Upgrade Offer | Vatsal Jain"
-  description="Your Static Ad Vault is ready. Exclusive 2-minute upgrade: 25 custom ads made for your business."
+  title="Order Confirmed · Done-For-You 25 Custom Ads Offer | Arqo Studio"
+  description="Your Static Ad Vault is ready. Upgrade to 25 custom static ads designed specifically for your brand by Arqo Studio."
   robots="noindex, nofollow"
 >
-  <!-- Purchase Tracking Pixel -->
+  <!-- Purchase Tracking Pixel for Initial Vault Purchase -->
   <script is:inline>
     if (typeof fbq === 'function') {
       fbq('track', 'Purchase', {
@@ -31,127 +31,464 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
   <div class="min-h-screen flex flex-col justify-between bg-[#FAF9F6] text-[#141416]">
 
     <!-- MINIMAL CLEAN HEADER -->
-    <header class="border-b border-[#E8E6E1] bg-white/80 backdrop-blur-md py-4 px-5 sm:px-8">
-      <div class="mx-auto max-w-2xl flex items-center justify-between">
+    <header class="sticky top-0 z-30 border-b border-[#E8E6E1] bg-white/90 backdrop-blur-md py-4 px-5 sm:px-8">
+      <div class="mx-auto max-w-5xl flex items-center justify-between">
         <a href="/" class="text-base font-bold text-[#141416] tracking-tight">
           Vatsal Jain<span class="text-[#E24A1F]">.</span>
+          <span class="ml-2 text-xs font-normal text-[#8E8D94]">· Arqo Studio</span>
         </a>
         <div class="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
           <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Order Confirmed</span>
+          <span>Vault Access Unlocked</span>
         </div>
       </div>
     </header>
 
-    <main class="flex-1 py-8 sm:py-12 px-5 sm:px-8 flex items-center">
-      <div class="mx-auto w-full max-w-2xl space-y-6">
+    <main class="flex-1 py-8 sm:py-12 px-5 sm:px-8">
+      <div class="mx-auto w-full max-w-4xl space-y-10">
 
-        <!-- 1. INSTANT ACCESS / THANK YOU -->
-        <div class="rounded-xl border border-[#E8E6E1] bg-white p-5 sm:p-6 shadow-xs">
-          <div class="flex items-center gap-3.5">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 font-bold text-lg">
-              ✓
+        <!-- 1. INSTANT ACCESS / FULFILLMENT BAR -->
+        <div class="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50/80 via-white to-emerald-50/40 p-5 sm:p-6 shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-start sm:items-center gap-3.5">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold text-xl shadow-xs">
+                ✓
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h1 class="text-base sm:text-lg font-bold text-[#141416]">Thank you! Your Static Ad Vault is ready.</h1>
+                </div>
+                <p class="text-xs sm:text-sm text-[#5E5D64] mt-0.5">
+                  Lifetime access is active. Access your Google Drive hub or download the playbook directly:
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 class="text-base sm:text-lg font-bold text-[#141416]">Thank you! Your Static Ad Vault is ready.</h1>
-              <p class="text-xs text-[#5E5D64]">Lifetime access confirmed. Download your files below:</p>
-            </div>
-          </div>
 
-          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a
-              href={GOOGLE_DRIVE_VAULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-2 rounded-lg bg-[#E24A1F] px-4 py-3 text-xs sm:text-sm font-bold text-white hover:bg-[#C53B12] shadow-sm transition"
-            >
-              <span>Open Google Drive Access Hub</span>
-              <span>↗</span>
-            </a>
-            <a
-              href={PDF_DOWNLOAD_URL}
-              download="The_Static_Ad_Vault.pdf"
-              class="flex items-center justify-center gap-2 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-4 py-3 text-xs sm:text-sm font-bold text-[#141416] hover:border-[#E24A1F] hover:text-[#E24A1F] transition"
-            >
-              <span>Download Playbook PDF (4.3MB)</span>
-              <span>↓</span>
-            </a>
+            <div class="flex flex-wrap items-center gap-2.5 sm:shrink-0">
+              <a
+                href={GOOGLE_DRIVE_VAULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#141416] px-4 py-2.5 text-xs font-bold text-white hover:bg-black transition shadow-xs"
+              >
+                <span>Google Drive Hub</span>
+                <span>↗</span>
+              </a>
+              <a
+                href={PDF_DOWNLOAD_URL}
+                download="The_Static_Ad_Vault.pdf"
+                class="inline-flex items-center justify-center gap-2 rounded-lg border border-[#E8E6E1] bg-white px-4 py-2.5 text-xs font-bold text-[#141416] hover:border-[#E24A1F] hover:text-[#E24A1F] transition"
+              >
+                <span>Download Playbook PDF</span>
+                <span>↓</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- 2. THE DIRECT 2-MINUTE COUNTDOWN UPSELL CARD -->
-        <div class="rounded-2xl border-2 border-[#E24A1F] bg-white p-6 sm:p-8 shadow-xl relative">
+        <!-- 2. FULL-FLEDGED MARKETING PAGE FOR 25 CUSTOM ADS SPRINT -->
+        <div class="rounded-3xl border-2 border-[#E24A1F] bg-white p-6 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
           
-          <!-- TOP URGENCY ROW -->
-          <div class="flex items-center justify-between pb-4 border-b border-[#E8E6E1]">
-            <span class="inline-flex items-center gap-1.5 rounded-full bg-[#E24A1F]/10 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-[#E24A1F]">
-              <span class="h-1.5 w-1.5 rounded-full bg-[#E24A1F] animate-ping"></span>
-              Special One-Time Offer
-            </span>
-            
-            <!-- 2-MIN LIVE CLOCK -->
+          <!-- TOP URGENCY & STATUS BAR -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#E8E6E1]">
             <div class="flex items-center gap-2">
-              <span class="text-xs font-semibold text-[#8E8D94] uppercase tracking-wider">Offer Closes In:</span>
-              <div id="countdown" class="font-mono text-base sm:text-lg font-black text-white bg-[#141416] px-2.5 py-0.5 rounded shadow-inner">
-                02:00
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-[#E24A1F]/10 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-[#E24A1F]">
+                <span class="h-2 w-2 rounded-full bg-[#E24A1F] animate-ping"></span>
+                Exclusive New Client Offer
+              </span>
+              <span class="hidden sm:inline-block text-xs font-semibold text-[#8E8D94]">· One-Time Upgrade</span>
+            </div>
+            
+            <!-- LIVE TICKING CLOCK (NON-EXPIRING OFFER) -->
+            <div class="flex items-center gap-2.5 bg-[#FAF9F6] border border-[#E8E6E1] px-3.5 py-1.5 rounded-xl">
+              <span class="text-xs font-bold text-[#8E8D94] uppercase tracking-wider">Reserved Window:</span>
+              <div id="countdown" class="font-mono text-base font-black text-[#E24A1F]">
+                10:00
               </div>
             </div>
           </div>
 
-          <!-- HEADLINE & PITCH -->
-          <div class="mt-5">
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#141416] leading-tight">
-              Want us to make 25 custom ads for your business?
+          <!-- HERO SECTION -->
+          <div class="mt-8 text-center sm:text-left">
+            <div class="inline-block rounded-full bg-orange-100 text-[#E24A1F] px-3 py-1 text-xs font-bold uppercase tracking-wider mb-3">
+              Done-For-You Creative Sprint
+            </div>
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#141416] leading-[1.15]">
+              Want our team to build <span class="text-[#E24A1F]">25 custom static ads</span> engineered for your exact business?
             </h2>
-            <p class="mt-2 text-xs sm:text-sm text-[#5E5D64] leading-relaxed">
-              Skip 20 hours of designing in Canva or Figma. Send us your website or product and we'll research your competitor angles, write the hooks, and design 25 ready-to-run ads in all 3 formats.
+            <p class="mt-4 text-sm sm:text-base lg:text-lg text-[#5E5D64] leading-relaxed max-w-3xl">
+              You have the 30+ format frameworks in the Vault. But if you want to skip 20+ hours of wrestling Figma templates, researching competitor angles, and agonizing over copywriting hooks—our creative team will research, script, and design 25 ready-to-launch static ads built specifically for your product.
             </p>
           </div>
 
-          <!-- VALUE BULLETS -->
-          <div class="mt-5 space-y-2.5 rounded-xl bg-[#FAF9F6] border border-[#E8E6E1] p-4 text-xs sm:text-sm">
-            <div class="flex items-start gap-2.5 text-[#141416]">
-              <span class="text-[#E24A1F] font-bold">✓</span>
-              <span><strong>25 Bespoke Visual Concepts:</strong> Designed specifically around your product and customer objections.</span>
-            </div>
-            <div class="flex items-start gap-2.5 text-[#141416]">
-              <span class="text-[#E24A1F] font-bold">✓</span>
-              <span><strong>All 3 Formats (75 Files):</strong> 1:1 Feed, 9:16 Reels/Stories, and 16:9 Landscape.</span>
-            </div>
-            <div class="flex items-start gap-2.5 text-[#141416]">
-              <span class="text-[#E24A1F] font-bold">✓</span>
-              <span><strong>Copywriting Hooks Included:</strong> Tested headlines and primary text for every creative.</span>
-            </div>
-            <div class="flex items-start gap-2.5 text-[#141416]">
-              <span class="text-[#E24A1F] font-bold">✓</span>
-              <span><strong>3 to 5 Day Delivery:</strong> High-res export folder via Google Drive + 1 round of revisions.</span>
-            </div>
-          </div>
-
-          <!-- PRICING & ACTION -->
-          <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
-            <div>
-              <div class="text-xs text-[#8E8D94] line-through">Standard Rate: {UPSELL_PRICE_REGULAR}</div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-3xl sm:text-4xl font-black text-[#E24A1F]">{UPSELL_PRICE_DISCOUNTED}</span>
-                <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">Save ₹1,501 (38% OFF)</span>
+          <!-- QUICK PRICING CALLOUT BANNER -->
+          <div class="mt-8 rounded-2xl bg-[#FAF9F6] border border-[#E8E6E1] p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-center sm:text-left">
+              <div class="flex items-center justify-center sm:justify-start gap-2">
+                <span class="text-xs sm:text-sm text-[#8E8D94] line-through">Standard Fee: {UPSELL_PRICE_REGULAR}</span>
+                <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">Save {UPSELL_SAVINGS} Today</span>
               </div>
+              <div class="flex items-baseline justify-center sm:justify-start gap-2 mt-1">
+                <span class="text-3xl sm:text-4xl font-black text-[#E24A1F]">{UPSELL_PRICE_DISCOUNTED}</span>
+                <span class="text-xs sm:text-sm font-semibold text-[#5E5D64]">one-time client investment</span>
+              </div>
+              <p class="text-xs text-[#8E8D94] mt-1">Includes 25 concepts · 50 total files (1:1 &amp; 9:16) · Full source files</p>
             </div>
 
-            <a
-              id="upsell-btn"
-              href={UPSELL_PAYMENT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#E24A1F] px-6 py-3.5 text-sm sm:text-base font-extrabold text-white shadow-md hover:bg-[#C53B12] active:scale-[0.99] transition uppercase tracking-wider text-center"
+            <button
+              type="button"
+              class="open-upsell-modal-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#E24A1F] px-8 py-4 text-sm sm:text-base font-black text-white shadow-lg hover:bg-[#C53B12] hover:shadow-xl active:scale-[0.99] transition uppercase tracking-wider text-center cursor-pointer"
             >
               <span>Claim 25 Ads for {UPSELL_PRICE_DISCOUNTED}</span>
               <span aria-hidden="true">→</span>
-            </a>
+            </button>
+          </div>
+
+          <!-- VISUAL EXAMPLES PREVIEW -->
+          <div class="mt-12 pt-10 border-t border-[#E8E6E1]">
+            <div class="text-center sm:text-left mb-6">
+              <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Tested Formats We Adapt For You</span>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-[#141416] mt-1">
+                Formats Engineered to Lower CAC &amp; Stop The Scroll
+              </h3>
+              <p class="text-xs sm:text-sm text-[#5E5D64] mt-1">
+                We don't make generic Canva quote graphics. We build direct-response assets proven across multi-million dollar ad accounts:
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-sheets-table.webp" alt="Sheets Breakdown format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">Data &amp; Sheets</span>
+                <span class="text-[10px] text-[#8E8D94]">High authority logic</span>
+              </div>
+
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-notes-app.webp" alt="Notes app format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">iPhone Notes</span>
+                <span class="text-[10px] text-[#8E8D94]">Native social feel</span>
+              </div>
+
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-reddit-thread.webp" alt="Reddit thread format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">Community Proof</span>
+                <span class="text-[10px] text-[#8E8D94]">High trust reviews</span>
+              </div>
+
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-google-search.webp" alt="Search bar format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">Search Intent</span>
+                <span class="text-[10px] text-[#8E8D94]">Problem-led curiosity</span>
+              </div>
+
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-fake-review.webp" alt="Review callout format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">Review Teardown</span>
+                <span class="text-[10px] text-[#8E8D94]">Overcomes objections</span>
+              </div>
+
+              <div class="rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-center hover:border-[#E24A1F] transition">
+                <div class="aspect-square rounded-lg bg-white border border-[#E8E6E1] mb-2 flex items-center justify-center overflow-hidden p-2">
+                  <img src="/vault-previews/thumb-chatgpt-prompt.webp" alt="Chat UI format" class="max-h-full object-contain" />
+                </div>
+                <span class="text-xs font-bold text-[#141416] block">UI Dialogue</span>
+                <span class="text-[10px] text-[#8E8D94]">Pattern interruption</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- THE 6 DELIVERABLES BREAKDOWN -->
+          <div class="mt-12 pt-10 border-t border-[#E8E6E1]">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Everything Handled For You</span>
+            <h3 class="text-xl sm:text-3xl font-extrabold text-[#141416] mt-1">
+              What You Get Inside the 25-Ad Creative Sprint
+            </h3>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Item 1 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    01
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">25 Bespoke Visual Concepts</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      Custom tailored to your brand, product features, and target avatar. We map your offer against 25 distinct psychological angles (comparison, objection handling, proof, and starburst).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    02
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">Dual Placements: 1:1 Feed &amp; 9:16 Stories</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      Every single concept is delivered in both Square (1080x1080) for Instagram &amp; Facebook Feed, and Vertical (1080x1920) for Stories &amp; Reels. That's 50 total high-res assets ready to drop into Ads Manager.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    03
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">Persuasive Copywriting &amp; Hook Scripts</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      Great visuals fail without strong hooks. We write scroll-stopping headlines, on-image copy, and matching primary text for every creative to maximize click-through rate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    04
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">Full Editable Source Files (Figma / Canva)</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      You own 100% of the creative assets. We provide full access to the organized Figma project or Canva templates so your in-house team can easily swap colors, photos, or text anytime.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 5 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    05
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">Fast 5 to 7 Business Day Turnaround</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      No weeks of agency delays. Once you submit your onboarding brief, our production engine delivers your full creative asset folder to your private Google Drive in 5–7 business days.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 6 -->
+              <div class="rounded-2xl border border-[#E8E6E1] bg-white p-5 hover:border-[#E24A1F]/40 transition">
+                <div class="flex items-start gap-3.5">
+                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-[#E24A1F] font-bold">
+                    06
+                  </div>
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-[#141416]">100% Satisfaction Guarantee + 1 Revision Round</h4>
+                    <p class="text-xs sm:text-sm text-[#5E5D64] mt-1 leading-relaxed">
+                      We want you scaling these creatives with confidence. If any design needs tweaks, copy refinement, or adjustment, 1 full revision round is included free of charge.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOW IT WORKS (3 SIMPLE STEPS) -->
+          <div class="mt-12 pt-10 border-t border-[#E8E6E1]">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Seamless Experience</span>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#141416] mt-1">
+              How It Works (Step-by-Step)
+            </h3>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-5">
+                <div class="text-xs font-black uppercase text-[#E24A1F]">Step 1 · Checkout</div>
+                <h4 class="font-bold text-sm text-[#141416] mt-2">Lock In Special Client Rate ({UPSELL_PRICE_DISCOUNTED})</h4>
+                <p class="text-xs text-[#5E5D64] mt-1.5 leading-relaxed">
+                  Click the upgrade button to secure the one-time client discounted rate via secure Razorpay checkout.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-5">
+                <div class="text-xs font-black uppercase text-[#E24A1F]">Step 2 · Onboarding</div>
+                <h4 class="font-bold text-sm text-[#141416] mt-2">Submit Your 2-Minute Business Brief</h4>
+                <p class="text-xs text-[#5E5D64] mt-1.5 leading-relaxed">
+                  Right after payment, you're redirected to our onboarding intake page to share your website, product info, and pain points.
+                </p>
+              </div>
+
+              <div class="rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-5">
+                <div class="text-xs font-black uppercase text-[#E24A1F]">Step 3 · Call &amp; Delivery</div>
+                <h4 class="font-bold text-sm text-[#141416] mt-2">Book 1-on-1 Strategy Call &amp; Get Ads</h4>
+                <p class="text-xs text-[#5E5D64] mt-1.5 leading-relaxed">
+                  Pick a convenient time on Vatsal's live Cal.com calendar. We review your goals and deliver your 25 ads in 5–7 business days.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPARISON: DIY VS DFY -->
+          <div class="mt-12 pt-10 border-t border-[#E8E6E1]">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Why Make This Investment?</span>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#141416] mt-1">
+              Building Yourself vs. Handing It to Our Team
+            </h3>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-red-200 bg-red-50/40 p-5">
+                <h4 class="font-bold text-sm text-red-900 flex items-center gap-2">
+                  <span>✕</span> Doing It Yourself
+                </h4>
+                <ul class="mt-3 space-y-2 text-xs text-red-900/80">
+                  <li class="flex items-start gap-2">
+                    <span>•</span> 20 to 30 hours spent in Canva or Photoshop designing from scratch.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span>•</span> Creative fatigue and second-guessing which hooks will actually convert.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span>•</span> Delayed ad tests costing days or weeks of potential customer acquisition.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span>•</span> Sizing headaches manually resizing every single post for Stories and Feeds.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-emerald-300 bg-emerald-50/50 p-5">
+                <h4 class="font-bold text-sm text-emerald-950 flex items-center gap-2">
+                  <span>✓</span> With Arqo Studio's 25-Ad Sprint
+                </h4>
+                <ul class="mt-3 space-y-2 text-xs text-emerald-950/80">
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> <strong>Done in 2 minutes:</strong> Fill the brief, jump on a strategy call, and we do the heavy lifting.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> <strong>Battle-tested psychology:</strong> Every angle is built to attack customer skepticism and boost click-through rate.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> <strong>Both 1:1 and 9:16 ready:</strong> 50 ready-to-test files ready to upload straight to Ads Manager.
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-700 font-bold">✓</span> <strong>Unbeatable client pricing:</strong> Only ₹3,500 (just ₹140 per ad concept!).
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ SECTION -->
+          <div class="mt-12 pt-10 border-t border-[#E8E6E1]">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#E24A1F]">Got Questions?</span>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#141416] mt-1 mb-6">
+              Frequently Asked Questions
+            </h3>
+
+            <div class="space-y-3">
+              <details class="group rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-4 text-xs sm:text-sm">
+                <summary class="font-bold text-[#141416] cursor-pointer flex items-center justify-between">
+                  <span>What information do you need from me after I checkout?</span>
+                  <span class="text-[#8E8D94] group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="mt-3 text-[#5E5D64] leading-relaxed">
+                  After payment, our onboarding page asks for your business name, website/store link, core product description, target customer pain points, and any brand assets (logos, photos, fonts) you have. If you have competitor ads you like, you can link them too!
+                </p>
+              </details>
+
+              <details class="group rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-4 text-xs sm:text-sm">
+                <summary class="font-bold text-[#141416] cursor-pointer flex items-center justify-between">
+                  <span>What if I don't have high-end professional product photography?</span>
+                  <span class="text-[#8E8D94] group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="mt-3 text-[#5E5D64] leading-relaxed">
+                  No problem at all! Static ads thrive on authentic, native formats—like Notes App teardowns, Google search screenshots, Reddit discussions, starburst charts, and typography-focused value stacks. We can also pull existing assets from your website or social media.
+                </p>
+              </details>
+
+              <details class="group rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-4 text-xs sm:text-sm">
+                <summary class="font-bold text-[#141416] cursor-pointer flex items-center justify-between">
+                  <span>What exact files will I receive?</span>
+                  <span class="text-[#8E8D94] group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="mt-3 text-[#5E5D64] leading-relaxed">
+                  You will receive a private Google Drive folder containing: 25 concepts exported in 1:1 Feed format (1080x1080 PNG/JPG), 25 concepts exported in 9:16 Stories/Reels format (1080x1920 PNG/JPG), matching copy document with primary text &amp; headlines, and edit-ready Figma/Canva source links.
+                </p>
+              </details>
+
+              <details class="group rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-4 text-xs sm:text-sm">
+                <summary class="font-bold text-[#141416] cursor-pointer flex items-center justify-between">
+                  <span>How long will delivery take?</span>
+                  <span class="text-[#8E8D94] group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="mt-3 text-[#5E5D64] leading-relaxed">
+                  Delivery takes 5 to 7 business days from the moment you submit your business brief and complete our brief discovery sync.
+                </p>
+              </details>
+
+              <details class="group rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-4 text-xs sm:text-sm">
+                <summary class="font-bold text-[#141416] cursor-pointer flex items-center justify-between">
+                  <span>What if I want changes made to the ads?</span>
+                  <span class="text-[#8E8D94] group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="mt-3 text-[#5E5D64] leading-relaxed">
+                  One full round of revisions is included. You can request copy tweaks, layout adjustments, or color shifts so every ad aligns with your brand standards.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- FINAL CONVERSION PRICING CARD -->
+          <div class="mt-12 rounded-2xl border-2 border-[#E24A1F] bg-gradient-to-b from-white to-orange-50/30 p-6 sm:p-8 text-center">
+            <span class="inline-block rounded-full bg-[#E24A1F]/10 text-[#E24A1F] px-3 py-1 text-xs font-bold uppercase tracking-wider mb-2">
+              Limited Client Upgrade
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-black text-[#141416]">
+              Claim Your 25 Custom Ads Package Today
+            </h3>
+            <p class="text-xs sm:text-sm text-[#5E5D64] mt-2 max-w-xl mx-auto">
+              Get 25 custom concepts (50 files), hook scripts, editable source files, and 1-on-1 strategy sync with Vatsal.
+            </p>
+
+            <div class="mt-5 flex items-baseline justify-center gap-3">
+              <span class="text-sm sm:text-base text-[#8E8D94] line-through">Regular Price: {UPSELL_PRICE_REGULAR}</span>
+              <span class="text-4xl sm:text-5xl font-black text-[#E24A1F]">{UPSELL_PRICE_DISCOUNTED}</span>
+            </div>
+            <div class="text-xs font-bold text-emerald-800 bg-emerald-100 inline-block px-3 py-1 rounded-full mt-2">
+              Save {UPSELL_SAVINGS} (30% Discount for Vault Customers)
+            </div>
+
+            <div class="mt-6 flex flex-col items-center">
+              <button
+                type="button"
+                class="open-upsell-modal-btn w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#E24A1F] px-10 py-4 text-base sm:text-lg font-black text-white shadow-xl hover:bg-[#C53B12] hover:shadow-2xl active:scale-[0.99] transition uppercase tracking-wider text-center cursor-pointer"
+              >
+                <span>Upgrade Now · Claim 25 Ads for {UPSELL_PRICE_DISCOUNTED}</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <div class="mt-3 flex items-center justify-center gap-2 text-[11px] text-[#8E8D94]">
+                <span>🔒 Secure Razorpay Checkout</span>
+                <span>·</span>
+                <span>Immediate Onboarding &amp; Calendar Access</span>
+              </div>
+            </div>
           </div>
 
           <!-- DECLINE LINK -->
-          <div class="mt-5 text-center pt-3 border-t border-[#E8E6E1]">
+          <div class="mt-8 text-center pt-4 border-t border-[#E8E6E1]">
             <a
               href={PDF_DOWNLOAD_URL}
               class="text-xs text-[#8E8D94] hover:text-[#141416] transition underline underline-offset-2"
@@ -166,7 +503,7 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
     </main>
 
     <!-- MINIMAL FOOTER -->
-    <footer class="py-6 text-center text-xs text-[#8E8D94] border-t border-[#E8E6E1] space-y-2">
+    <footer class="py-8 text-center text-xs text-[#8E8D94] border-t border-[#E8E6E1] space-y-2 bg-white">
       <div class="flex flex-wrap justify-center items-center gap-4">
         <span>© {new Date().getFullYear()} Vatsal Jain · Arqo Studio</span>
         <span>·</span>
@@ -183,10 +520,110 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
 
   </div>
 
-  <!-- 2-MINUTE COUNTDOWN TIMER -->
-  <script is:inline define:vars={{ TIMER_SECONDS, UPSELL_PRICE_REGULAR }}>
+  <!-- CHECKOUT MODAL FOR 25 CUSTOM ADS UPSELL (₹3,500) -->
+  <div
+    id="upsell-checkout-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div class="relative w-full max-w-md rounded-2xl border border-[#E8E6E1] bg-white p-6 sm:p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+      <button
+        id="close-upsell-modal-btn"
+        type="button"
+        class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-[#8E8D94] hover:bg-[#FAF9F6] hover:text-[#141416] transition"
+        aria-label="Close modal"
+      >
+        ✕
+      </button>
+
+      <div class="text-left">
+        <span class="inline-block rounded bg-[#E24A1F]/10 px-2 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-[#E24A1F]">
+          25 Custom Ads Package
+        </span>
+        <h3 id="modal-title" class="mt-2 text-xl font-black text-[#141416]">
+          Upgrade Your Order ({UPSELL_PRICE_DISCOUNTED})
+        </h3>
+        <p class="mt-1 text-xs text-[#5E5D64]">
+          Enter your contact details to continue to secure Razorpay payment. You'll be immediately redirected to our brief intake form and strategy call scheduler.
+        </p>
+      </div>
+
+      <div class="my-4 rounded-xl border border-[#E8E6E1] bg-[#FAF9F6] p-3 text-xs flex items-center justify-between">
+        <div>
+          <div class="font-bold text-[#141416]">25 Custom Static Ads</div>
+          <div class="text-[#8E8D94] text-[11px]">50 files (1:1 &amp; 9:16) + Copy + Source files</div>
+        </div>
+        <div class="text-right">
+          <div class="text-[11px] text-[#8E8D94] line-through">{UPSELL_PRICE_REGULAR}</div>
+          <div class="font-black text-base text-[#E24A1F]">{UPSELL_PRICE_DISCOUNTED}</div>
+        </div>
+      </div>
+
+      <form id="upsell-lead-form" class="mt-4 space-y-3.5">
+        <div>
+          <label for="upsell-lead-name" class="block text-xs font-bold text-[#141416]">Full Name *</label>
+          <input
+            type="text"
+            id="upsell-lead-name"
+            name="name"
+            required
+            placeholder="e.g. Alex Sharma"
+            class="mt-1 w-full rounded-lg border border-[#E8E6E1] bg-white px-3.5 py-2.5 text-xs text-[#141416] placeholder-[#8E8D94] focus:border-[#E24A1F] focus:outline-hidden focus:ring-1 focus:ring-[#E24A1F]"
+          />
+        </div>
+
+        <div>
+          <label for="upsell-lead-email" class="block text-xs font-bold text-[#141416]">Email Address *</label>
+          <input
+            type="email"
+            id="upsell-lead-email"
+            name="email"
+            required
+            placeholder="alex@yourbrand.com"
+            class="mt-1 w-full rounded-lg border border-[#E8E6E1] bg-white px-3.5 py-2.5 text-xs text-[#141416] placeholder-[#8E8D94] focus:border-[#E24A1F] focus:outline-hidden focus:ring-1 focus:ring-[#E24A1F]"
+          />
+        </div>
+
+        <div>
+          <label for="upsell-lead-phone" class="block text-xs font-bold text-[#141416]">WhatsApp / Phone *</label>
+          <input
+            type="tel"
+            id="upsell-lead-phone"
+            name="phone"
+            required
+            placeholder="+91 98765 43210"
+            class="mt-1 w-full rounded-lg border border-[#E8E6E1] bg-white px-3.5 py-2.5 text-xs text-[#141416] placeholder-[#8E8D94] focus:border-[#E24A1F] focus:outline-hidden focus:ring-1 focus:ring-[#E24A1F]"
+          />
+        </div>
+
+        <button
+          type="submit"
+          id="upsell-submit-btn"
+          class="mt-4 w-full rounded-xl bg-[#E24A1F] py-3 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white shadow-md hover:bg-[#C53B12] transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>Continue to Secure Payment ({UPSELL_PRICE_DISCOUNTED})</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <div class="pt-2 text-center text-[10px] text-[#8E8D94] flex items-center justify-center gap-2">
+          <span>🔒 256-Bit SSL Encrypted</span>
+          <span>·</span>
+          <span>Powered by Razorpay</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Razorpay Checkout SDK -->
+  <script is:inline src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <!-- NON-EXPIRING COUNTDOWN TIMER & MODAL CHECKOUT SCRIPT -->
+  <script is:inline define:vars={{ TIMER_SECONDS, UPSELL_PRICE_DISCOUNTED }}>
     (function() {
-      const STORAGE_KEY = 'vatsal_oto_2min_end';
+      // 1. NON-EXPIRING URGENCY COUNTDOWN TIMER
+      const STORAGE_KEY = 'vatsal_oto_custom_ads_timer';
       let endTime = sessionStorage.getItem(STORAGE_KEY);
 
       if (!endTime) {
@@ -197,17 +634,15 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
       }
 
       const timerEl = document.getElementById('countdown');
-      const btnEl = document.getElementById('upsell-btn');
 
       function tick() {
         const remaining = endTime - Date.now();
         if (remaining <= 0) {
+          // USER INSTRUCTION: "the offer should not expire even the timer"
+          // When timer completes, keep the display at active reserved pulse (never expire or increase price)
           if (timerEl) {
             timerEl.textContent = '00:00';
-            timerEl.className = 'font-mono text-base sm:text-lg font-bold text-gray-500 bg-gray-200 px-2.5 py-0.5 rounded';
-          }
-          if (btnEl) {
-            btnEl.innerHTML = `<span>Order 25 Ads at Standard Rate (${UPSELL_PRICE_REGULAR})</span> →`;
+            timerEl.title = 'Offer rate reserved for you';
           }
           return;
         }
@@ -225,17 +660,216 @@ const TIMER_SECONDS = 120; // 2 minutes urgency
       tick();
       setInterval(tick, 1000);
 
-      if (btnEl) {
-        btnEl.addEventListener('click', () => {
-          if (typeof fbq === 'function') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: '25 Custom Ads - 2min OTO',
-              value: 2499.00,
-              currency: 'INR'
-            });
+      // 2. CHECKOUT MODAL CONTROLLER
+      const modal = document.getElementById('upsell-checkout-modal');
+      const closeBtn = document.getElementById('close-upsell-modal-btn');
+      const leadForm = document.getElementById('upsell-lead-form');
+      const submitBtn = document.getElementById('upsell-submit-btn');
+      const openTriggers = document.querySelectorAll('.open-upsell-modal-btn');
+
+      const nameInput = document.getElementById('upsell-lead-name');
+      const emailInput = document.getElementById('upsell-lead-email');
+      const phoneInput = document.getElementById('upsell-lead-phone');
+
+      // Pre-fill from existing captured leads or URL query params if user just bought Vault
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('email')) emailInput.value = urlParams.get('email');
+        if (urlParams.get('name')) nameInput.value = urlParams.get('name');
+        if (urlParams.get('phone')) phoneInput.value = urlParams.get('phone');
+
+        if (!emailInput.value) {
+          const storedLeads = JSON.parse(localStorage.getItem('vault_captured_leads') || '[]');
+          if (storedLeads.length > 0) {
+            const lastLead = storedLeads[storedLeads.length - 1];
+            if (lastLead.name && !nameInput.value) nameInput.value = lastLead.name;
+            if (lastLead.email && !emailInput.value) emailInput.value = lastLead.email;
+            if (lastLead.phone && !phoneInput.value) phoneInput.value = lastLead.phone;
           }
-        });
+        }
+      } catch (e) {}
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        setTimeout(() => {
+          if (!nameInput.value) nameInput.focus();
+          else if (!emailInput.value) emailInput.focus();
+          else if (!phoneInput.value) phoneInput.focus();
+        }, 50);
+
+        if (typeof fbq === 'function') {
+          fbq('track', 'InitiateCheckout', {
+            content_name: '25 Custom Ads Package',
+            value: 3500.00,
+            currency: 'INR'
+          });
+        }
       }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      openTriggers.forEach((btn) => btn.addEventListener('click', openModal));
+      closeBtn?.addEventListener('click', closeModal);
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+      });
+
+      // 3. LEAD TRACKING & ORDER CREATION
+      function sendLeadUpdate(status, extra) {
+        const payload = {
+          status: status,
+          name: nameInput?.value.trim() || '',
+          email: emailInput?.value.trim() || '',
+          phone: phoneInput?.value.trim() || '',
+          amount: '₹3,500',
+          product: '25 Custom Static Ads Package',
+          source: window.location.href,
+          timestamp: new Date().toISOString(),
+          ...(extra || {})
+        };
+
+        try {
+          fetch('/api/record-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true,
+          }).catch(() => {});
+        } catch (err) {}
+      }
+
+      leadForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const phone = phoneInput.value.trim();
+
+        if (!email) return;
+
+        if (submitBtn) {
+          submitBtn.innerHTML = `<span>Opening Secure Checkout...</span>`;
+          submitBtn.setAttribute('disabled', 'true');
+        }
+
+        const leadData = {
+          name: name,
+          email: email,
+          phone: phone,
+          product: '25 Custom Static Ads Package',
+          amount: 3500,
+          source: 'vatsal.arqostudio.com/vault/thank-you',
+          timestamp: new Date().toISOString()
+        };
+
+        try {
+          const res = await fetch('/api/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData)
+          });
+
+          if (!res.ok) {
+            throw new Error('Order creation endpoint returned ' + res.status);
+          }
+
+          const data = await res.json();
+          if (!data.orderId) {
+            throw new Error('No order ID returned from server');
+          }
+
+          sendLeadUpdate('Custom Ads Checkout Initiated', { order_id: data.orderId });
+          closeModal();
+
+          if (submitBtn) {
+            submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+            submitBtn.removeAttribute('disabled');
+          }
+
+          // Open Razorpay Modal
+          const RazorpayConstructor = window.Razorpay;
+          if (typeof RazorpayConstructor !== 'function') {
+            throw new Error('Razorpay SDK not loaded');
+          }
+
+          const rzp = new RazorpayConstructor({
+            key: data.keyId,
+            amount: data.amount,
+            currency: data.currency,
+            name: 'Arqo Studio',
+            description: '25 Custom Static Ads Package (DFY Sprint)',
+            image: 'https://vatsal.arqostudio.com/arqo-logo.png',
+            order_id: data.orderId,
+            prefill: {
+              name: name,
+              email: email,
+              contact: phone,
+            },
+            theme: {
+              color: '#E24A1F',
+            },
+            modal: {
+              ondismiss: function () {
+                sendLeadUpdate('Custom Ads Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
+                if (submitBtn) {
+                  submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+                  submitBtn.removeAttribute('disabled');
+                }
+              },
+            },
+            handler: function (response) {
+              sendLeadUpdate('PAID_CUSTOM_ADS', {
+                order_id: response.razorpay_order_id || data.orderId,
+                payment_id: response.razorpay_payment_id || '',
+              });
+
+              if (typeof fbq === 'function') {
+                fbq('track', 'Purchase', {
+                  content_name: '25 Custom Static Ads Package',
+                  value: 3500.00,
+                  currency: 'INR',
+                  transaction_id: response.razorpay_payment_id,
+                });
+              }
+
+              // Redirect to onboarding page with business details form + cal.com embed
+              const targetUrl = `/vault/onboarding?payment_id=${encodeURIComponent(response.razorpay_payment_id || '')}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+              window.location.href = targetUrl;
+            },
+          });
+
+          rzp.on('payment.failed', function (resp) {
+            const err = resp.error || {};
+            sendLeadUpdate('PAYMENT_FAILED_CUSTOM_ADS', {
+              order_id: data.orderId,
+              reason: err.description || err.code || 'Payment declined',
+            });
+            alert('Payment failed: ' + (err.description || 'Please try another payment method.'));
+            if (submitBtn) {
+              submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+              submitBtn.removeAttribute('disabled');
+            }
+          });
+
+          rzp.open();
+
+        } catch (error) {
+          console.error('Checkout error:', error);
+          alert('Unable to initiate checkout right now. Please check your connection or contact hello@arqostudio.com');
+          if (submitBtn) {
+            submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+            submitBtn.removeAttribute('disabled');
+          }
+        }
+      });
     })();
   </script>
 </Layout>
