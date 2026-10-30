@@ -39,6 +39,20 @@ export async function onRequestPost(context) {
       orderProduct = "25 Custom Static Ads Package";
     }
 
+    // Check for test coupon or test mode (₹1 verification)
+    const coupon = (body.coupon || "").trim().toUpperCase();
+    const isTestMode =
+      coupon === "TEST1" ||
+      coupon === "ARQO1" ||
+      body.isTest === true ||
+      body.amount === 1 ||
+      body.amount === 100;
+
+    if (isTestMode) {
+      orderAmount = 100; // 1 INR in paise (minimum allowed on Razorpay)
+      orderProduct = `[TEST ₹1] ${orderProduct}`;
+    }
+
     // 1. Create Order on Razorpay
     const auth = btoa(`${keyId}:${keySecret}`);
     const receiptId = `rcpt_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
@@ -58,6 +72,8 @@ export async function onRequestPost(context) {
           email: email || "",
           phone: phone || "",
           product: orderProduct,
+          coupon: isTestMode ? (coupon || "TEST1") : "NONE",
+          is_test: isTestMode ? "true" : "false",
           source: body.source || "vatsal.arqostudio.com/vault",
         },
       }),
@@ -86,7 +102,7 @@ export async function onRequestPost(context) {
             email: email || "",
             phone: phone || "",
             product: orderProduct,
-            price: orderAmount === 350000 ? "₹3,500" : "₹999",
+            price: isTestMode ? "₹1 (Test Verification)" : (orderAmount === 350000 ? "₹3,500" : "₹999"),
             order_id: orderData.id,
             source: body.source || "vatsal.arqostudio.com/vault",
           }),
@@ -101,6 +117,7 @@ export async function onRequestPost(context) {
         amount: orderData.amount,
         currency: orderData.currency,
         keyId: keyId,
+        isTest: isTestMode,
       }),
       {
         status: 200,

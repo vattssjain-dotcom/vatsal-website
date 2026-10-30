@@ -17,15 +17,40 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
   description="Your Static Ad Vault is ready. Upgrade to 25 custom static ads designed specifically for your brand by Arqo Studio."
   robots="noindex, nofollow"
 >
-  <!-- Purchase Tracking Pixel for Initial Vault Purchase -->
+  <!-- Purchase & ViewContent Tracking Pixel -->
   <script is:inline>
-    if (typeof fbq === 'function') {
-      fbq('track', 'Purchase', {
-        value: 999.00,
-        currency: 'INR',
-        content_name: 'Static Ad Vault'
-      });
-    }
+    (function() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('payment_id');
+        const isTest = urlParams.get('is_test') === '1' || urlParams.get('test') === '1';
+
+        // 1. Deduplicated Purchase tracking for initial Vault purchase
+        if (paymentId && typeof fbq === 'function') {
+          const storageKey = 'vatsal_vault_purchase_tracked_' + paymentId;
+          if (!sessionStorage.getItem(storageKey)) {
+            fbq('track', 'Purchase', {
+              value: isTest ? 1.00 : 999.00,
+              currency: 'INR',
+              content_name: 'The Static Ad Vault',
+              content_type: 'product',
+              transaction_id: paymentId,
+            });
+            sessionStorage.setItem(storageKey, 'true');
+          }
+        }
+
+        // 2. ViewContent for the 25 Custom Ads Offer
+        if (typeof fbq === 'function') {
+          fbq('track', 'ViewContent', {
+            content_name: '25 Custom Static Ads Package',
+            content_category: 'Creative Service',
+            value: 3500.00,
+            currency: 'INR',
+          });
+        }
+      } catch (e) {}
+    })();
   </script>
 
   <div class="min-h-screen flex flex-col justify-between bg-[#FAF9F6] text-[#141416]">
@@ -598,6 +623,33 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
           />
         </div>
 
+        <!-- Coupon / Test Code Field -->
+        <div class="pt-1">
+          <button
+            type="button"
+            id="toggle-upsell-coupon-btn"
+            class="text-[11px] font-semibold text-[#E24A1F] hover:underline cursor-pointer"
+          >
+            + Have a coupon / test code?
+          </button>
+          <div id="upsell-coupon-field-container" class="mt-2 hidden flex items-center gap-2">
+            <input
+              type="text"
+              id="upsell-coupon-input"
+              placeholder="e.g. TEST1"
+              class="flex-1 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3 py-2 text-xs uppercase text-[#141416] placeholder-[#8E8D94] outline-none focus:border-[#E24A1F] focus:bg-white"
+            />
+            <button
+              type="button"
+              id="apply-upsell-coupon-btn"
+              class="rounded-lg bg-[#141416] px-3 py-2 text-xs font-bold text-white hover:bg-black transition cursor-pointer"
+            >
+              Apply
+            </button>
+          </div>
+          <div id="upsell-coupon-status" class="mt-1 text-[11px] font-bold hidden"></div>
+        </div>
+
         <button
           type="submit"
           id="upsell-submit-btn"
@@ -670,6 +722,58 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
       const nameInput = document.getElementById('upsell-lead-name');
       const emailInput = document.getElementById('upsell-lead-email');
       const phoneInput = document.getElementById('upsell-lead-phone');
+
+      // Coupon & Test Code State
+      let appliedCoupon = '';
+      let isTestMode = false;
+      const toggleCouponBtn = document.getElementById('toggle-upsell-coupon-btn');
+      const couponContainer = document.getElementById('upsell-coupon-field-container');
+      const couponInput = document.getElementById('upsell-coupon-input');
+      const applyCouponBtn = document.getElementById('apply-upsell-coupon-btn');
+      const couponStatus = document.getElementById('upsell-coupon-status');
+
+      function setUpsellTestModeActive(code) {
+        isTestMode = true;
+        appliedCoupon = code.toUpperCase();
+        if (couponStatus) {
+          couponStatus.classList.remove('hidden', 'text-red-600');
+          couponStatus.classList.add('text-emerald-700');
+          couponStatus.textContent = `✓ Coupon "${appliedCoupon}" applied: Live Test Price set to ₹1`;
+        }
+        if (couponContainer) couponContainer.classList.remove('hidden');
+        if (couponInput) couponInput.value = appliedCoupon;
+        if (submitBtn) {
+          submitBtn.innerHTML = `<span>Continue to Secure Payment (₹1 - Test)</span> <span aria-hidden="true">→</span>`;
+        }
+      }
+
+      // Check if user came with ?is_test=1, ?test=1, or ?coupon=TEST1
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('test') === '1' || urlParams.get('is_test') === '1' || urlParams.get('coupon')?.toUpperCase() === 'TEST1') {
+          setUpsellTestModeActive('TEST1');
+        }
+      } catch (e) {}
+
+      toggleCouponBtn?.addEventListener('click', () => {
+        couponContainer?.classList.toggle('hidden');
+        if (!couponContainer?.classList.contains('hidden')) {
+          couponInput?.focus();
+        }
+      });
+
+      applyCouponBtn?.addEventListener('click', () => {
+        const code = (couponInput?.value || '').trim().toUpperCase();
+        if (code === 'TEST1' || code === 'ARQO1') {
+          setUpsellTestModeActive(code);
+        } else if (code) {
+          if (couponStatus) {
+            couponStatus.classList.remove('hidden', 'text-emerald-700');
+            couponStatus.classList.add('text-red-600');
+            couponStatus.textContent = 'Invalid coupon code. Use TEST1 for test mode.';
+          }
+        }
+      });
 
       // Pre-fill from existing captured leads or URL query params if user just bought Vault
       try {
@@ -760,12 +864,18 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
           submitBtn.setAttribute('disabled', 'true');
         }
 
+        const actualPrice = isTestMode ? '₹1' : '₹3,500';
+        const actualAmount = isTestMode ? 1 : 3500;
+
         const leadData = {
           name: name,
           email: email,
           phone: phone,
           product: '25 Custom Static Ads Package',
-          amount: 3500,
+          amount: actualAmount,
+          price: actualPrice,
+          coupon: appliedCoupon,
+          isTest: isTestMode,
           source: 'vatsal.arqostudio.com/vault/thank-you',
           timestamp: new Date().toISOString()
         };
@@ -786,11 +896,11 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
             throw new Error('No order ID returned from server');
           }
 
-          sendLeadUpdate('Custom Ads Checkout Initiated', { order_id: data.orderId });
+          sendLeadUpdate('Custom Ads Checkout Initiated', { order_id: data.orderId, is_test: data.isTest });
           closeModal();
 
           if (submitBtn) {
-            submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+            submitBtn.innerHTML = `<span>Continue to Secure Payment (${isTestMode ? '₹1 - Test' : UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
             submitBtn.removeAttribute('disabled');
           }
 
@@ -804,8 +914,8 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
             key: data.keyId,
             amount: data.amount,
             currency: data.currency,
-            name: 'Arqo Studio',
-            description: '25 Custom Static Ads Package (DFY Sprint)',
+            name: data.isTest ? 'Arqo Studio [TEST ₹1]' : 'Arqo Studio',
+            description: data.isTest ? '25 Custom Static Ads (Live Test ₹1)' : '25 Custom Static Ads Package (DFY Sprint)',
             image: 'https://vatsal.arqostudio.com/arqo-logo.png',
             order_id: data.orderId,
             prefill: {
@@ -820,7 +930,7 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
               ondismiss: function () {
                 sendLeadUpdate('Custom Ads Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
                 if (submitBtn) {
-                  submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
+                  submitBtn.innerHTML = `<span>Continue to Secure Payment (${isTestMode ? '₹1 - Test' : UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
                   submitBtn.removeAttribute('disabled');
                 }
               },
@@ -829,19 +939,20 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
               sendLeadUpdate('PAID_CUSTOM_ADS', {
                 order_id: response.razorpay_order_id || data.orderId,
                 payment_id: response.razorpay_payment_id || '',
+                is_test: data.isTest,
               });
 
               if (typeof fbq === 'function') {
                 fbq('track', 'Purchase', {
                   content_name: '25 Custom Static Ads Package',
-                  value: 3500.00,
+                  value: data.isTest ? 1.00 : 3500.00,
                   currency: 'INR',
                   transaction_id: response.razorpay_payment_id,
                 });
               }
 
-              // Redirect to onboarding page with business details form + cal.com embed
-              const targetUrl = `/vault/onboarding?payment_id=${encodeURIComponent(response.razorpay_payment_id || '')}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
+              // Redirect to calendar booking page
+              const targetUrl = `/vault/booking?payment_id=${encodeURIComponent(response.razorpay_payment_id || '')}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
               window.location.href = targetUrl;
             },
           });
