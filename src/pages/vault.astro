@@ -760,7 +760,7 @@ const faqs = [
             id="lead-name"
             name="name"
             required
-            placeholder="e.g. Vatsal Jain"
+            placeholder="e.g. Rahul Sharma"
             class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
           />
         </div>
@@ -774,50 +774,24 @@ const faqs = [
             id="lead-email"
             name="email"
             required
-            placeholder="e.g. vatsal@example.com"
+            placeholder="e.g. rahul@yourbrand.com"
             class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
           />
-          <span class="mt-1 block text-[10px] text-[#8E8D94]">Your Notion workspace access and PDF will be delivered here.</span>
+          <span class="mt-1 block text-[10px] text-[#8E8D94]">Your Google Drive access hub and PDF playbook will be delivered here.</span>
         </div>
 
         <div>
           <label for="lead-phone" class="block text-xs font-bold uppercase tracking-wider text-[#141416]">
-            WhatsApp / Phone Number <span class="text-[#8E8D94] font-normal">(for payment receipt)</span>
+            WhatsApp / Phone Number <span class="text-[#E24A1F]">*</span>
           </label>
           <input
             type="tel"
             id="lead-phone"
             name="phone"
+            required
             placeholder="e.g. +91 98765 43210"
             class="mt-1.5 w-full rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#141416] placeholder-[#8E8D94] outline-none transition focus:border-[#E24A1F] focus:bg-white focus:ring-1 focus:ring-[#E24A1F]"
           />
-        </div>
-
-        <!-- Coupon / Test Code Field -->
-        <div class="pt-1">
-          <button
-            type="button"
-            id="toggle-coupon-btn"
-            class="text-[11px] font-semibold text-[#E24A1F] hover:underline cursor-pointer"
-          >
-            + Have a coupon / test code?
-          </button>
-          <div id="coupon-field-container" class="mt-2 hidden flex items-center gap-2">
-            <input
-              type="text"
-              id="vault-coupon-input"
-              placeholder="e.g. TEST1"
-              class="flex-1 rounded-lg border border-[#E8E6E1] bg-[#FAF9F6] px-3 py-2 text-xs uppercase text-[#141416] placeholder-[#8E8D94] outline-none focus:border-[#E24A1F] focus:bg-white"
-            />
-            <button
-              type="button"
-              id="apply-coupon-btn"
-              class="rounded-lg bg-[#141416] px-3 py-2 text-xs font-bold text-white hover:bg-black transition cursor-pointer"
-            >
-              Apply
-            </button>
-          </div>
-          <div id="coupon-status" class="mt-1 text-[11px] font-bold hidden"></div>
         </div>
 
         <button
@@ -861,15 +835,6 @@ const faqs = [
   const submitBtn = document.getElementById('lead-submit-btn');
   const triggers = document.querySelectorAll('.vault-checkout-trigger');
 
-  // Coupon & Test Code State
-  let appliedCoupon = '';
-  let isTestMode = false;
-  const toggleCouponBtn = document.getElementById('toggle-coupon-btn');
-  const couponContainer = document.getElementById('coupon-field-container');
-  const couponInput = document.getElementById('vault-coupon-input') as HTMLInputElement | null;
-  const applyCouponBtn = document.getElementById('apply-coupon-btn');
-  const couponStatus = document.getElementById('coupon-status');
-
   // Meta Pixel: Track ViewContent for the Vault product on page load
   try {
     if (typeof (window as any).fbq === 'function') {
@@ -881,49 +846,6 @@ const faqs = [
       });
     }
   } catch (e) {}
-
-  function setTestModeActive(code: string) {
-    isTestMode = true;
-    appliedCoupon = code.toUpperCase();
-    if (couponStatus) {
-      couponStatus.classList.remove('hidden', 'text-red-600');
-      couponStatus.classList.add('text-emerald-700');
-      couponStatus.textContent = `✓ Coupon "${appliedCoupon}" applied: Live Test Price set to ₹1`;
-    }
-    if (couponContainer) couponContainer.classList.remove('hidden');
-    if (couponInput) couponInput.value = appliedCoupon;
-    if (submitBtn) {
-      submitBtn.innerHTML = `<span>Continue to Secure Payment (₹1 - Test)</span> <span aria-hidden="true">→</span>`;
-    }
-  }
-
-  // Auto-detect test mode from URL query (?test=1 or ?coupon=TEST1)
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('test') === '1' || urlParams.get('test') === 'true' || urlParams.get('coupon')?.toUpperCase() === 'TEST1') {
-      setTestModeActive('TEST1');
-    }
-  } catch (e) {}
-
-  toggleCouponBtn?.addEventListener('click', () => {
-    couponContainer?.classList.toggle('hidden');
-    if (!couponContainer?.classList.contains('hidden')) {
-      couponInput?.focus();
-    }
-  });
-
-  applyCouponBtn?.addEventListener('click', () => {
-    const code = (couponInput?.value || '').trim().toUpperCase();
-    if (code === 'TEST1' || code === 'ARQO1') {
-      setTestModeActive(code);
-    } else if (code) {
-      if (couponStatus) {
-        couponStatus.classList.remove('hidden', 'text-emerald-700');
-        couponStatus.classList.add('text-red-600');
-        couponStatus.textContent = 'Invalid coupon code. Use TEST1 for test mode.';
-      }
-    }
-  });
 
   function openCheckoutModal(e: Event) {
     if (e) e.preventDefault();
@@ -1090,24 +1012,23 @@ const faqs = [
     const email = emailInput?.value.trim() || '';
     const phone = phoneInput?.value.trim() || '';
 
-    if (!email) return;
+    if (!email || !phone) {
+      if (!phone) phoneInput?.focus();
+      else emailInput?.focus();
+      return;
+    }
 
     if (submitBtn) {
       submitBtn.innerHTML = `<span>Opening Secure Checkout...</span>`;
       submitBtn.setAttribute('disabled', 'true');
     }
 
-    const actualPrice = isTestMode ? '₹1' : '₹999';
-    const actualAmount = isTestMode ? 1.00 : 999.00;
-
     const leadData = {
       name,
       email,
       phone,
       product: 'The Static Ad Vault',
-      price: actualPrice,
-      coupon: appliedCoupon,
-      isTest: isTestMode,
+      price: '₹999',
       source: window.location.href,
       timestamp: new Date().toISOString()
     };
@@ -1151,7 +1072,7 @@ const faqs = [
       // Close modal before opening Razorpay checkout
       closeCheckoutModal();
       if (submitBtn) {
-        submitBtn.innerHTML = `<span>Continue to Secure Payment (${isTestMode ? '₹1 - Test' : '₹999'})</span> <span aria-hidden="true">→</span>`;
+        submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
         submitBtn.removeAttribute('disabled');
       }
 
@@ -1165,8 +1086,8 @@ const faqs = [
         key: data.keyId,
         amount: data.amount,
         currency: data.currency,
-        name: data.isTest ? 'Static Ad Vault [TEST ₹1]' : 'Static Ad Vault',
-        description: data.isTest ? 'Arqo Studio · Live Test Payment (₹1)' : 'Arqo Studio · 30+ Ad Teardowns + Lifetime Updates',
+        name: 'Static Ad Vault',
+        description: 'Arqo Studio · 30+ Ad Teardowns + Lifetime Updates',
         image: 'https://vatsal.arqostudio.com/arqo-logo.png',
         order_id: data.orderId,
         prefill: {
@@ -1182,7 +1103,7 @@ const faqs = [
             // User closed the Razorpay popup without paying (Cart Abandoned)
             sendLeadUpdate('Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
             if (submitBtn) {
-              submitBtn.innerHTML = `<span>Continue to Secure Payment (${isTestMode ? '₹1 - Test' : '₹999'})</span> <span aria-hidden="true">→</span>`;
+              submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
               submitBtn.removeAttribute('disabled');
             }
           },
@@ -1192,14 +1113,13 @@ const faqs = [
           sendLeadUpdate('PAID', {
             order_id: response.razorpay_order_id || data.orderId,
             payment_id: response.razorpay_payment_id || '',
-            is_test: data.isTest,
           });
 
           // Track purchase in Meta Pixel
           if (typeof (window as any).fbq === 'function') {
             (window as any).fbq('track', 'Purchase', {
               content_name: 'The Static Ad Vault',
-              value: data.isTest ? 1.00 : 999.00,
+              value: 999.00,
               currency: 'INR',
               transaction_id: response.razorpay_payment_id,
             });
@@ -1208,7 +1128,7 @@ const faqs = [
           // Direct redirect to thank you upsell page
           const redirectUrl = `/vault/thank-you?payment_id=${encodeURIComponent(
             response.razorpay_payment_id || ''
-          )}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}${data.isTest ? '&is_test=1' : ''}`;
+          )}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
           window.location.href = redirectUrl;
         },
       });
