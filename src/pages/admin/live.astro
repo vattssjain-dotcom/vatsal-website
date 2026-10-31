@@ -3,43 +3,43 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Live Visitor Radar · Admin Dashboard"
-  description="Real-time visitor monitoring, active sessions, landing pages, and funnel conversion tracking."
+  title="Analytics & Live Visitor Radar · Admin Portal"
+  description="Comprehensive Shopify-style store analytics, visitor breakdown, and real-time live radar."
 >
-  <div class="min-h-screen bg-[#0D0D10] text-[#E4E4E7] antialiased selection:bg-[#E24A1F]/30 selection:text-white">
+  <div class="min-h-screen bg-[#0A0A0D] text-[#E4E4E7] antialiased selection:bg-[#E24A1F]/30 selection:text-white">
     <!-- PASSWORD AUTHENTICATION OVERLAY -->
-    <div id="auth-wall" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0D10] p-4">
-      <div class="w-full max-w-md rounded-2xl border border-zinc-800 bg-[#16161A] p-6 sm:p-8 shadow-2xl">
+    <div id="auth-wall" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0A0A0D] p-4">
+      <div class="w-full max-w-md rounded-2xl border border-zinc-800 bg-[#141418] p-6 sm:p-8 shadow-2xl">
         <div class="flex items-center gap-3">
           <span class="flex h-3 w-3 relative">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E24A1F] opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-[#E24A1F]"></span>
           </span>
-          <span class="text-xs font-bold uppercase tracking-wider text-[#E24A1F]">Secure Portal</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#E24A1F]">Restricted Portal</span>
         </div>
-        <h1 class="mt-3 text-2xl font-black tracking-tight text-white">Live Visitor Radar</h1>
+        <h1 class="mt-3 text-2xl font-black tracking-tight text-white">Security Check</h1>
         <p class="mt-2 text-xs text-zinc-400">
-          Enter your admin password to view active visitors, live sessions, landing pages, and real-time checkout actions.
+          Enter your authorized security key to access store analytics and live visitor monitoring.
         </p>
 
         <form id="auth-form" class="mt-6 space-y-4">
           <div>
-            <label class="block text-xs font-medium text-zinc-300">Admin Password</label>
+            <label class="block text-xs font-semibold text-zinc-300">Security Key</label>
             <input
               id="admin-password-input"
               type="password"
-              placeholder="Enter password (default: arqo2026)"
+              placeholder="Enter your security key"
               class="mt-1.5 w-full rounded-xl border border-zinc-700 bg-zinc-900/90 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-[#E24A1F] focus:outline-hidden focus:ring-1 focus:ring-[#E24A1F]"
               autofocus
             />
           </div>
-          <p id="auth-error" class="text-xs text-red-400 hidden"></p>
+          <p id="auth-error" class="text-xs text-red-400 hidden font-medium"></p>
           <button
             type="submit"
             id="auth-submit-btn"
             class="w-full rounded-xl bg-[#E24A1F] py-3 text-sm font-bold text-white transition hover:bg-[#C53B12] active:scale-[0.99] shadow-lg cursor-pointer"
           >
-            Unlock Live Radar →
+            Authenticate &amp; Enter →
           </button>
         </form>
       </div>
@@ -48,16 +48,30 @@ import Layout from '../../layouts/Layout.astro';
     <!-- MAIN DASHBOARD -->
     <div id="dashboard-view" class="hidden">
       <!-- TOP NAVIGATION BAR -->
-      <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-[#121216]/90 backdrop-blur-md px-4 sm:px-8 py-3.5">
+      <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-[#101014]/90 backdrop-blur-md px-4 sm:px-8 py-3.5">
         <div class="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <a href="/" class="text-lg font-bold tracking-tight text-white">
               Vatsal Jain<span class="text-[#E24A1F] text-2xl font-black leading-none ml-[0.5px]">.</span>
             </a>
-            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
-              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              LIVE RADAR
-            </span>
+            <!-- Tab Switcher -->
+            <div class="flex items-center rounded-lg border border-zinc-800 bg-zinc-900/80 p-0.5 text-xs font-semibold">
+              <button
+                id="tab-analytics-btn"
+                type="button"
+                class="rounded-md bg-[#E24A1F] px-3 py-1.5 text-white shadow-xs transition"
+              >
+                📊 Store Analytics
+              </button>
+              <button
+                id="tab-live-btn"
+                type="button"
+                class="rounded-md px-3 py-1.5 text-zinc-400 hover:text-white transition flex items-center gap-1.5"
+              >
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Live Radar
+              </button>
+            </div>
           </div>
 
           <div class="flex items-center gap-2 sm:gap-4">
@@ -99,97 +113,315 @@ import Layout from '../../layouts/Layout.astro';
       </header>
 
       <main class="mx-auto max-w-7xl px-4 sm:px-8 py-6 sm:py-8 space-y-6">
-        <!-- METRICS ROW -->
-        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          <!-- Active Right Now -->
-          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-5 shadow-xs relative overflow-hidden">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Online Right Now</span>
-              <span class="flex h-2.5 w-2.5 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+        <!-- TAB 1: SHOPIFY-STYLE ANALYTICS VIEW -->
+        <div id="view-analytics" class="space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
+            <div>
+              <h1 class="text-xl sm:text-2xl font-black text-white">Store Analytics &amp; Visit Breakdown</h1>
+              <p class="text-xs text-zinc-400 mt-1">Cumulative all-time metrics, conversion rates, and traffic attribution.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-300">
+                📅 All Time (Auto-tracked)
               </span>
             </div>
-            <div class="mt-2 flex items-baseline gap-2">
-              <span id="metric-active-now" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
-              <span class="text-xs text-emerald-400/80">active in &lt;2 min</span>
-            </div>
-            <p class="mt-2 text-[11px] text-zinc-400">Browsing pages right this second</p>
           </div>
 
-          <!-- Total in Last 15 Mins -->
-          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
-            <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">Recent Visitors</span>
-            <div class="mt-2 flex items-baseline gap-2">
-              <span id="metric-active-15m" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
-              <span class="text-xs text-zinc-500">last 15 mins</span>
+          <!-- BIG 5 SHOPIFY METRICS -->
+          <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
+            <!-- Total Sales -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Total Sales</span>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-sales">₹0</div>
+              <p class="mt-2 text-[11px] text-zinc-400">Gross online revenue</p>
             </div>
-            <p class="mt-2 text-[11px] text-zinc-400">Total sessions tracked recently</p>
+
+            <!-- Total Orders -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Total Orders</span>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-orders">0</div>
+              <p class="mt-2 text-[11px] text-zinc-400">Completed payments</p>
+            </div>
+
+            <!-- Total Store Sessions / Visits -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Store Sessions</span>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-sessions">0</div>
+              <p class="mt-2 text-[11px] text-zinc-400" id="shopify-pageviews">0 pageviews</p>
+            </div>
+
+            <!-- Conversion Rate -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Store Conversion Rate</span>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-cvr">0%</div>
+              <p class="mt-2 text-[11px] text-zinc-400">Sessions to purchases</p>
+            </div>
+
+            <!-- Average Order Value (AOV) -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs col-span-2 sm:col-span-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-yellow-400">Average Order Value</span>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-aov">₹999</div>
+              <p class="mt-2 text-[11px] text-zinc-400">Average basket value</p>
+            </div>
           </div>
 
-          <!-- Checkout Initiations -->
-          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
-            <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Checkout Intents</span>
-            <div class="mt-2 flex items-baseline gap-2">
-              <span id="metric-checkouts" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
-              <span class="text-xs text-zinc-500">actions</span>
+          <!-- SHOPIFY CONVERSION FUNNEL BAR -->
+          <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-white">Online Store Conversion Funnel</h2>
+            <p class="text-xs text-zinc-400 mt-1">Breakdown of customer drop-off from initial landing to final payment.</p>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- Step 1: Sessions / Viewed Product -->
+              <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-zinc-400">1. Viewed Product</span>
+                  <span class="text-xs font-mono text-zinc-500">100%</span>
+                </div>
+                <div class="mt-2 text-xl font-bold text-white" id="funnel-step-1">0 sessions</div>
+                <div class="mt-3 h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-sky-500 rounded-full w-full"></div>
+                </div>
+              </div>
+
+              <!-- Step 2: Reached Checkout -->
+              <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-zinc-400">2. Reached Checkout</span>
+                  <span class="text-xs font-mono text-orange-400" id="funnel-step-2-pct">0%</span>
+                </div>
+                <div class="mt-2 text-xl font-bold text-white" id="funnel-step-2">0 sessions</div>
+                <div class="mt-3 h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-orange-500 rounded-full" id="funnel-step-2-bar" style="width: 45%"></div>
+                </div>
+              </div>
+
+              <!-- Step 3: Converted (Purchased) -->
+              <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-zinc-400">3. Sessions Converted</span>
+                  <span class="text-xs font-mono text-emerald-400 font-bold" id="funnel-step-3-pct">0%</span>
+                </div>
+                <div class="mt-2 text-xl font-bold text-white" id="funnel-step-3">0 orders</div>
+                <div class="mt-3 h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-500 rounded-full" id="funnel-step-3-bar" style="width: 30%"></div>
+                </div>
+              </div>
             </div>
-            <p class="mt-2 text-[11px] text-zinc-400">Modal opened / Payment started</p>
           </div>
 
-          <!-- Purchases & Bookings -->
-          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
-            <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Conversions</span>
-            <div class="mt-2 flex items-baseline gap-2">
-              <span id="metric-conversions" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
-              <span class="text-xs text-purple-400/80">sales &amp; calls</span>
+          <!-- DETAILED TABLES: TOP PAGES & TRAFFIC SOURCES -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Top Landing Pages -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Top Pages by Sessions</h2>
+                <span class="text-xs text-zinc-500">All-time views</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead>
+                    <tr class="border-b border-zinc-800 text-zinc-400">
+                      <th class="pb-2.5 font-medium">Page URL</th>
+                      <th class="pb-2.5 font-medium text-right">Pageviews</th>
+                      <th class="pb-2.5 font-medium text-right">Unique Visitors</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pages-table-body" class="divide-y divide-zinc-800/60">
+                    <tr><td colspan="3" class="py-4 text-center text-zinc-500">Loading page statistics...</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <p class="mt-2 text-[11px] text-zinc-400">Completed payments &amp; bookings</p>
+
+            <!-- Sessions by Traffic Source -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Sessions by Traffic Source</h2>
+                <span class="text-xs text-zinc-500">Attribution</span>
+              </div>
+              <div id="sources-container" class="space-y-3">
+                <div class="text-center py-4 text-zinc-500 text-xs">Loading traffic channels...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOCATIONS & DEVICE BREAKDOWN ROW -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Top Locations (2 Cols) -->
+            <div class="lg:col-span-2 rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Top Locations by Sessions</h2>
+                <span class="text-xs text-zinc-500">Cities &amp; Countries</span>
+              </div>
+              <div id="locations-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="text-center py-4 text-zinc-500 text-xs">Loading geographical locations...</div>
+              </div>
+            </div>
+
+            <!-- Device Type Share (1 Col) -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs space-y-4">
+              <div class="flex items-center justify-between">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Sessions by Device</h2>
+                <span class="text-xs text-zinc-500">Hardware</span>
+              </div>
+
+              <div class="space-y-4 pt-2">
+                <!-- Mobile -->
+                <div>
+                  <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                    <span>📱 Mobile</span>
+                    <strong id="device-mobile-pct">74%</strong>
+                  </div>
+                  <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                    <div id="device-mobile-bar" class="h-full bg-[#E24A1F] rounded-full" style="width: 74%"></div>
+                  </div>
+                </div>
+
+                <!-- Desktop -->
+                <div>
+                  <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                    <span>💻 Desktop</span>
+                    <strong id="device-desktop-pct">23%</strong>
+                  </div>
+                  <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                    <div id="device-desktop-bar" class="h-full bg-sky-500 rounded-full" style="width: 23%"></div>
+                  </div>
+                </div>
+
+                <!-- Tablet -->
+                <div>
+                  <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                    <span>📟 Tablet</span>
+                    <strong id="device-tablet-pct">3%</strong>
+                  </div>
+                  <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                    <div id="device-tablet-bar" class="h-full bg-purple-500 rounded-full" style="width: 3%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT ORDERS & LEADS TABLE -->
+          <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-6 shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Recent Customer Orders &amp; Checkout Leads</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Real-time buyer entries and completed purchases.</p>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-zinc-800 text-zinc-400">
+                    <th class="pb-2.5 font-medium">Customer Name</th>
+                    <th class="pb-2.5 font-medium">Contact Details</th>
+                    <th class="pb-2.5 font-medium">Product</th>
+                    <th class="pb-2.5 font-medium">Amount</th>
+                    <th class="pb-2.5 font-medium text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="leads-table-body" class="divide-y divide-zinc-800/60 font-mono">
+                  <tr><td colspan="5" class="py-4 text-center text-zinc-500">Loading recent customer records...</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        <!-- MAIN RADAR SPLIT VIEW -->
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          <!-- LEFT: ACTIVE VISITOR CARDS (7 Cols) -->
-          <div class="lg:col-span-7 space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
-              <div class="flex items-center gap-2">
-                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Live Visitor Sessions</h2>
-                <span id="session-count-badge" class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-300">0</span>
+        <!-- TAB 2: LIVE RADAR VIEW (ORIGINAL LIVE STREAM) -->
+        <div id="view-live" class="hidden space-y-6">
+          <!-- METRICS ROW -->
+          <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <!-- Active Right Now -->
+            <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-5 shadow-xs relative overflow-hidden">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Online Right Now</span>
+                <span class="flex h-2.5 w-2.5 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                </span>
               </div>
-              <span class="text-xs text-zinc-500">Sorted by most recently active</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="metric-active-now" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+                <span class="text-xs text-emerald-400/80">active in &lt;2 min</span>
+              </div>
+              <p class="mt-2 text-[11px] text-zinc-400">Browsing pages right this second</p>
             </div>
 
-            <!-- Visitor Session List Container -->
-            <div id="sessions-container" class="space-y-3">
-              <!-- Empty state default -->
-              <div class="rounded-2xl border border-zinc-800/60 bg-[#16161A]/60 p-8 text-center text-zinc-500">
-                <span class="text-2xl">📡</span>
-                <p class="mt-2 text-sm font-medium text-zinc-300">Radar is active &amp; listening</p>
-                <p class="mt-1 text-xs text-zinc-500">
-                  When a visitor lands on your site, their location, landing page, and active movements will appear here live.
-                </p>
+            <!-- Total in Last 15 Mins -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">Recent Visitors</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="metric-active-15m" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+                <span class="text-xs text-zinc-500">last 15 mins</span>
               </div>
+              <p class="mt-2 text-[11px] text-zinc-400">Total sessions tracked recently</p>
+            </div>
+
+            <!-- Checkout Initiations -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Checkout Intents</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="metric-checkouts" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+                <span class="text-xs text-zinc-500">actions</span>
+              </div>
+              <p class="mt-2 text-[11px] text-zinc-400">Modal opened / Payment started</p>
+            </div>
+
+            <!-- Purchases & Bookings -->
+            <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Conversions</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="metric-conversions" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+                <span class="text-xs text-purple-400/80">sales &amp; calls</span>
+              </div>
+              <p class="mt-2 text-[11px] text-zinc-400">Completed payments &amp; bookings</p>
             </div>
           </div>
 
-          <!-- RIGHT: REAL-TIME EVENT STREAM / TICKER (5 Cols) -->
-          <div class="lg:col-span-5 space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
-              <div class="flex items-center gap-2">
-                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Real-Time Funnel Feed</h2>
-                <span class="flex h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span>
+          <!-- MAIN RADAR SPLIT VIEW -->
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+            <!-- LEFT: ACTIVE VISITOR CARDS (7 Cols) -->
+            <div class="lg:col-span-7 space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+                <div class="flex items-center gap-2">
+                  <h2 class="text-sm font-bold uppercase tracking-wider text-white">Live Visitor Sessions</h2>
+                  <span id="session-count-badge" class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-300">0</span>
+                </div>
+                <span class="text-xs text-zinc-500">Sorted by most recently active</span>
               </div>
-              <span class="text-xs text-zinc-500">Last 50 actions</span>
+
+              <!-- Visitor Session List Container -->
+              <div id="sessions-container" class="space-y-3">
+                <div class="rounded-2xl border border-zinc-800/60 bg-[#141418]/60 p-8 text-center text-zinc-500">
+                  <span class="text-2xl">📡</span>
+                  <p class="mt-2 text-sm font-medium text-zinc-300">Radar is active &amp; listening</p>
+                  <p class="mt-1 text-xs text-zinc-500">
+                    When a visitor lands on your site, their location, landing page, and active movements will appear here live.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <!-- Live Events Scroll Area -->
-            <div
-              id="events-feed-container"
-              class="space-y-2 max-h-[680px] overflow-y-auto pr-1 select-none"
-            >
-              <div class="rounded-xl border border-zinc-800/50 bg-[#16161A]/40 p-5 text-center text-xs text-zinc-500">
-                Waiting for incoming visitor interactions...
+            <!-- RIGHT: REAL-TIME EVENT STREAM / TICKER (5 Cols) -->
+            <div class="lg:col-span-5 space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+                <div class="flex items-center gap-2">
+                  <h2 class="text-sm font-bold uppercase tracking-wider text-white">Real-Time Funnel Feed</h2>
+                  <span class="flex h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span>
+                </div>
+                <span class="text-xs text-zinc-500">Last 50 actions</span>
+              </div>
+
+              <!-- Live Events Scroll Area -->
+              <div
+                id="events-feed-container"
+                class="space-y-2 max-h-[680px] overflow-y-auto pr-1 select-none"
+              >
+                <div class="rounded-xl border border-zinc-800/50 bg-[#141418]/40 p-5 text-center text-xs text-zinc-500">
+                  Waiting for incoming visitor interactions...
+                </div>
               </div>
             </div>
           </div>
@@ -208,6 +440,7 @@ import Layout from '../../layouts/Layout.astro';
       let soundEnabled = true;
       let previousEventsCount = 0;
       let audioCtx = null;
+      let activeTab = 'analytics';
 
       const authWall = document.getElementById('auth-wall');
       const dashboardView = document.getElementById('dashboard-view');
@@ -221,6 +454,40 @@ import Layout from '../../layouts/Layout.astro';
       const audioStatus = document.getElementById('audio-status');
       const audioIcon = document.getElementById('audio-icon');
 
+      const tabAnalyticsBtn = document.getElementById('tab-analytics-btn');
+      const tabLiveBtn = document.getElementById('tab-live-btn');
+      const viewAnalytics = document.getElementById('view-analytics');
+      const viewLive = document.getElementById('view-live');
+
+      // Shopify Metric Elements
+      const shopifySales = document.getElementById('shopify-sales');
+      const shopifyOrders = document.getElementById('shopify-orders');
+      const shopifySessions = document.getElementById('shopify-sessions');
+      const shopifyPageviews = document.getElementById('shopify-pageviews');
+      const shopifyCvr = document.getElementById('shopify-cvr');
+      const shopifyAov = document.getElementById('shopify-aov');
+
+      const funnelStep1 = document.getElementById('funnel-step-1');
+      const funnelStep2 = document.getElementById('funnel-step-2');
+      const funnelStep2Pct = document.getElementById('funnel-step-2-pct');
+      const funnelStep2Bar = document.getElementById('funnel-step-2-bar');
+      const funnelStep3 = document.getElementById('funnel-step-3');
+      const funnelStep3Pct = document.getElementById('funnel-step-3-pct');
+      const funnelStep3Bar = document.getElementById('funnel-step-3-bar');
+
+      const pagesTableBody = document.getElementById('pages-table-body');
+      const sourcesContainer = document.getElementById('sources-container');
+      const locationsGrid = document.getElementById('locations-grid');
+      const leadsTableBody = document.getElementById('leads-table-body');
+
+      const deviceMobilePct = document.getElementById('device-mobile-pct');
+      const deviceMobileBar = document.getElementById('device-mobile-bar');
+      const deviceDesktopPct = document.getElementById('device-desktop-pct');
+      const deviceDesktopBar = document.getElementById('device-desktop-bar');
+      const deviceTabletPct = document.getElementById('device-tablet-pct');
+      const deviceTabletBar = document.getElementById('device-tablet-bar');
+
+      // Live Radar Elements
       const metricActiveNow = document.getElementById('metric-active-now');
       const metricActive15m = document.getElementById('metric-active-15m');
       const metricCheckouts = document.getElementById('metric-checkouts');
@@ -228,6 +495,23 @@ import Layout from '../../layouts/Layout.astro';
       const sessionCountBadge = document.getElementById('session-count-badge');
       const sessionsContainer = document.getElementById('sessions-container');
       const eventsFeedContainer = document.getElementById('events-feed-container');
+
+      // Tab Switching
+      tabAnalyticsBtn?.addEventListener('click', function () {
+        activeTab = 'analytics';
+        tabAnalyticsBtn.className = 'rounded-md bg-[#E24A1F] px-3 py-1.5 text-white shadow-xs transition';
+        tabLiveBtn.className = 'rounded-md px-3 py-1.5 text-zinc-400 hover:text-white transition flex items-center gap-1.5';
+        viewAnalytics?.classList.remove('hidden');
+        viewLive?.classList.add('hidden');
+      });
+
+      tabLiveBtn?.addEventListener('click', function () {
+        activeTab = 'live';
+        tabLiveBtn.className = 'rounded-md bg-[#E24A1F] px-3 py-1.5 text-white shadow-xs transition flex items-center gap-1.5';
+        tabAnalyticsBtn.className = 'rounded-md px-3 py-1.5 text-zinc-400 hover:text-white transition';
+        viewLive?.classList.remove('hidden');
+        viewAnalytics?.classList.add('hidden');
+      });
 
       // Synthesized sound alert for live events
       function playChime(isHighPriority) {
@@ -242,7 +526,7 @@ import Layout from '../../layouts/Layout.astro';
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(isHighPriority ? 880 : 587.33, audioCtx.currentTime); // A5 or D5
+          osc.frequency.setValueAtTime(isHighPriority ? 880 : 587.33, audioCtx.currentTime);
           gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
           osc.connect(gain);
@@ -252,7 +536,6 @@ import Layout from '../../layouts/Layout.astro';
         } catch (e) {}
       }
 
-      // Audio Toggle Click
       audioToggleBtn?.addEventListener('click', function () {
         soundEnabled = !soundEnabled;
         if (audioStatus) audioStatus.textContent = soundEnabled ? 'ON' : 'OFF';
@@ -260,7 +543,6 @@ import Layout from '../../layouts/Layout.astro';
         if (soundEnabled) playChime(false);
       });
 
-      // Format time elapsed e.g. "5s ago", "2m ago"
       function formatElapsed(timestamp) {
         const diffMs = Date.now() - timestamp;
         const diffSec = Math.floor(diffMs / 1000);
@@ -272,7 +554,6 @@ import Layout from '../../layouts/Layout.astro';
         return diffHours + 'h ago';
       }
 
-      // Country Code to Flag Emoji helper
       function getCountryFlag(countryCode) {
         if (!countryCode || countryCode.length !== 2) return '🌐';
         const codePoints = countryCode
@@ -282,12 +563,133 @@ import Layout from '../../layouts/Layout.astro';
         return String.fromCodePoint(...codePoints);
       }
 
-      // Render Visitor Sessions
+      // Render Shopify Analytics
+      function renderShopifyAnalytics(data) {
+        const sp = data.shopify;
+        if (!sp) return;
+
+        if (shopifySales) shopifySales.textContent = `₹${(sp.totalSales || 0).toLocaleString('en-IN')}`;
+        if (shopifyOrders) shopifyOrders.textContent = sp.totalOrders || 0;
+        if (shopifySessions) shopifySessions.textContent = sp.totalSessions || 0;
+        if (shopifyPageviews) shopifyPageviews.textContent = `${sp.totalPageviews || 0} pageviews`;
+        if (shopifyCvr) shopifyCvr.textContent = sp.conversionRate || '0%';
+        if (shopifyAov) shopifyAov.textContent = sp.aov || '₹999';
+
+        // Funnel
+        const total = sp.totalSessions || 1;
+        const reachedCheckout = sp.checkoutsInitiated || 0;
+        const converted = sp.totalOrders || 0;
+
+        const checkoutPct = Math.min(100, Math.round((reachedCheckout / total) * 100));
+        const convertPct = sp.conversionRate || '0%';
+
+        if (funnelStep1) funnelStep1.textContent = `${sp.productViews || total} views`;
+        if (funnelStep2) funnelStep2.textContent = `${reachedCheckout} sessions`;
+        if (funnelStep2Pct) funnelStep2Pct.textContent = `${checkoutPct}%`;
+        if (funnelStep2Bar) funnelStep2Bar.style.width = `${Math.max(10, checkoutPct)}%`;
+
+        if (funnelStep3) funnelStep3.textContent = `${converted} orders`;
+        if (funnelStep3Pct) funnelStep3Pct.textContent = `${convertPct}`;
+        if (funnelStep3Bar) funnelStep3Bar.style.width = `${Math.max(5, parseFloat(convertPct))}%`;
+
+        // Pages Table
+        if (pagesTableBody && sp.pages) {
+          pagesTableBody.innerHTML = sp.pages
+            .map(
+              (p) => `
+              <tr class="hover:bg-zinc-900/50 transition">
+                <td class="py-2.5 font-mono text-white font-medium">${p.path}</td>
+                <td class="py-2.5 text-right font-mono text-zinc-300 font-bold">${p.views}</td>
+                <td class="py-2.5 text-right font-mono text-zinc-400">${p.visitors}</td>
+              </tr>
+            `
+            )
+            .join('');
+        }
+
+        // Sources Container
+        if (sourcesContainer && sp.sources) {
+          sourcesContainer.innerHTML = sp.sources
+            .map(
+              (s) => `
+              <div>
+                <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                  <span>${s.name}</span>
+                  <span class="font-mono text-zinc-400">${s.count} sessions <strong class="text-white">(${s.percent}%)</strong></span>
+                </div>
+                <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-orange-500 rounded-full" style="width: ${Math.max(5, s.percent)}%"></div>
+                </div>
+              </div>
+            `
+            )
+            .join('');
+        }
+
+        // Locations Grid
+        if (locationsGrid && sp.locations) {
+          locationsGrid.innerHTML = sp.locations
+            .map(
+              (loc) => `
+              <div class="rounded-xl border border-zinc-800/80 bg-zinc-900/50 p-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">${loc.flag || '🌐'}</span>
+                  <span class="font-semibold text-white">${loc.city}, ${loc.country}</span>
+                </div>
+                <span class="font-mono text-xs font-bold text-zinc-300">${loc.sessions} visits</span>
+              </div>
+            `
+            )
+            .join('');
+        }
+
+        // Devices
+        if (sp.devices) {
+          if (deviceMobilePct) deviceMobilePct.textContent = `${sp.devices.mobile}%`;
+          if (deviceMobileBar) deviceMobileBar.style.width = `${sp.devices.mobile}%`;
+          if (deviceDesktopPct) deviceDesktopPct.textContent = `${sp.devices.desktop}%`;
+          if (deviceDesktopBar) deviceDesktopBar.style.width = `${sp.devices.desktop}%`;
+          if (deviceTabletPct) deviceTabletPct.textContent = `${sp.devices.tablet}%`;
+          if (deviceTabletBar) deviceTabletBar.style.width = `${sp.devices.tablet}%`;
+        }
+
+        // Recent Leads & Orders Table
+        if (leadsTableBody && sp.recentLeads) {
+          leadsTableBody.innerHTML = sp.recentLeads
+            .map((lead) => {
+              const isPaid = lead.status === 'PAID';
+              const statusClass = isPaid
+                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                : 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+              const statusLabel = isPaid ? 'PAID' : 'CHECKOUT INITIATED';
+
+              return `
+              <tr class="hover:bg-zinc-900/50 transition">
+                <td class="py-3 font-sans font-bold text-white">${lead.name || 'Anonymous'}</td>
+                <td class="py-3 text-xs text-zinc-400">
+                  <div>${lead.email || '—'}</div>
+                  <div class="text-zinc-500 text-[11px]">${lead.phone || '—'}</div>
+                </td>
+                <td class="py-3 font-sans text-zinc-300">${lead.product || 'Vault'}</td>
+                <td class="py-3 font-bold text-white">${lead.amount || '₹999'}</td>
+                <td class="py-3 text-right">
+                  <span class="inline-block rounded-md border px-2 py-0.5 text-[10px] font-bold ${statusClass}">
+                    ${statusLabel}
+                  </span>
+                </td>
+              </tr>
+            `;
+            })
+            .join('');
+        }
+      }
+
+      // Render Live Visitor Radar
       function renderSessions(sessions) {
         if (!sessionsContainer) return;
         if (!sessions || sessions.length === 0) {
           sessionsContainer.innerHTML = `
-            <div class="rounded-2xl border border-zinc-800/60 bg-[#16161A]/60 p-8 text-center text-zinc-500">
+            <div class="rounded-2xl border border-zinc-800/60 bg-[#141418]/60 p-8 text-center text-zinc-500">
               <span class="text-2xl">📡</span>
               <p class="mt-2 text-sm font-medium text-zinc-300">Radar is active & listening</p>
               <p class="mt-1 text-xs text-zinc-500">Waiting for incoming visitor traffic. Land on your website on another device or tab to see it appear live!</p>
@@ -316,7 +718,7 @@ import Layout from '../../layouts/Layout.astro';
             : `<span class="rounded bg-zinc-800/40 px-2 py-0.5 text-[10px] text-zinc-400">Direct Visit</span>`;
 
           html += `
-            <div class="rounded-xl border ${isLiveNow ? 'border-zinc-700/80 bg-[#16161A]' : 'border-zinc-800/40 bg-[#141418]/50'} p-4 transition hover:border-zinc-600">
+            <div class="rounded-xl border ${isLiveNow ? 'border-zinc-700/80 bg-[#141418]' : 'border-zinc-800/40 bg-[#101014]/50'} p-4 transition hover:border-zinc-600">
               <div class="flex items-start justify-between gap-3">
                 <div class="flex items-center gap-2">
                   ${statusDot}
@@ -359,14 +761,13 @@ import Layout from '../../layouts/Layout.astro';
         if (!eventsFeedContainer) return;
         if (!events || events.length === 0) {
           eventsFeedContainer.innerHTML = `
-            <div class="rounded-xl border border-zinc-800/50 bg-[#16161A]/40 p-5 text-center text-xs text-zinc-500">
+            <div class="rounded-xl border border-zinc-800/50 bg-[#141418]/40 p-5 text-center text-xs text-zinc-500">
               Waiting for incoming actions...
             </div>
           `;
           return;
         }
 
-        // Check if new event arrived for sound
         if (previousEventsCount > 0 && events.length > previousEventsCount) {
           const newest = events[0];
           const isHigh = newest.action?.includes('PAID') || newest.action?.includes('Booked') || newest.action?.includes('Checkout');
@@ -389,7 +790,7 @@ import Layout from '../../layouts/Layout.astro';
           const time = new Date(e.timestamp).toLocaleTimeString();
 
           html += `
-            <div class="rounded-xl border border-zinc-800/70 bg-[#16161A] p-3 text-xs transition hover:border-zinc-700">
+            <div class="rounded-xl border border-zinc-800/70 bg-[#141418] p-3 text-xs transition hover:border-zinc-700">
               <div class="flex items-center justify-between gap-2">
                 <span class="rounded border px-1.5 py-0.5 text-[10px] font-mono ${badgeColor}">
                   ${e.type || 'ACTION'}
@@ -412,7 +813,7 @@ import Layout from '../../layouts/Layout.astro';
         eventsFeedContainer.innerHTML = html;
       }
 
-      // Fetch Live State from /api/live/data
+      // Fetch Live State
       async function fetchLiveData() {
         if (!adminKey) return;
         try {
@@ -423,10 +824,9 @@ import Layout from '../../layouts/Layout.astro';
           });
 
           if (res.status === 401) {
-            // Password invalid
             sessionStorage.removeItem(STORAGE_KEY);
             adminKey = '';
-            showAuthWall('Password incorrect or expired.');
+            showAuthWall('Access denied. Invalid security key.');
             return;
           }
 
@@ -434,11 +834,11 @@ import Layout from '../../layouts/Layout.astro';
 
           const data = await res.json();
           if (data.success) {
+            // Live Radar Tab
             if (metricActiveNow) metricActiveNow.textContent = data.activeNowCount || 0;
             if (metricActive15m) metricActive15m.textContent = data.active15mCount || 0;
             if (sessionCountBadge) sessionCountBadge.textContent = (data.sessions || []).length;
 
-            // Count checkouts and conversions from events
             let checkouts = 0;
             let conversions = 0;
             (data.events || []).forEach((ev) => {
@@ -451,6 +851,9 @@ import Layout from '../../layouts/Layout.astro';
 
             renderSessions(data.sessions || []);
             renderEvents(data.events || []);
+
+            // Shopify Analytics Tab
+            renderShopifyAnalytics(data);
           }
         } catch (err) {
           console.warn('Live fetch error:', err);
@@ -512,7 +915,7 @@ import Layout from '../../layouts/Layout.astro';
             showDashboard();
           } else {
             if (authError) {
-              authError.textContent = 'Invalid password. Default is: arqo2026';
+              authError.textContent = 'Access denied. Incorrect security key.';
               authError.classList.remove('hidden');
             }
           }
@@ -522,7 +925,7 @@ import Layout from '../../layouts/Layout.astro';
             authError.classList.remove('hidden');
           }
         } finally {
-          if (submitBtn) submitBtn.textContent = 'Unlock Live Radar →';
+          if (submitBtn) submitBtn.textContent = 'Authenticate & Enter →';
         }
       });
 

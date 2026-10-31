@@ -1,9 +1,10 @@
 // Cloudflare Pages Function: /api/live/data
-// Returns live visitor sessions and event ticker (Password Protected)
+// Returns live visitor sessions, real-time event ticker, and Shopify-style analytics suite
+// Secured by High-Entropy Admin Secret
 
 import { getLiveState } from "./_store.js";
 
-const DEFAULT_ADMIN_PASSWORD = "arqo2026";
+const DEFAULT_ADMIN_PASSWORD = "VJ9824_Arqo#Vault!2026";
 
 export async function onRequestGet(context) {
   const { request, env } = context;
@@ -32,8 +33,8 @@ export async function onRequestGet(context) {
       providedKey = queryKey.trim();
     }
 
-    if (providedKey !== expectedPassword) {
-      return new Response(JSON.stringify({ error: "Unauthorized. Incorrect password." }), {
+    if (!providedKey || providedKey !== expectedPassword) {
+      return new Response(JSON.stringify({ error: "Access denied. Invalid security key." }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
