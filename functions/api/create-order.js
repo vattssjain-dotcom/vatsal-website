@@ -25,7 +25,7 @@ export async function onRequestPost(context) {
     }
 
     // Determine product and amount
-    let orderAmount = 99900; // default 999 INR in paise
+    let orderAmount = 79900; // default 799 INR in paise
     let orderProduct = "The Static Ad Vault";
 
     if (
@@ -102,7 +102,7 @@ export async function onRequestPost(context) {
             email: email || "",
             phone: phone || "",
             product: orderProduct,
-            price: isTestMode ? "₹1 (Test Verification)" : (orderAmount === 350000 ? "₹3,500" : "₹999"),
+            price: isTestMode ? "₹1 (Test Verification)" : (orderAmount === 350000 ? "₹3,500" : "₹799"),
             order_id: orderData.id,
             source: body.source || "vatsal.arqostudio.com/vault",
           }),

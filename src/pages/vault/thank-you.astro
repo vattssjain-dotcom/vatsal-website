@@ -38,7 +38,7 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
               window.trackMetaEvent(
                 'Purchase',
                 {
-                  value: isTest ? 1.00 : 999.00,
+                  value: isTest ? 1.00 : 799.00,
                   currency: 'INR',
                   content_name: 'The Static Ad Vault',
                   content_type: 'product',
@@ -53,7 +53,7 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
               );
             } else if (typeof fbq === 'function') {
               fbq('track', 'Purchase', {
-                value: isTest ? 1.00 : 999.00,
+                value: isTest ? 1.00 : 799.00,
                 currency: 'INR',
                 content_name: 'The Static Ad Vault',
                 content_type: 'product',

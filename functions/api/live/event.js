@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: /api/live/event
-// Logs real-time funnel actions (e.g. "Opened Checkout Modal", "Paid ₹999", "Booked Call")
+// Logs real-time funnel actions (e.g. "Opened Checkout Modal", "Paid ₹799", "Booked Call")
 
 import { recordEvent, updateSession } from "./_store.js";
 

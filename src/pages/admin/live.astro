@@ -160,7 +160,7 @@ import Layout from '../../layouts/Layout.astro';
             <!-- Average Order Value (AOV) -->
             <div class="rounded-2xl border border-zinc-800 bg-[#141418] p-5 shadow-xs col-span-2 sm:col-span-1">
               <span class="text-xs font-bold uppercase tracking-wider text-yellow-400">Average Order Value</span>
-              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-aov">₹999</div>
+              <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="shopify-aov">₹799</div>
               <p class="mt-2 text-[11px] text-zinc-400">Average basket value</p>
             </div>
           </div>
@@ -573,7 +573,7 @@ import Layout from '../../layouts/Layout.astro';
         if (shopifySessions) shopifySessions.textContent = sp.totalSessions || 0;
         if (shopifyPageviews) shopifyPageviews.textContent = `${sp.totalPageviews || 0} pageviews`;
         if (shopifyCvr) shopifyCvr.textContent = sp.conversionRate || '0%';
-        if (shopifyAov) shopifyAov.textContent = sp.aov || '₹999';
+        if (shopifyAov) shopifyAov.textContent = sp.aov || '₹799';
 
         // Funnel
         const total = sp.totalSessions || 1;
@@ -671,7 +671,7 @@ import Layout from '../../layouts/Layout.astro';
                   <div class="text-zinc-500 text-[11px]">${lead.phone || '—'}</div>
                 </td>
                 <td class="py-3 font-sans text-zinc-300">${lead.product || 'Vault'}</td>
-                <td class="py-3 font-bold text-white">${lead.amount || '₹999'}</td>
+                <td class="py-3 font-bold text-white">${lead.amount || '₹799'}</td>
                 <td class="py-3 text-right">
                   <span class="inline-block rounded-md border px-2 py-0.5 text-[10px] font-bold ${statusClass}">
                     ${statusLabel}

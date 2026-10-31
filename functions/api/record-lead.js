@@ -38,7 +38,7 @@ export async function onRequestPost(context) {
         name: data.name || "",
         email: data.email || "",
         phone: data.phone || "",
-        amount: data.amount || "₹999",
+        amount: data.amount || "₹799",
         order_id: data.order_id || "",
         payment_id: data.payment_id || "",
         notes: data.notes || data.reason || "",
