@@ -805,8 +805,48 @@ const faqs = [
     document.body.classList.add('overflow-hidden');
     const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
     setTimeout(() => nameInput?.focus(), 50);
+
+    // 1. Fire Meta Pixel & CAPI InitiateCheckout immediately on CTA button click
     try {
-      (window as any).recordLiveAction?.('Opened Vault Checkout Modal', { product: 'The Static Ad Vault' });
+      if (typeof (window as any).trackMetaEvent === 'function') {
+        (window as any).trackMetaEvent('InitiateCheckout', {
+          content_name: 'The Static Ad Vault',
+          value: 999.00,
+          currency: 'INR',
+          content_type: 'product',
+          num_items: 1,
+        });
+      } else if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'InitiateCheckout', {
+          content_name: 'The Static Ad Vault',
+          value: 999.00,
+          currency: 'INR',
+        });
+      }
+    } catch (err) {}
+
+    // 2. Fire Real-Time Live Radar Action
+    try {
+      (window as any).recordLiveAction?.('Clicked "Get The Vault" Button (Opened Modal)', {
+        product: 'The Static Ad Vault',
+        value: 999,
+      });
+    } catch (err) {}
+
+    // 3. Log CTA Click to Server-side Lead Endpoint
+    try {
+      fetch('/api/record-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: 'CTA Button Clicked (Modal Opened)',
+          product: 'The Static Ad Vault',
+          amount: '₹999',
+          source: window.location.href,
+          timestamp: new Date().toISOString(),
+        }),
+        keepalive: true,
+      }).catch(() => {});
     } catch (err) {}
   }
 

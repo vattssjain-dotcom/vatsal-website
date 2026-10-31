@@ -249,4 +249,41 @@ const mentorshipFeatures = [
       </div>
     </div>
   </footer>
+
+  <script is:inline>
+    document.querySelectorAll('a[href*="rzp.io/rzp/roast-my-ads"]').forEach(function(link) {
+      link.addEventListener('click', function() {
+        try {
+          if (typeof window.trackMetaEvent === 'function') {
+            window.trackMetaEvent('InitiateCheckout', {
+              content_name: 'Roast My Ads Mentorship',
+              value: 10000.00,
+              currency: 'INR'
+            });
+          }
+        } catch (e) {}
+
+        try {
+          if (typeof window.recordLiveAction === 'function') {
+            window.recordLiveAction('Clicked "Book Roast My Ads (₹10,000)" CTA');
+          }
+        } catch (e) {}
+
+        try {
+          fetch('/api/record-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              status: 'Roast CTA Clicked (Razorpay Redirect)',
+              product: 'Roast My Ads Mentorship',
+              amount: '₹10,000',
+              source: window.location.href,
+              timestamp: new Date().toISOString()
+            }),
+            keepalive: true
+          }).catch(function() {});
+        } catch (e) {}
+      });
+    });
+  </script>
 </Layout>

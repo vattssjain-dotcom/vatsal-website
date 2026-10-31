@@ -754,6 +754,21 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
           }
         } catch (err) {}
 
+        try {
+          fetch('/api/record-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              status: 'Upsell CTA Button Clicked (Modal Opened)',
+              product: '25 Custom Static Ads Package',
+              amount: '₹3,500',
+              source: window.location.href,
+              timestamp: new Date().toISOString(),
+            }),
+            keepalive: true,
+          }).catch(() => {});
+        } catch (e) {}
+
         if (typeof window.trackMetaEvent === 'function') {
           window.trackMetaEvent('InitiateCheckout', {
             content_name: '25 Custom Ads Package',

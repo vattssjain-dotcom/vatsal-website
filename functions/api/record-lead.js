@@ -1,6 +1,8 @@
 // Cloudflare Pages Function: /api/record-lead
 // Captures all stages of customer journey: Form Started, Order Initiated, Checkout Dismissed, Payment Failed, Paid
 
+import { recordEvent } from "./live/_store.js";
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -12,6 +14,21 @@ export async function onRequestPost(context) {
 
   try {
     const data = await request.json();
+
+    // Log to real-time live events store
+    try {
+      await recordEvent(
+        {
+          action: data.status || "Lead Action",
+          type: "LEAD",
+          currentUrl: data.source || "/",
+          product: data.product || null,
+          amount: data.amount || null,
+          details: data.email || data.phone ? `${data.email || ""} ${data.phone || ""}`.trim() : "",
+        },
+        env
+      );
+    } catch (e) {}
     const webhookUrl = env.LEAD_WEBHOOK_URL || "";
 
     if (webhookUrl) {
