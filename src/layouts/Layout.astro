@@ -63,7 +63,8 @@ const {
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '940315292130796');
-      fbq('track', 'PageView');
+      window._pvEventId = 'pv_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+      fbq('track', 'PageView', {}, { eventID: window._pvEventId });
     </script>
     <noscript>
       <img
@@ -114,6 +115,74 @@ const {
           } catch (e) {}
         }
 
+        // Helper to read cookies
+        function getCookie(name) {
+          try {
+            const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+            return match ? decodeURIComponent(match[3]) : null;
+          } catch (e) {
+            return null;
+          }
+        }
+
+        // Global helper for Meta Conversions API (CAPI) & Pixel deduplication
+        window.trackMetaEvent = function (eventName, customData, userData, customEventId) {
+          customData = customData || {};
+          userData = userData || {};
+          const eventId = customEventId || ('evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9));
+
+          // 1. Browser Meta Pixel with eventID for deduplication
+          if (typeof window.fbq === 'function') {
+            try {
+              window.fbq('track', eventName, customData, { eventID: eventId });
+            } catch (err) {}
+          }
+
+          // 2. Server-side Meta Conversions API (CAPI)
+          try {
+            const tracking = typeof window.getTrackingParams === 'function' ? window.getTrackingParams() : {};
+            const payload = {
+              event_name: eventName,
+              event_id: eventId,
+              event_source_url: window.location.href,
+              custom_data: customData,
+              user_data: userData,
+              fbclid: tracking.fbclid || null,
+              fbp: getCookie('_fbp'),
+              fbc: getCookie('_fbc'),
+            };
+
+            fetch('/api/capi', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            }).catch(function () {});
+          } catch (err) {}
+
+          return eventId;
+        };
+
+        // Fire CAPI for the initial PageView to establish server session with Meta Dataset
+        if (window._pvEventId) {
+          try {
+            const tracking = typeof window.getTrackingParams === 'function' ? window.getTrackingParams() : {};
+            fetch('/api/capi', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                event_name: 'PageView',
+                event_id: window._pvEventId,
+                event_source_url: window.location.href,
+                fbclid: tracking.fbclid || null,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc'),
+              }),
+              keepalive: true,
+            }).catch(function () {});
+          } catch (e) {}
+        }
+
         // Global helper for JS redirects and embeds
         window.getTrackingParams = function () {
           return { ...savedParams };
@@ -133,8 +202,6 @@ const {
             return urlStr;
           }
         };
-
-        if (!Object.keys(savedParams).length) return;
 
         // 2. Decide if link should receive UTM and tracking parameters
         function shouldForward(url) {

@@ -780,9 +780,16 @@ const faqs = [
   const submitBtn = document.getElementById('lead-submit-btn');
   const triggers = document.querySelectorAll('.vault-checkout-trigger');
 
-  // Meta Pixel: Track ViewContent for the Vault product on page load
+  // Meta Pixel & CAPI: Track ViewContent for the Vault product on page load
   try {
-    if (typeof (window as any).fbq === 'function') {
+    if (typeof (window as any).trackMetaEvent === 'function') {
+      (window as any).trackMetaEvent('ViewContent', {
+        content_name: 'The Static Ad Vault',
+        content_category: 'Digital Product',
+        value: 999.00,
+        currency: 'INR',
+      });
+    } else if (typeof (window as any).fbq === 'function') {
       (window as any).fbq('track', 'ViewContent', {
         content_name: 'The Static Ad Vault',
         content_category: 'Digital Product',
@@ -985,9 +992,20 @@ const faqs = [
       localStorage.setItem('vault_captured_leads', JSON.stringify(existing));
     } catch (err) {}
 
-    // 2. Meta Pixel InitiateCheckout
+    // 2. Meta Pixel & CAPI: InitiateCheckout with customer matching
     try {
-      if (typeof (window as any).fbq === 'function') {
+      if (typeof (window as any).trackMetaEvent === 'function') {
+        (window as any).trackMetaEvent('InitiateCheckout', {
+          content_name: 'The Static Ad Vault',
+          value: 999.00,
+          currency: 'INR',
+          num_items: 1,
+        }, {
+          name,
+          email,
+          phone,
+        });
+      } else if (typeof (window as any).fbq === 'function') {
         (window as any).fbq('track', 'InitiateCheckout', {
           content_name: 'The Static Ad Vault',
           value: 999.00,
@@ -1062,15 +1080,28 @@ const faqs = [
             payment_id: response.razorpay_payment_id || '',
           });
 
-          // Track purchase in Meta Pixel
-          if (typeof (window as any).fbq === 'function') {
-            (window as any).fbq('track', 'Purchase', {
-              content_name: 'The Static Ad Vault',
-              value: 999.00,
-              currency: 'INR',
-              transaction_id: response.razorpay_payment_id,
-            });
-          }
+          // Track purchase in Meta Pixel & CAPI with full user data
+          try {
+            if (typeof (window as any).trackMetaEvent === 'function') {
+              (window as any).trackMetaEvent('Purchase', {
+                content_name: 'The Static Ad Vault',
+                value: 999.00,
+                currency: 'INR',
+                order_id: response.razorpay_payment_id || response.razorpay_order_id,
+              }, {
+                name,
+                email,
+                phone,
+              });
+            } else if (typeof (window as any).fbq === 'function') {
+              (window as any).fbq('track', 'Purchase', {
+                content_name: 'The Static Ad Vault',
+                value: 999.00,
+                currency: 'INR',
+                transaction_id: response.razorpay_payment_id,
+              });
+            }
+          } catch (e) {}
 
           // Direct redirect to thank you upsell page with all query & tracking parameters carried forward
           const redirectUrl = `/vault/thank-you?payment_id=${encodeURIComponent(

@@ -178,16 +178,24 @@ const CAL_BOOKING_URL = "https://cal.com/arqo-studio/discovery-call";
         externalLink.href = `${baseUrl}${calParamsString ? '?' + calParamsString : ''}`;
       }
 
-      // Meta Pixel: Track 'Schedule' when Cal.com booking succeeds
+      // Meta Pixel & CAPI: Track 'Schedule' when Cal.com booking succeeds
       window.addEventListener('message', function (e) {
         if (!e.data) return;
         try {
           const dataStr = typeof e.data === 'string' ? e.data : JSON.stringify(e.data);
           if (dataStr.includes('bookingSuccessful') || (e.data && e.data.type === 'cal:bookingSuccessful')) {
-            if (typeof fbq === 'function') {
+            if (typeof window.trackMetaEvent === 'function') {
+              window.trackMetaEvent('Schedule', {
+                content_name: 'Discovery Strategy Call',
+                content_category: 'Meeting',
+              }, {
+                name,
+                email,
+              });
+            } else if (typeof fbq === 'function') {
               fbq('track', 'Schedule', {
                 content_name: 'Discovery Strategy Call',
-                content_category: 'Meeting'
+                content_category: 'Meeting',
               });
             }
           }

@@ -110,6 +110,41 @@ export async function onRequestPost(context) {
       );
     }
 
+    // 2b. Meta Conversions API (Server-side InitiateCheckout backup)
+    try {
+      const capiUrl = new URL("/api/capi", request.url).toString();
+      const capiPromise = fetch(capiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": request.headers.get("user-agent") || "",
+          "cf-connecting-ip": request.headers.get("cf-connecting-ip") || "",
+          "Cookie": request.headers.get("Cookie") || "",
+        },
+        body: JSON.stringify({
+          event_name: "InitiateCheckout",
+          event_id: `ic_${orderData.id}`,
+          event_source_url: body.source || "https://vatsal.arqostudio.com/vault",
+          custom_data: {
+            content_name: orderProduct,
+            value: orderAmount / 100,
+            currency: "INR",
+            order_id: orderData.id,
+          },
+          user_data: {
+            name: name || "",
+            email: email || "",
+            phone: phone || "",
+          },
+          fbclid: body.fbclid || null,
+        }),
+      }).catch(() => {});
+
+      if (context.waitUntil) {
+        context.waitUntil(capiPromise);
+      }
+    } catch (e) {}
+
     // 3. Return order details to client
     return new Response(
       JSON.stringify({

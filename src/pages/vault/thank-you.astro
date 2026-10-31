@@ -25,23 +25,54 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
         const paymentId = urlParams.get('payment_id');
         const isTest = urlParams.get('is_test') === '1' || urlParams.get('test') === '1';
 
-        // 1. Deduplicated Purchase tracking for initial Vault purchase
-        if (paymentId && typeof fbq === 'function') {
+        // 1. Deduplicated Purchase tracking for initial Vault purchase via Meta Pixel & CAPI
+        if (paymentId) {
           const storageKey = 'vatsal_vault_purchase_tracked_' + paymentId;
           if (!sessionStorage.getItem(storageKey)) {
-            fbq('track', 'Purchase', {
-              value: isTest ? 1.00 : 999.00,
-              currency: 'INR',
-              content_name: 'The Static Ad Vault',
-              content_type: 'product',
-              transaction_id: paymentId,
-            });
+            const buyerName = urlParams.get('name') || '';
+            const buyerEmail = urlParams.get('email') || '';
+            const buyerPhone = urlParams.get('phone') || '';
+            const eventId = 'pur_' + paymentId;
+
+            if (typeof window.trackMetaEvent === 'function') {
+              window.trackMetaEvent(
+                'Purchase',
+                {
+                  value: isTest ? 1.00 : 999.00,
+                  currency: 'INR',
+                  content_name: 'The Static Ad Vault',
+                  content_type: 'product',
+                  order_id: paymentId,
+                },
+                {
+                  name: buyerName,
+                  email: buyerEmail,
+                  phone: buyerPhone,
+                },
+                eventId
+              );
+            } else if (typeof fbq === 'function') {
+              fbq('track', 'Purchase', {
+                value: isTest ? 1.00 : 999.00,
+                currency: 'INR',
+                content_name: 'The Static Ad Vault',
+                content_type: 'product',
+                transaction_id: paymentId,
+              }, { eventID: eventId });
+            }
             sessionStorage.setItem(storageKey, 'true');
           }
         }
 
         // 2. ViewContent for the 25 Custom Ads Offer
-        if (typeof fbq === 'function') {
+        if (typeof window.trackMetaEvent === 'function') {
+          window.trackMetaEvent('ViewContent', {
+            content_name: '25 Custom Static Ads Package',
+            content_category: 'Creative Service',
+            value: 3500.00,
+            currency: 'INR',
+          });
+        } else if (typeof fbq === 'function') {
           fbq('track', 'ViewContent', {
             content_name: '25 Custom Static Ads Package',
             content_category: 'Creative Service',
@@ -717,7 +748,18 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
           else if (!phoneInput.value) phoneInput.focus();
         }, 50);
 
-        if (typeof fbq === 'function') {
+        if (typeof window.trackMetaEvent === 'function') {
+          window.trackMetaEvent('InitiateCheckout', {
+            content_name: '25 Custom Ads Package',
+            value: 3500.00,
+            currency: 'INR',
+            num_items: 1,
+          }, {
+            name: nameInput?.value?.trim() || '',
+            email: emailInput?.value?.trim() || '',
+            phone: phoneInput?.value?.trim() || '',
+          });
+        } else if (typeof fbq === 'function') {
           fbq('track', 'InitiateCheckout', {
             content_name: '25 Custom Ads Package',
             value: 3500.00,
@@ -854,7 +896,19 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
                 payment_id: response.razorpay_payment_id || '',
               });
 
-              if (typeof fbq === 'function') {
+              // Track Purchase in Meta Pixel & CAPI with user data
+              if (typeof window.trackMetaEvent === 'function') {
+                window.trackMetaEvent('Purchase', {
+                  content_name: '25 Custom Static Ads Package',
+                  value: 3500.00,
+                  currency: 'INR',
+                  order_id: response.razorpay_payment_id || response.razorpay_order_id,
+                }, {
+                  name,
+                  email,
+                  phone,
+                });
+              } else if (typeof fbq === 'function') {
                 fbq('track', 'Purchase', {
                   content_name: '25 Custom Static Ads Package',
                   value: 3500.00,
