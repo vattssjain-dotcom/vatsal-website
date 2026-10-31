@@ -805,6 +805,9 @@ const faqs = [
     document.body.classList.add('overflow-hidden');
     const nameInput = document.getElementById('lead-name') as HTMLInputElement | null;
     setTimeout(() => nameInput?.focus(), 50);
+    try {
+      (window as any).recordLiveAction?.('Opened Vault Checkout Modal', { product: 'The Static Ad Vault' });
+    } catch (err) {}
   }
 
   function closeCheckoutModal() {
@@ -945,12 +948,14 @@ const faqs = [
   leadEmailField?.addEventListener('blur', () => {
     if (leadEmailField.value.includes('@')) {
       sendLeadUpdate('Modal Form: Email Entered');
+      try { (window as any).recordLiveAction?.('Typed Email in Checkout'); } catch (e) {}
     }
   });
 
   leadPhoneField?.addEventListener('blur', () => {
     if (leadPhoneField.value.replace(/\D/g, '').length >= 10) {
       sendLeadUpdate('Modal Form: Phone Entered');
+      try { (window as any).recordLiveAction?.('Typed Phone in Checkout'); } catch (e) {}
     }
   });
 
@@ -1067,6 +1072,7 @@ const faqs = [
           ondismiss: function () {
             // User closed the Razorpay popup without paying (Cart Abandoned)
             sendLeadUpdate('Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
+            try { (window as any).recordLiveAction?.('Closed Razorpay Checkout (Cart Abandoned)'); } catch (e) {}
             if (submitBtn) {
               submitBtn.innerHTML = `<span>Continue to Secure Payment (₹999)</span> <span aria-hidden="true">→</span>`;
               submitBtn.removeAttribute('disabled');
@@ -1079,6 +1085,13 @@ const faqs = [
             order_id: response.razorpay_order_id || data.orderId,
             payment_id: response.razorpay_payment_id || '',
           });
+          try {
+            (window as any).recordLiveAction?.('🎉 Paid ₹999 for The Static Ad Vault', {
+              amount: '₹999',
+              order_id: response.razorpay_order_id || data.orderId,
+              payment_id: response.razorpay_payment_id || '',
+            });
+          } catch (e) {}
 
           // Track purchase in Meta Pixel & CAPI with full user data
           try {

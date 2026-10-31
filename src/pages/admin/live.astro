@@ -1,0 +1,552 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Live Visitor Radar · Admin Dashboard"
+  description="Real-time visitor monitoring, active sessions, landing pages, and funnel conversion tracking."
+>
+  <div class="min-h-screen bg-[#0D0D10] text-[#E4E4E7] antialiased selection:bg-[#E24A1F]/30 selection:text-white">
+    <!-- PASSWORD AUTHENTICATION OVERLAY -->
+    <div id="auth-wall" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0D10] p-4">
+      <div class="w-full max-w-md rounded-2xl border border-zinc-800 bg-[#16161A] p-6 sm:p-8 shadow-2xl">
+        <div class="flex items-center gap-3">
+          <span class="flex h-3 w-3 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E24A1F] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-[#E24A1F]"></span>
+          </span>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#E24A1F]">Secure Portal</span>
+        </div>
+        <h1 class="mt-3 text-2xl font-black tracking-tight text-white">Live Visitor Radar</h1>
+        <p class="mt-2 text-xs text-zinc-400">
+          Enter your admin password to view active visitors, live sessions, landing pages, and real-time checkout actions.
+        </p>
+
+        <form id="auth-form" class="mt-6 space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-zinc-300">Admin Password</label>
+            <input
+              id="admin-password-input"
+              type="password"
+              placeholder="Enter password (default: arqo2026)"
+              class="mt-1.5 w-full rounded-xl border border-zinc-700 bg-zinc-900/90 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-[#E24A1F] focus:outline-hidden focus:ring-1 focus:ring-[#E24A1F]"
+              autofocus
+            />
+          </div>
+          <p id="auth-error" class="text-xs text-red-400 hidden"></p>
+          <button
+            type="submit"
+            id="auth-submit-btn"
+            class="w-full rounded-xl bg-[#E24A1F] py-3 text-sm font-bold text-white transition hover:bg-[#C53B12] active:scale-[0.99] shadow-lg cursor-pointer"
+          >
+            Unlock Live Radar →
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard-view" class="hidden">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="sticky top-0 z-40 border-b border-zinc-800/80 bg-[#121216]/90 backdrop-blur-md px-4 sm:px-8 py-3.5">
+        <div class="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <a href="/" class="text-lg font-bold tracking-tight text-white">
+              Vatsal Jain<span class="text-[#E24A1F] text-2xl font-black leading-none ml-[0.5px]">.</span>
+            </a>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              LIVE RADAR
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2 sm:gap-4">
+            <!-- Audio Chime Toggle -->
+            <button
+              id="audio-toggle-btn"
+              type="button"
+              class="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:text-white hover:border-zinc-700 transition"
+              title="Toggle audio alerts on new actions"
+            >
+              <span id="audio-icon">🔔</span> <span class="hidden sm:inline">Chime Alerts: <strong id="audio-status">ON</strong></span>
+            </button>
+
+            <!-- Auto Refresh Indicator -->
+            <div class="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-xs text-zinc-400 font-mono">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span id="refresh-counter">3s</span>
+            </div>
+
+            <!-- Manual Refresh -->
+            <button
+              id="manual-refresh-btn"
+              type="button"
+              class="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:bg-zinc-800 transition cursor-pointer"
+            >
+              ↻ Refresh
+            </button>
+
+            <!-- Logout -->
+            <button
+              id="logout-btn"
+              type="button"
+              class="rounded-lg border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:text-red-400 hover:border-red-900/50 transition cursor-pointer"
+            >
+              Lock
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-7xl px-4 sm:px-8 py-6 sm:py-8 space-y-6">
+        <!-- METRICS ROW -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <!-- Active Right Now -->
+          <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-5 shadow-xs relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Online Right Now</span>
+              <span class="flex h-2.5 w-2.5 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span id="metric-active-now" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+              <span class="text-xs text-emerald-400/80">active in &lt;2 min</span>
+            </div>
+            <p class="mt-2 text-[11px] text-zinc-400">Browsing pages right this second</p>
+          </div>
+
+          <!-- Total in Last 15 Mins -->
+          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
+            <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">Recent Visitors</span>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span id="metric-active-15m" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+              <span class="text-xs text-zinc-500">last 15 mins</span>
+            </div>
+            <p class="mt-2 text-[11px] text-zinc-400">Total sessions tracked recently</p>
+          </div>
+
+          <!-- Checkout Initiations -->
+          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
+            <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Checkout Intents</span>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span id="metric-checkouts" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+              <span class="text-xs text-zinc-500">actions</span>
+            </div>
+            <p class="mt-2 text-[11px] text-zinc-400">Modal opened / Payment started</p>
+          </div>
+
+          <!-- Purchases & Bookings -->
+          <div class="rounded-2xl border border-zinc-800 bg-[#16161A] p-5 shadow-xs">
+            <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Conversions</span>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span id="metric-conversions" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0</span>
+              <span class="text-xs text-purple-400/80">sales &amp; calls</span>
+            </div>
+            <p class="mt-2 text-[11px] text-zinc-400">Completed payments &amp; bookings</p>
+          </div>
+        </div>
+
+        <!-- MAIN RADAR SPLIT VIEW -->
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <!-- LEFT: ACTIVE VISITOR CARDS (7 Cols) -->
+          <div class="lg:col-span-7 space-y-3">
+            <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+              <div class="flex items-center gap-2">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Live Visitor Sessions</h2>
+                <span id="session-count-badge" class="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-300">0</span>
+              </div>
+              <span class="text-xs text-zinc-500">Sorted by most recently active</span>
+            </div>
+
+            <!-- Visitor Session List Container -->
+            <div id="sessions-container" class="space-y-3">
+              <!-- Empty state default -->
+              <div class="rounded-2xl border border-zinc-800/60 bg-[#16161A]/60 p-8 text-center text-zinc-500">
+                <span class="text-2xl">📡</span>
+                <p class="mt-2 text-sm font-medium text-zinc-300">Radar is active &amp; listening</p>
+                <p class="mt-1 text-xs text-zinc-500">
+                  When a visitor lands on your site, their location, landing page, and active movements will appear here live.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: REAL-TIME EVENT STREAM / TICKER (5 Cols) -->
+          <div class="lg:col-span-5 space-y-3">
+            <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
+              <div class="flex items-center gap-2">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Real-Time Funnel Feed</h2>
+                <span class="flex h-2 w-2 rounded-full bg-orange-400 animate-pulse"></span>
+              </div>
+              <span class="text-xs text-zinc-500">Last 50 actions</span>
+            </div>
+
+            <!-- Live Events Scroll Area -->
+            <div
+              id="events-feed-container"
+              class="space-y-2 max-h-[680px] overflow-y-auto pr-1 select-none"
+            >
+              <div class="rounded-xl border border-zinc-800/50 bg-[#16161A]/40 p-5 text-center text-xs text-zinc-500">
+                Waiting for incoming visitor interactions...
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- CLIENT DASHBOARD LOGIC SCRIPT -->
+  <script is:inline>
+    (function () {
+      const STORAGE_KEY = 'vatsal_live_admin_key';
+      let adminKey = sessionStorage.getItem(STORAGE_KEY) || '';
+      let refreshTimer = null;
+      let countdown = 3;
+      let soundEnabled = true;
+      let previousEventsCount = 0;
+      let audioCtx = null;
+
+      const authWall = document.getElementById('auth-wall');
+      const dashboardView = document.getElementById('dashboard-view');
+      const authForm = document.getElementById('auth-form');
+      const passwordInput = document.getElementById('admin-password-input');
+      const authError = document.getElementById('auth-error');
+      const refreshCounter = document.getElementById('refresh-counter');
+      const manualRefreshBtn = document.getElementById('manual-refresh-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      const audioToggleBtn = document.getElementById('audio-toggle-btn');
+      const audioStatus = document.getElementById('audio-status');
+      const audioIcon = document.getElementById('audio-icon');
+
+      const metricActiveNow = document.getElementById('metric-active-now');
+      const metricActive15m = document.getElementById('metric-active-15m');
+      const metricCheckouts = document.getElementById('metric-checkouts');
+      const metricConversions = document.getElementById('metric-conversions');
+      const sessionCountBadge = document.getElementById('session-count-badge');
+      const sessionsContainer = document.getElementById('sessions-container');
+      const eventsFeedContainer = document.getElementById('events-feed-container');
+
+      // Synthesized sound alert for live events
+      function playChime(isHighPriority) {
+        if (!soundEnabled) return;
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(isHighPriority ? 880 : 587.33, audioCtx.currentTime); // A5 or D5
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.4);
+        } catch (e) {}
+      }
+
+      // Audio Toggle Click
+      audioToggleBtn?.addEventListener('click', function () {
+        soundEnabled = !soundEnabled;
+        if (audioStatus) audioStatus.textContent = soundEnabled ? 'ON' : 'OFF';
+        if (audioIcon) audioIcon.textContent = soundEnabled ? '🔔' : '🔕';
+        if (soundEnabled) playChime(false);
+      });
+
+      // Format time elapsed e.g. "5s ago", "2m ago"
+      function formatElapsed(timestamp) {
+        const diffMs = Date.now() - timestamp;
+        const diffSec = Math.floor(diffMs / 1000);
+        if (diffSec < 10) return 'Just now';
+        if (diffSec < 60) return diffSec + 's ago';
+        const diffMin = Math.floor(diffSec / 60);
+        if (diffMin < 60) return diffMin + 'm ago';
+        const diffHours = Math.floor(diffMin / 60);
+        return diffHours + 'h ago';
+      }
+
+      // Country Code to Flag Emoji helper
+      function getCountryFlag(countryCode) {
+        if (!countryCode || countryCode.length !== 2) return '🌐';
+        const codePoints = countryCode
+          .toUpperCase()
+          .split('')
+          .map((char) => 127397 + char.charCodeAt(0));
+        return String.fromCodePoint(...codePoints);
+      }
+
+      // Render Visitor Sessions
+      function renderSessions(sessions) {
+        if (!sessionsContainer) return;
+        if (!sessions || sessions.length === 0) {
+          sessionsContainer.innerHTML = `
+            <div class="rounded-2xl border border-zinc-800/60 bg-[#16161A]/60 p-8 text-center text-zinc-500">
+              <span class="text-2xl">📡</span>
+              <p class="mt-2 text-sm font-medium text-zinc-300">Radar is active & listening</p>
+              <p class="mt-1 text-xs text-zinc-500">Waiting for incoming visitor traffic. Land on your website on another device or tab to see it appear live!</p>
+            </div>
+          `;
+          return;
+        }
+
+        const now = Date.now();
+        let html = '';
+
+        sessions.forEach((s) => {
+          const isLiveNow = now - s.lastActive <= 2 * 60 * 1000;
+          const statusDot = isLiveNow
+            ? '<span class="flex h-2.5 w-2.5 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span></span>'
+            : '<span class="h-2.5 w-2.5 rounded-full bg-amber-400/80"></span>';
+
+          const flag = getCountryFlag(s.country);
+          const location = `${flag} ${s.city || 'India'}, ${s.country || 'IN'}`;
+          const deviceIcon = s.device === 'Mobile' ? '📱' : s.device === 'Tablet' ? '📟' : '💻';
+
+          const campaignTag = s.utmSource
+            ? `<span class="rounded bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 text-[10px] font-bold text-orange-400">Ad: ${s.utmSource} ${s.utmCampaign ? '· ' + s.utmCampaign : ''}</span>`
+            : s.referrer && !s.referrer.includes('vatsal.arqostudio.com')
+            ? `<span class="rounded bg-zinc-800 border border-zinc-700/60 px-2 py-0.5 text-[10px] font-medium text-zinc-300">Ref: ${s.referrer.replace(/^https?:\/\//, '')}</span>`
+            : `<span class="rounded bg-zinc-800/40 px-2 py-0.5 text-[10px] text-zinc-400">Direct Visit</span>`;
+
+          html += `
+            <div class="rounded-xl border ${isLiveNow ? 'border-zinc-700/80 bg-[#16161A]' : 'border-zinc-800/40 bg-[#141418]/50'} p-4 transition hover:border-zinc-600">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  ${statusDot}
+                  <span class="font-bold text-white text-sm">${location}</span>
+                  <span class="text-xs text-zinc-500 font-mono">${deviceIcon} ${s.browser || 'Browser'}</span>
+                </div>
+                <span class="text-[11px] font-mono ${isLiveNow ? 'text-emerald-400 font-bold' : 'text-zinc-500'}">
+                  ${formatElapsed(s.lastActive)}
+                </span>
+              </div>
+
+              <!-- Page & Path -->
+              <div class="mt-3 flex flex-wrap items-center gap-2 text-xs">
+                <div class="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900 px-2.5 py-1 text-zinc-300 font-mono text-[11px]">
+                  <span class="text-zinc-500">Current:</span>
+                  <strong class="text-white">${s.currentUrl || '/'}</strong>
+                </div>
+                <div class="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 px-2.5 py-1 text-zinc-400 font-mono text-[11px]">
+                  <span class="text-zinc-500">Landed:</span>
+                  <span>${s.landingUrl || '/'}</span>
+                </div>
+              </div>
+
+              <!-- Source / UTM and Last Action -->
+              <div class="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800/60 pt-2.5 text-xs">
+                <div class="flex items-center gap-2">
+                  ${campaignTag}
+                </div>
+                ${s.lastAction ? `<span class="text-[11px] text-zinc-400 font-medium">⚡ ${s.lastAction}</span>` : ''}
+              </div>
+            </div>
+          `;
+        });
+
+        sessionsContainer.innerHTML = html;
+      }
+
+      // Render Events Feed
+      function renderEvents(events) {
+        if (!eventsFeedContainer) return;
+        if (!events || events.length === 0) {
+          eventsFeedContainer.innerHTML = `
+            <div class="rounded-xl border border-zinc-800/50 bg-[#16161A]/40 p-5 text-center text-xs text-zinc-500">
+              Waiting for incoming actions...
+            </div>
+          `;
+          return;
+        }
+
+        // Check if new event arrived for sound
+        if (previousEventsCount > 0 && events.length > previousEventsCount) {
+          const newest = events[0];
+          const isHigh = newest.action?.includes('PAID') || newest.action?.includes('Booked') || newest.action?.includes('Checkout');
+          playChime(isHigh);
+        }
+        previousEventsCount = events.length;
+
+        let html = '';
+        events.forEach((e) => {
+          const isPurchase = e.action?.includes('PAID') || e.action?.includes('Paid');
+          const isBooking = e.action?.includes('Booked');
+          const isCheckout = e.action?.includes('Checkout') || e.action?.includes('Modal');
+
+          let badgeColor = 'bg-zinc-800 text-zinc-300 border-zinc-700';
+          if (isPurchase) badgeColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 font-bold';
+          else if (isBooking) badgeColor = 'bg-purple-500/20 text-purple-400 border-purple-500/40 font-bold';
+          else if (isCheckout) badgeColor = 'bg-orange-500/20 text-orange-400 border-orange-500/40';
+
+          const flag = getCountryFlag(e.country);
+          const time = new Date(e.timestamp).toLocaleTimeString();
+
+          html += `
+            <div class="rounded-xl border border-zinc-800/70 bg-[#16161A] p-3 text-xs transition hover:border-zinc-700">
+              <div class="flex items-center justify-between gap-2">
+                <span class="rounded border px-1.5 py-0.5 text-[10px] font-mono ${badgeColor}">
+                  ${e.type || 'ACTION'}
+                </span>
+                <span class="text-[10px] text-zinc-500 font-mono">${time} (${formatElapsed(e.timestamp)})</span>
+              </div>
+              <p class="mt-2 text-white font-medium text-[13px] leading-snug">
+                ${e.action}
+              </p>
+              <div class="mt-1.5 flex flex-wrap items-center gap-2 text-[11px] text-zinc-400">
+                <span>${flag} ${e.city || 'India'}</span>
+                <span>•</span>
+                <span class="font-mono text-zinc-400">${e.currentUrl || '/'}</span>
+                ${e.amount ? `<span class="font-bold text-emerald-400">• ${e.amount}</span>` : ''}
+              </div>
+            </div>
+          `;
+        });
+
+        eventsFeedContainer.innerHTML = html;
+      }
+
+      // Fetch Live State from /api/live/data
+      async function fetchLiveData() {
+        if (!adminKey) return;
+        try {
+          const res = await fetch('/api/live/data', {
+            headers: {
+              'x-admin-password': adminKey,
+            },
+          });
+
+          if (res.status === 401) {
+            // Password invalid
+            sessionStorage.removeItem(STORAGE_KEY);
+            adminKey = '';
+            showAuthWall('Password incorrect or expired.');
+            return;
+          }
+
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+
+          const data = await res.json();
+          if (data.success) {
+            if (metricActiveNow) metricActiveNow.textContent = data.activeNowCount || 0;
+            if (metricActive15m) metricActive15m.textContent = data.active15mCount || 0;
+            if (sessionCountBadge) sessionCountBadge.textContent = (data.sessions || []).length;
+
+            // Count checkouts and conversions from events
+            let checkouts = 0;
+            let conversions = 0;
+            (data.events || []).forEach((ev) => {
+              if (ev.action?.includes('PAID') || ev.action?.includes('Booked')) conversions++;
+              else if (ev.action?.includes('Checkout') || ev.action?.includes('Modal') || ev.action?.includes('Email') || ev.action?.includes('Phone')) checkouts++;
+            });
+
+            if (metricCheckouts) metricCheckouts.textContent = checkouts;
+            if (metricConversions) metricConversions.textContent = conversions;
+
+            renderSessions(data.sessions || []);
+            renderEvents(data.events || []);
+          }
+        } catch (err) {
+          console.warn('Live fetch error:', err);
+        }
+      }
+
+      function showAuthWall(errorMsg) {
+        if (authWall) authWall.classList.remove('hidden');
+        if (dashboardView) dashboardView.classList.add('hidden');
+        if (authError) {
+          if (errorMsg) {
+            authError.textContent = errorMsg;
+            authError.classList.remove('hidden');
+          } else {
+            authError.classList.add('hidden');
+          }
+        }
+        if (refreshTimer) clearInterval(refreshTimer);
+      }
+
+      function showDashboard() {
+        if (authWall) authWall.classList.add('hidden');
+        if (dashboardView) dashboardView.classList.remove('hidden');
+
+        fetchLiveData();
+        startAutoRefresh();
+      }
+
+      function startAutoRefresh() {
+        if (refreshTimer) clearInterval(refreshTimer);
+        countdown = 3;
+        refreshTimer = setInterval(() => {
+          countdown--;
+          if (countdown <= 0) {
+            countdown = 3;
+            fetchLiveData();
+          }
+          if (refreshCounter) refreshCounter.textContent = countdown + 's';
+        }, 1000);
+      }
+
+      // Handle Authentication Form Submit
+      authForm?.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const pwd = passwordInput?.value.trim() || '';
+        if (!pwd) return;
+
+        const submitBtn = document.getElementById('auth-submit-btn');
+        if (submitBtn) submitBtn.textContent = 'Verifying...';
+
+        try {
+          const res = await fetch('/api/live/data', {
+            headers: { 'x-admin-password': pwd },
+          });
+
+          if (res.ok) {
+            adminKey = pwd;
+            sessionStorage.setItem(STORAGE_KEY, pwd);
+            showDashboard();
+          } else {
+            if (authError) {
+              authError.textContent = 'Invalid password. Default is: arqo2026';
+              authError.classList.remove('hidden');
+            }
+          }
+        } catch (err) {
+          if (authError) {
+            authError.textContent = 'Connection error. Please try again.';
+            authError.classList.remove('hidden');
+          }
+        } finally {
+          if (submitBtn) submitBtn.textContent = 'Unlock Live Radar →';
+        }
+      });
+
+      // Manual Refresh Click
+      manualRefreshBtn?.addEventListener('click', function () {
+        countdown = 3;
+        if (refreshCounter) refreshCounter.textContent = '3s';
+        fetchLiveData();
+      });
+
+      // Logout Click
+      logoutBtn?.addEventListener('click', function () {
+        sessionStorage.removeItem(STORAGE_KEY);
+        adminKey = '';
+        if (passwordInput) passwordInput.value = '';
+        showAuthWall();
+      });
+
+      // Initial check on page load
+      if (adminKey) {
+        showDashboard();
+      } else {
+        showAuthWall();
+      }
+    })();
+  </script>
+</Layout>

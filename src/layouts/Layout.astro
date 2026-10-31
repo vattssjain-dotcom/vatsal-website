@@ -291,6 +291,110 @@ const {
         }
       })();
     </script>
+
+    <!-- Live Visitor Radar Beacon -->
+    <script is:inline>
+      (function () {
+        // Skip tracking for the admin live dashboard itself
+        if (window.location.pathname.startsWith('/admin')) return;
+
+        let sessionId = '';
+        try {
+          sessionId = sessionStorage.getItem('vatsal_live_sess');
+          if (!sessionId) {
+            sessionId = 's_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+            sessionStorage.setItem('vatsal_live_sess', sessionId);
+          }
+        } catch (e) {
+          sessionId = 's_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+        }
+        window._liveSessionId = sessionId;
+
+        let visitorId = '';
+        try {
+          visitorId = localStorage.getItem('vatsal_live_vis');
+          if (!visitorId) {
+            visitorId = 'v_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+            localStorage.setItem('vatsal_live_vis', visitorId);
+          }
+        } catch (e) {
+          visitorId = sessionId;
+        }
+
+        let landingUrl = '';
+        try {
+          landingUrl = sessionStorage.getItem('vatsal_live_landing');
+          if (!landingUrl) {
+            landingUrl = window.location.pathname + window.location.search;
+            sessionStorage.setItem('vatsal_live_landing', landingUrl);
+          }
+        } catch (e) {
+          landingUrl = window.location.pathname;
+        }
+
+        function sendPing(isFirstPing) {
+          try {
+            const tracking = typeof window.getTrackingParams === 'function' ? window.getTrackingParams() : {};
+            const payload = {
+              sessionId: sessionId,
+              visitorId: visitorId,
+              landingUrl: landingUrl,
+              currentUrl: window.location.pathname,
+              referrer: document.referrer || '',
+              screenWidth: window.innerWidth || 0,
+              isFirstPing: !!isFirstPing,
+              utmSource: tracking.utm_source || tracking.source || '',
+              utmMedium: tracking.utm_medium || '',
+              utmCampaign: tracking.utm_campaign || '',
+              utmContent: tracking.utm_content || '',
+              utmTerm: tracking.utm_term || '',
+            };
+
+            fetch('/api/live/ping', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            }).catch(function () {});
+          } catch (e) {}
+        }
+
+        // Global helper for recording funnel events in real time
+        window.recordLiveAction = function (action, details) {
+          try {
+            details = details || {};
+            fetch('/api/live/event', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                sessionId: sessionId,
+                action: action,
+                currentUrl: window.location.pathname,
+                ...details,
+              }),
+              keepalive: true,
+            }).catch(function () {});
+          } catch (e) {}
+        };
+
+        // Send initial heartbeat
+        sendPing(true);
+
+        // Heartbeat every 20s while page is visible
+        setInterval(function () {
+          if (!document.hidden) {
+            sendPing(false);
+          }
+        }, 20000);
+
+        // Send ping when user returns to tab
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden) {
+            sendPing(false);
+          }
+        });
+      })();
+    </script>
   </head>
   <body class="flex h-full bg-[#FAF9F6] text-[#141416] font-sans antialiased selection:bg-[#E24A1F]/20 selection:text-[#E24A1F]">
     <div class="flex w-full flex-col min-h-screen">

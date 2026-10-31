@@ -748,6 +748,12 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
           else if (!phoneInput.value) phoneInput.focus();
         }, 50);
 
+        try {
+          if (typeof window.recordLiveAction === 'function') {
+            window.recordLiveAction('Opened Custom Ads Upsell Modal (₹3,500)');
+          }
+        } catch (err) {}
+
         if (typeof window.trackMetaEvent === 'function') {
           window.trackMetaEvent('InitiateCheckout', {
             content_name: '25 Custom Ads Package',
@@ -884,6 +890,11 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
             modal: {
               ondismiss: function () {
                 sendLeadUpdate('Custom Ads Checkout Abandoned (Razorpay Closed)', { order_id: data.orderId });
+                try {
+                  if (typeof window.recordLiveAction === 'function') {
+                    window.recordLiveAction('Closed Upsell Checkout (Abandoned)');
+                  }
+                } catch (err) {}
                 if (submitBtn) {
                   submitBtn.innerHTML = `<span>Continue to Secure Payment (${UPSELL_PRICE_DISCOUNTED})</span> <span aria-hidden="true">→</span>`;
                   submitBtn.removeAttribute('disabled');
@@ -895,6 +906,16 @@ const TIMER_SECONDS = 600; // 10 minutes urgency clock (never expires)
                 order_id: response.razorpay_order_id || data.orderId,
                 payment_id: response.razorpay_payment_id || '',
               });
+
+              try {
+                if (typeof window.recordLiveAction === 'function') {
+                  window.recordLiveAction('🎉 PAID ₹3,500 for 25 Custom Static Ads!', {
+                    amount: '₹3,500',
+                    order_id: response.razorpay_order_id || data.orderId,
+                    payment_id: response.razorpay_payment_id || '',
+                  });
+                }
+              } catch (err) {}
 
               // Track Purchase in Meta Pixel & CAPI with user data
               if (typeof window.trackMetaEvent === 'function') {
