@@ -8,16 +8,10 @@ import Layout from '../../layouts/Layout.astro';
   robots="noindex, nofollow"
 >
   <div class="min-h-screen bg-[#FAF9F6] flex flex-col justify-between">
-    <!-- HEADER -->
-    <header class="border-b border-[#E8E6E1] bg-white/80 backdrop-blur-md py-4 px-5 sm:px-8">
-      <div class="mx-auto max-w-2xl flex items-center justify-between">
-        <a href="/" class="text-base font-bold text-[#141416] tracking-tight">
-          Vatsal Jain<span class="text-[#E24A1F]">.</span>
-        </a>
-        <div class="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Payment Confirmed
-        </div>
+    <!-- HEADER: ONLY CENTERED LOGO FOR ALL BREAKPOINTS -->
+    <header class="border-b border-[#E8E6E1] bg-white/80 backdrop-blur-md py-4 px-5">
+      <div class="mx-auto flex items-center justify-center">
+        <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-[#141416]">Vatsal Jain<span class="text-[#E24A1F] text-2xl sm:text-3xl font-black leading-none ml-[0.5px]">.</span></a>
       </div>
     </header>
 

@@ -105,54 +105,10 @@ const faqs = [
     ⚡ Founding Offer: First 50 buyers get the Static Ad Vault (30+ Formats + All Future Adds) for ₹999.
   </div>
 
-  <!-- NAVIGATION -->
-  <header class="sticky top-0 z-50 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md">
-    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
-      <div class="flex items-center justify-between py-4">
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-1.5 text-base font-bold text-[#141416] tracking-tight">
-          Vatsal Jain<span class="text-[#E24A1F]">.</span>
-        </a>
-
-        <!-- Nav links: About, Articles, Products -->
-        <nav class="hidden items-center gap-8 md:flex">
-          <a href="/#about" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">About</a>
-          <a href="/#articles" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Articles</a>
-          <a href="/#products" class="text-sm font-medium text-[#5E5D64] transition hover:text-[#141416]">Products</a>
-        </nav>
-
-        <div class="flex items-center gap-3">
-          <!-- Button: Roast My Ads -->
-          <a
-            href="/roast-my-ads"
-            class="inline-flex items-center gap-1.5 rounded-md bg-[#E24A1F] px-4 py-2 text-xs sm:text-sm font-bold text-white transition hover:bg-[#C53B12] shadow-sm"
-          >
-            Roast My Ads →
-          </a>
-
-          <!-- Mobile hamburger -->
-          <button
-            id="mobile-menu-btn"
-            type="button"
-            class="flex h-9 w-9 items-center justify-center rounded-md border border-[#E8E6E1] text-[#5E5D64] transition hover:bg-white md:hidden"
-            aria-label="Toggle menu"
-          >
-            <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="hidden pb-4 md:hidden border-t border-[#E8E6E1] pt-3">
-        <nav class="flex flex-col gap-3">
-          <a href="/#about" class="text-sm font-medium text-[#5E5D64]">About</a>
-          <a href="/#articles" class="text-sm font-medium text-[#5E5D64]">Articles</a>
-          <a href="/#products" class="text-sm font-medium text-[#5E5D64]">Products</a>
-          <a href="/roast-my-ads" class="text-sm font-semibold text-[#E24A1F]">Roast My Ads</a>
-        </nav>
-      </div>
+  <!-- HEADER: ONLY CENTERED LOGO FOR ALL BREAKPOINTS -->
+  <header class="sticky top-0 z-50 w-full border-b border-[#E8E6E1] bg-[#FAF9F6]/90 backdrop-blur-md py-4 px-5">
+    <div class="mx-auto flex items-center justify-center">
+      <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-[#141416]">Vatsal Jain<span class="text-[#E24A1F] text-2xl sm:text-3xl font-black leading-none ml-[0.5px]">.</span></a>
     </div>
   </header>
 
@@ -817,17 +773,6 @@ const faqs = [
 </Layout>
 
 <script>
-  // Mobile menu
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  menuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
-
-  mobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-  });
-
   // Direct Razorpay Checkout & Lead Capture
   const modal = document.getElementById('checkout-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
