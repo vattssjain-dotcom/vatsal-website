@@ -1072,11 +1072,14 @@ const faqs = [
             });
           }
 
-          // Direct redirect to thank you upsell page
+          // Direct redirect to thank you upsell page with all query & tracking parameters carried forward
           const redirectUrl = `/vault/thank-you?payment_id=${encodeURIComponent(
             response.razorpay_payment_id || ''
           )}&order_id=${encodeURIComponent(response.razorpay_order_id || '')}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}`;
-          window.location.href = redirectUrl;
+          const finalUrl = typeof (window as any).getForwardedUrl === 'function'
+            ? (window as any).getForwardedUrl(redirectUrl)
+            : redirectUrl;
+          window.location.href = finalUrl;
         },
       });
 
@@ -1097,7 +1100,11 @@ const faqs = [
       if (name) params.set('name', name);
       if (email) params.set('email', email);
       if (phone) params.set('phone', phone);
-      window.location.href = `https://pages.razorpay.com/static-ad-vault?${params.toString()}`;
+      const fallbackUrl = `https://pages.razorpay.com/static-ad-vault?${params.toString()}`;
+      const finalFallback = typeof (window as any).getForwardedUrl === 'function'
+        ? (window as any).getForwardedUrl(fallbackUrl)
+        : fallbackUrl;
+      window.location.href = finalFallback;
     }
   });
 </script>

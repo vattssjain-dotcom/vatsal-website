@@ -144,6 +144,8 @@ const CAL_BOOKING_URL = "https://cal.com/arqo-studio/discovery-call";
   <script is:inline>
     (function() {
       const urlParams = new URLSearchParams(window.location.search);
+      const trackingParams = typeof window.getTrackingParams === 'function' ? window.getTrackingParams() : {};
+
       const name = urlParams.get('name') || '';
       const email = urlParams.get('email') || '';
 
@@ -151,18 +153,29 @@ const CAL_BOOKING_URL = "https://cal.com/arqo-studio/discovery-call";
       const externalLink = document.getElementById('external-cal-link');
 
       let baseUrl = 'https://cal.com/arqo-studio/discovery-call';
-      let params = [];
-      if (name) params.push('name=' + encodeURIComponent(name));
-      if (email) params.push('email=' + encodeURIComponent(email));
+      const calParams = new URLSearchParams();
 
-      if (params.length > 0) {
-        const fullParamStr = params.join('&');
-        if (iframe) {
-          iframe.src = `${baseUrl}?embed=true&${fullParamStr}`;
+      if (name) calParams.set('name', name);
+      if (email) calParams.set('email', email);
+
+      // Forward all active tracking/UTM parameters into Cal.com
+      Object.entries(trackingParams).forEach(([k, v]) => {
+        if (!calParams.has(k) && v) {
+          calParams.set(k, v);
         }
-        if (externalLink) {
-          externalLink.href = `${baseUrl}?${fullParamStr}`;
+      });
+      urlParams.forEach((val, key) => {
+        if (!calParams.has(key) && val) {
+          calParams.set(key, val);
         }
+      });
+
+      const calParamsString = calParams.toString();
+      if (iframe) {
+        iframe.src = `${baseUrl}?embed=true${calParamsString ? '&' + calParamsString : ''}`;
+      }
+      if (externalLink) {
+        externalLink.href = `${baseUrl}${calParamsString ? '?' + calParamsString : ''}`;
       }
 
       // Meta Pixel: Track 'Schedule' when Cal.com booking succeeds
