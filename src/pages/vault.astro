@@ -94,6 +94,29 @@ const faqs = [
     a: 'Immediately upon checkout, you get instant access to the private Notion Workspace containing all 30+ detailed format cards and the rapid sprint checklist, plus a downloadable PDF edition you can keep offline. All future ad formats appear automatically inside your Notion dashboard.',
   },
 ];
+
+const reviewScreenshots = [
+  {
+    src: '/reviews/review-1.png',
+    alt: 'Founder message praising the creative strategy and high-converting static ad designs',
+  },
+  {
+    src: '/reviews/review-2.png',
+    alt: 'Client testimonial on ad performance lift and reduced customer acquisition costs',
+  },
+  {
+    src: '/reviews/review-3.png',
+    alt: 'Client review highlighting rapid execution and winning static ad variations',
+  },
+  {
+    src: '/reviews/review-4.png',
+    alt: 'Founder feedback praising ad copy, hook angles, and creative quality',
+  },
+  {
+    src: '/reviews/review-5.png',
+    alt: 'Detailed client review on scaling Meta ad return on ad spend with static formats',
+  },
+];
 ---
 
 <Layout
@@ -191,6 +214,100 @@ const faqs = [
             <span>·</span>
             <span class="font-medium">✓ Access to all upcoming ad formats</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF & CLIENT REVIEWS MARQUEE -->
+    <section class="border-b border-[#E8E6E1] bg-white py-16 sm:py-20 overflow-hidden">
+      <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12 text-center">
+        <div class="inline-flex items-center gap-2 border border-[#E24A1F]/20 bg-[#E24A1F]/[0.08] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E24A1F] rounded-full">
+          <span>⭐️⭐️⭐️⭐️⭐️</span>
+          <span>Loved by Founders &amp; Operators</span>
+        </div>
+
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-[#141416] sm:text-4xl lg:text-5xl">
+          Loved by ambitious founders, brands &amp; performance teams.
+        </h2>
+
+        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5D64] leading-relaxed">
+          Real, unedited feedback from founders and growth marketers who stopped guessing in the ad library and started launching high-converting static creatives.
+        </p>
+      </div>
+
+      <!-- MARQUEE TRACK -->
+      <div class="relative mt-12 w-full overflow-hidden">
+        <!-- Gradient Edge Masks -->
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10"></div>
+
+        <div class="marquee-wrapper">
+          <div class="marquee-track">
+            {reviewScreenshots.map((item) => (
+              <div
+                class="review-card group relative flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-2.5 sm:p-3 shadow-xs transition-all duration-300 hover:border-[#E24A1F]/40 hover:shadow-xl hover:-translate-y-1.5"
+                data-src={item.src}
+                data-alt={item.alt}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  class="h-60 sm:h-72 w-auto max-w-[380px] sm:max-w-[440px] rounded-xl object-contain block select-none pointer-events-none"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 rounded-2xl bg-black/0 transition-colors group-hover:bg-black/[0.03] flex items-end justify-end p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-bold text-[#141416] shadow-md backdrop-blur-md border border-[#E8E6E1]">
+                    <svg class="h-4 w-4 text-[#E24A1F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                    </svg>
+                    Click to zoom
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Duplicate track for seamless infinite loop -->
+          <div class="marquee-track" aria-hidden="true">
+            {reviewScreenshots.map((item) => (
+              <div
+                class="review-card group relative flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-[#E8E6E1] bg-[#FAF9F6] p-2.5 sm:p-3 shadow-xs transition-all duration-300 hover:border-[#E24A1F]/40 hover:shadow-xl hover:-translate-y-1.5"
+                data-src={item.src}
+                data-alt={item.alt}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  class="h-60 sm:h-72 w-auto max-w-[380px] sm:max-w-[440px] rounded-xl object-contain block select-none pointer-events-none"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 rounded-2xl bg-black/0 transition-colors group-hover:bg-black/[0.03] flex items-end justify-end p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1.5 text-xs font-bold text-[#141416] shadow-md backdrop-blur-md border border-[#E8E6E1]">
+                    <svg class="h-4 w-4 text-[#E24A1F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                    </svg>
+                    Click to zoom
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust signals under marquee -->
+      <div class="mt-8 mx-auto max-w-4xl px-5 flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs font-medium text-[#5E5D64]">
+        <div class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#E24A1F]/10 text-xs font-bold text-[#E24A1F]">✓</span>
+          <span>100% Real Unfiltered Client Feedback</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#E24A1F]/10 text-xs font-bold text-[#E24A1F]">✓</span>
+          <span>Across D2C Brands, Software &amp; High-Ticket Services</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#E24A1F]/10 text-xs font-bold text-[#E24A1F]">✓</span>
+          <span>Hover to pause · Click any screenshot to inspect</span>
         </div>
       </div>
     </section>
@@ -768,6 +885,34 @@ const faqs = [
     </div>
   </div>
 
+  <!-- REVIEW LIGHTBOX MODAL -->
+  <div
+    id="review-lightbox-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 backdrop-blur-md transition-opacity duration-200"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged client review preview"
+  >
+    <div class="relative max-h-[92vh] max-w-4xl overflow-hidden rounded-2xl bg-[#141416]/90 p-2 sm:p-4 shadow-2xl border border-white/10">
+      <button
+        id="close-lightbox-btn"
+        type="button"
+        class="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white/30 cursor-pointer"
+        aria-label="Close review preview"
+      >
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Enlarged client review"
+        class="max-h-[82vh] w-auto max-w-full rounded-xl object-contain mx-auto block shadow-lg"
+      />
+    </div>
+  </div>
+
   <!-- Razorpay Checkout SDK -->
   <script is:inline src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </Layout>
@@ -1191,4 +1336,84 @@ const faqs = [
       window.location.href = finalFallback;
     }
   });
+
+  // Review Screenshots Lightbox Controller
+  const lightboxModal = document.getElementById('review-lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const closeLightboxBtn = document.getElementById('close-lightbox-btn');
+  const reviewCards = document.querySelectorAll('.review-card');
+
+  reviewCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const src = card.getAttribute('data-src');
+      const alt = card.getAttribute('data-alt');
+      if (lightboxModal && lightboxImg && src) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || 'Client review';
+        lightboxModal.classList.remove('hidden');
+        lightboxModal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+      }
+    });
+  });
+
+  function closeLightbox() {
+    if (lightboxModal) {
+      lightboxModal.classList.add('hidden');
+      lightboxModal.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+  }
+
+  closeLightboxBtn?.addEventListener('click', closeLightbox);
+  lightboxModal?.addEventListener('click', (e) => {
+    if (e.target === lightboxModal) closeLightbox();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightboxModal?.classList.contains('hidden')) {
+      closeLightbox();
+    }
+  });
 </script>
+
+<style>
+  .marquee-wrapper {
+    display: flex;
+    width: max-content;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 1.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    animation: marquee-scroll 32s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    .marquee-wrapper {
+      overflow-x: auto;
+      max-width: 100%;
+    }
+  }
+</style>
